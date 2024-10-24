@@ -1,17 +1,35 @@
-# Welcome to MkDocs
+<h1 align="center"> Avatar </h1>
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+### Jogo
 
-## Commands
+Jogo RPG baseado na série animada Avatar.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
 
-## Project layout
+### Autores
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+<table style="border: none; text-align: center; vertical-align: middle;">
+    <tr style="border: none; text-align: center; vertical-align: middle;">
+        <td style="border: none; text-align: center; vertical-align: middle;">
+            <a href="url"><img src="https://avatars.githubusercontent.com/JoaoSchmitz" height="auto" width="200" style="border-radius:50%"></a><br/>
+            <a href="https://github.com/JoaoSchmitz"><strong>João Schmitz</strong></a>
+        </td>
+        <td style="border: none; text-align: center; vertical-align: middle;">
+            <a href="url"><img src="https://avatars.githubusercontent.com/juliatakaki" height="auto" width="200" style="border-radius:50%"></a><br/>
+            <a href="https://github.com/juliatakaki"><strong>Júlia Takaki</strong></a>
+        </td>
+        <td style="border: none; text-align: center; vertical-align: middle;">
+            <a href="url"><img src="https://avatars.githubusercontent.com/luciano-freitas-melo" height="auto" width="200" style="border-radius:50%"></a><br/>
+            <a href="https://github.com/luciano-freitas-melo"><strong>Luciano Freitas</strong></a>
+        </td>
+        <td style="border: none; text-align: center; vertical-align: middle;">
+            <a href="url"><img src="https://avatars.githubusercontent.com/l-ricardo" height="auto" width="200" style="border-radius:50%"></a><br/>
+            <a href="https://github.com/l-ricardo"><strong>Luciano Ricardo</strong></a>
+        </td>
+        <td style="border: none; text-align: center; vertical-align: middle;">
+            <a href="url"><img src="https://avatars.githubusercontent.com/Wooo589" height="auto" width="200" style="border-radius:50%"></a><br/>
+            <a href="https://github.com/Wooo589"><strong>Willian Silva</strong></a>
+        </td>
+    </tr>
+</table>
+
+

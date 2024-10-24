@@ -43,10 +43,6 @@ theme:
       accent: blue
 
 
-
-
-
-
 # Page tree
 nav: 
   - Início: index.md

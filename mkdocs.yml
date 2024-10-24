@@ -20,8 +20,6 @@ theme:
     repo: fontawesome/brands/github
   font: 
     text: Roboto
-  favicon: assets/icon.svg
-  logo: assets/icon.svg
   features:
     - navigation.instant
     - navigation.section

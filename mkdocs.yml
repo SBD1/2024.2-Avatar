@@ -44,8 +44,8 @@ theme:
 # Page tree
 nav: 
   - Início: index.md
-  - Diagrama Entidade Relacionamento:
-    - Versão 01: DER/v1.md
+  - Modelo Entidade Relacionamento:
+    - Versão 01: MER/v1.md
   - Dicionário de Dados:
     - Versão 01: DD/v1.md
   - Modelo Relacional:

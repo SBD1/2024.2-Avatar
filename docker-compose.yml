@@ -12,7 +12,7 @@ services:
     expose:
       - '5432'
     volumes:
-      - ./sql/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
 
   api:
     platform: linux/amd64

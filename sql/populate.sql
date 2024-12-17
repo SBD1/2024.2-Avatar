@@ -111,4 +111,147 @@ VALUES
     -- Movimentos Normais
     ('Ataque de Espada', 10, 'Golpeia o alvo com uma espada', 1, 'golpe', NULL, NULL),
     ('Lançamento de Bumerangue', 5, 'Lanca um bumerangue no inimigo', 1, 'golpe', NULL, NULL),
-    
+
+INSERT INTO item(id, tipo)
+VALUES
+    -- Pergaminhos (S -> Scroll)
+    (1, S),
+    (2, S),
+    (3, S),
+    (4, S),
+    (5, S),
+    (6, S),
+    (7, S),
+    (8, S),
+    (9, S),
+    (10, S),
+    (11, S),
+    (12, S),
+    (13, S),
+    (14, S),
+    (15, S),
+    (16, S),
+    (17, S),
+    (18, S),
+    (19, S),
+    (20, S),
+    -- Poções (P -> Potion)
+    (21, P),
+    (22, P),
+    (23, P),
+    (24, P),
+    (25, P),
+    -- Arma (W -> Weapon)
+    (26, W),
+    (27, W),
+    (28, W),
+    (29, W),
+    (30, W),
+    (31, W),
+    (32, W),
+    (33, W),
+    (34, W),
+    (35, W),
+    -- Armadura (A -> Armor)
+    (36, A),
+    (37, A),
+    (38, A),
+    (39, A),
+    (40, A),
+    (41, A),
+    (42, A),
+    (43, A),
+    (44, A),
+    (45, A),
+    (46, A),
+    (47, A),
+    (48, A),
+    (49, A),
+    (50, A),
+    (51, A),
+    (52, A),
+    (53, A),
+    (54, A),
+    (55, A)
+
+INSERT INTO pergaminho(id, nome, peso, preco, raridade, movimento)
+VALUES
+    -- Pergaminhos de Água
+    (1, "Pergaminho do Gelo Cortante", 1.0, 30, 'comum', 'Discos de Gelo'),
+    (2, "Pergaminho do Gelo Perfurante", 1.0, 130, 'epico', 'Espinhos de Gelo'),
+    (3, "Pergaminho da Água Espiritual", 1.0, 130, 'epico', 'Equilibrio Espiritual'),
+    (4, "Pergaminho de Sangue", 1.0, 220, 'lendario', 'Marionete'),
+    (5, "Pergaminho da Tensão Superficial", 1.0, 70, 'raro', 'Corrida na Água'),
+    -- Pergaminhos de Terra
+    (6, "Pergaminho de Impacto de Terra", 1.0, 30, 'comum', 'Bloco de Terra'),
+    (7, "Pergaminho de Defesa Rochosa", 1.0, 70, 'raro', 'Escudo de Rocha'),
+    (8, "Pergaminho de Artilharia Rochosa", 1.0, 220, 'lendario', 'Balas de Rocha Compactada'),
+    (9, "Pergaminho de Lava", 1.0, 130, 'epico', 'Disco de Lava'),
+    (10, "Pergaminho de Defesa Metálica", 1.0, 130, 'epico', 'Escudo de Metal'),
+    -- Pergaminhos de Fogo
+    (11, "Pergaminho de Fogo Marcial", 1.0, 30, 'comum', 'Soco de Fogo'),
+    (12, "Pergaminho de Fogo Cortante", 1.0, 70, 'raro', 'Adaga de Fogo'),
+    (13, "Pergaminho de Astrologia Ofensiva", 1.0, 130, 'epico', 'Cometa de Fogo'),
+    (14, "Pergaminho de Relâmpago", 1.0, 220, 'lendario', 'Lançar Raio'),
+    (15, "Pergaminho de Combustão", 1.0, 130, 'epico', 'Explosão Mental'),
+    -- Pergaminhos de Ar
+    (16, "Pergaminho de Ar Condensado", 1.0, 30, 'comum', 'Jato de Ar'),
+    (17, "Pergaminho de Ventos Protetivos", 1.0, 70, 'raro', 'Escudo de Ar'),
+    (18, "Pergaminho de Asfixia", 1.0, 220, 'lendario', 'Asfixia'),
+    (19, "Pergaminho de Ar Espiritual", 1.0, 130, 'epico', 'Projeção espiritual'),
+    (20, "Pergaminho de Ventos Selvagens", 1.0, 130, 'epico', 'Furacão')
+
+INSERT INTO pocao(id, nome, peso, preco, pontos_cura)
+VALUES
+    (21, "Poção Inferior", 1.0, 5, 10),
+    (22, "Poção Básica", 1.0, 10, 25),
+    (23, "Poção Intermediária", 1.0, 20, 60),
+    (24, "Poção Avançada", 1.0, 50, 180),
+    (25, "Poção Superior", 1.0, 100, 400)
+
+INSERT INTO arma(id, nome, peso, preco, dano)
+VALUES
+    (26, "Lança de Pedra", 5.0, 15, 10),
+    (27, "Adaga de Latão", 3.5, 30, 15),
+    (28, "Machado de Alumínio", 6.5, 60, 25),
+    (29, "Espada de Cobre", 5.5, 80, 40),
+    (30, "Cajado de Bronze", 7.5, 110, 60),
+    (31, "Rapieira de Prata", 6.0, 150, 75),
+    (32, "Espada de Ouro", 7.0, 230, 100),
+    (33, "Gládio de Platina", 8.0, 320, 135),
+    (34, "Lança de Titânio", 10.0, 450, 180),
+    (35, "Cajado dos Elementos", 11.5, 700, 250)
+
+INSERT INTO armadura(id, nome, peso, preco, pontos_protecao, parte_corpo)
+VALUES
+    -- capacete
+    (36, "Capacete de Couro", 2.5, 20, 4, capacete),
+    (37, "Balde de Latão", 4.0, 50, 6, capacete),
+    (38, "Capacete de Prata", 5.5, 100, 9, capacete),
+    (39, "Visor de Platina", 6.0, 190, 13, capacete),
+    (40, "Coroa dos Elementos", 1.5, 400, 18, capacete),
+    -- peitoral
+    (41, "Peitoral de Couro", 7.0, 25, 6, peitoral),
+    (42, "Ombreiras de Latão", 9.5, 65, 9, peitoral),
+    (43, "Cota de Malha Prateada", 8.0, 120, 13, peitoral),
+    (44, "Peitoral de Platina", 12.0, 225, 18, peitoral),
+    (45, "Manto dos Elementos", 3.5, 500, 24, peitoral),
+    -- acessorio
+    (46, "Braceletes de Couro", 1.0, 15, 2, acessorio),
+    (47, "Anel de Latão", 0.5, 35, 5, acessorio),
+    (48, "Brincos de Prata", 0.5, 75, 8, acessorio),
+    (49, "Anel de Platina", 0.5, 160, 11, acessorio),
+    (50, "Braceletes dos Elementos", 1.0, 350, 15, acessorio),
+    -- botas
+    (51, "Perneiras de Couro", 3.5, 20, 4, botas),
+    (52, "Sabaton de Latão", 4.0, 50, 6, botas),
+    (53, "Botas de Prata", 5.5, 100, 9, botas),
+    (54, "Perneiras de Platina", 8.0, 190, 13, botas),
+    (55, "Botas dos Elementos", 2.0, 400, 18, botas)
+
+    -- Proteção das Armaduras por Nível (os 4 slots juntos):
+        -- Couro -> 16
+        -- Latão -> 26
+        -- Prata -> 39
+        -- Platina -> 55
+        -- Elementos -> 75

@@ -13,14 +13,17 @@ services:
       - '5432'
     volumes:
       - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./sql/populate.sql:/docker-entrypoint-initdb.d/populate.sql
 
-  api:
+  app:
     platform: linux/amd64
     depends_on:
       - db
     build:
       context: ./
       dockerfile: ./Dockerfile
+    stdin_open: true
+    tty: true
 
 volumes:
   db:

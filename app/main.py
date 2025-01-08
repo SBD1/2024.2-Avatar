@@ -1,10 +1,30 @@
-from sqlalchemy import create_engine, insert, text
-import time
+from InquirerPy import inquirer
+from database import Database
 
-time.sleep(5)
+def main():
+    db = Database()
 
-engine = create_engine("postgresql+psycopg2://postgres:postgres@db:5432/DB")
-conn = engine.connect()
+    while True:
+        choice = inquirer.rawlist(
+          message="Selecione uma opção",
+          choices=[
+            "Listar dobras",
+            "Listar movimentos",
+            "Listar subdobras",
+            "Sair"
+          ]
+        ).execute()
 
+        if choice == "Listar dobras":
+            print(db.getDobras())
+        elif choice == "Listar movimentos":
+            print(db.getMovimentos())
+        elif choice == "Listar subdobras":
+            print(db.getSubdobras())
+        else:
+            db.close()
+            break
 
-print('done')
+main()
+        
+    

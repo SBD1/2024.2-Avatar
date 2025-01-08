@@ -35,7 +35,7 @@ Primeiramente, tenha certeza que a porta localhost 5432 esteja livre para ser ut
 Após isso, para subir o banco e iniciar o jogo, basta executar a linha de comando abaixo na pasta do projeto:
 
 ```
-docker compose build && docker compose up -d
+docker compose build && docker compose run app
 ```
 
 ### Acessando o Banco de Dados

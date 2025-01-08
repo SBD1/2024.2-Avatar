@@ -1,7 +1,9 @@
 import psycopg2
+import time
 
 class Database:
     def __init__(self):
+        time.sleep(5) # aguarda 5 segundos para garantir que o banco de dados esteja pronto
         self.conn = psycopg2.connect(
             user="postgres",
             password="postgres",

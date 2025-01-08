@@ -1,29 +1,30 @@
 from InquirerPy import inquirer
-from app.database import Database
+from database import Database
 
-class Game:
-    def run(self):
-        while True:
-            menu =  inquirer.select(
-                message="O que deseja fazer?",
-                choices=[
-                    "Listar Dobras",
-                    "Listar Subdobras",
-                    "Listar Movimentos",
-                    "Sair"
-                ]
-            ).execute()
-            if menu == "Listar Dobras":
-                print(Database.getDobras())
-            elif menu == "Listar Subdobras":
-                print(Database.getSubdobras())
-            elif menu == "Listar Movimentos":
-                print(Database.getMovimentos())
-            elif menu == "Sair":
-                print("Sair")
-                Database.close()
-                break
+def main():
+    db = Database()
+
+    while True:
+        choice = inquirer.rawlist(
+          message="Selecione uma opção",
+          choices=[
+            "Listar dobras",
+            "Listar movimentos",
+            "Listar subdobras",
+            "Sair"
+          ]
+        ).execute()
+
+        if choice == "Listar dobras":
+            print(db.getDobras())
+        elif choice == "Listar movimentos":
+            print(db.getMovimentos())
+        elif choice == "Listar subdobras":
+            print(db.getSubdobras())
+        else:
+            db.close()
+            break
+
+main()
+        
     
-if __name__ == "__main__":
-    game = Game()
-    game.run()

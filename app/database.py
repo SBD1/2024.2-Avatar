@@ -1,5 +1,6 @@
 import psycopg2
 import time
+import pandas as pd
 
 class Database:
     def __init__(self):
@@ -17,15 +18,14 @@ class Database:
         self.cur.close()
         self.conn.close()
 
-
     def getDobras(self):
         self.cur.execute("SELECT * FROM dobra")
-        return self.cur.fetchall()
+        return pd.DataFrame(self.cur.fetchall(), columns=[desc[0] for desc in self.cur.description])
     
     def getMovimentos(self):
         self.cur.execute("SELECT * FROM movimento")
-        return self.cur.fetchall()
+        return pd.DataFrame(self.cur.fetchall(), columns=[desc[0] for desc in self.cur.description])
     
     def getSubdobras(self):
         self.cur.execute("SELECT * FROM subdobra")
-        return self.cur.fetchall()
+        return pd.DataFrame(self.cur.fetchall(), columns=[desc[0] for desc in self.cur.description])

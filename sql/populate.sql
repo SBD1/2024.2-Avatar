@@ -1,116 +1,178 @@
-INSERT INTO dobra(nome, mult_dano)
+INSERT INTO tecnica(nome, tipo)
 VALUES
-    ('Água', 1.1),
-    ('Terra', 1.1),
-    ('Fogo', 1.1),
-    ('Ar', 1.1),
-    ('Energia', 1.5);
+    -- ataque
+    ('Chicote de Água','A'),
+    ('Sopro de Gelo','A'),
+    ('Discos de Gelo','A'),
+    ('Garras de Gelo','A'),
+    ('Espinhos de Gelo','A'),
+    ('Espada de Gelo','A'),
+    ('Marionete','A'),
 
-INSERT INTO subdobra(nome, mult_dano, dobra)
-VALUES
-    ('Cura', 1, 'Água'),
-    ('Sangue', 1, 'Água'),
-    ('Espíritos', 1, 'Água'),
-    ('Lava', 1, 'Terra'), 
-    ('Areia', 1, 'Terra'),
-    ('Metal', 1, 'Terra'),
-    ('Raio', 1, 'Fogo'),
-    ('Combustão', 1, 'Fogo'),
-    ('Redirecionamento', 1, 'Fogo'),
-    ('Projeção espiritual', 1, 'Ar'),
-    ('Regulação de temperatura', 1, 'Ar'),
-    ('Vôo', 1, 'Ar');
+    ('Lançamento de Pedra','A'),
+    ('Bloco de Terra','A'),
+    ('Esmagamento da Terra','A'),
+    ('Terremotos','A'),
+    ('Bomba de Terra','A'),
+    ('Balas de Rocha Compactada','A'),
+    ('Onda de Lava','A'),
+    ('Disco de Lava','A'),
+    ('Lançamento de Metal','A'),
 
-INSERT INTO movimento(nome, dano, descricao, nivel_necessario_aprender, tipo, dobra, subdobra)
+    ('Chute Ardente','A'),
+    ('Lâmina de Fogo','A'),
+    ('Bomba de Fogo','A'),
+    ('Adaga de Fogo','A'),
+    ('Chicote de Fogo','A'),
+    ('Corrente de Fogo','A'),
+    ('Açoite de Fogo','A'),
+    ('Soco de Fogo','A'),
+    ('Cometa de Fogo','A'),
+    ('Míssil de Fogo','A'),
+    ('Raio','A'),
+    ('Explosão Mental','A'),
+
+    ('Jato de Ar','A'),
+    ('Bomba de Ar','A'),
+    ('Soco de Ar','A'),
+    ('Sopro de Ar','A'),
+    ('Lâmina de Ar','A'),
+    ('Esteira de Ar','A'),
+    ('Asfixia','A'),
+    ('Vendaval','A'),
+    ('Furacão','A'),
+
+    ('Ataque de Espada','A'),
+    ('Lançamento de Bumerangue','A'),
+
+    -- defesa
+    ('Escudo de Gelo','D'),
+
+    ('Escudo de Rocha','D'),
+    ('Coluna da Terra','D'),
+    ('Armadura de Rocha','D'),
+    ('Armadura de Terra Aprimorada','D'),
+    ('Escudo de Metal','D'),
+
+    ('Escudo de Fogo','D'),
+    ('Bloqueio de Fogo','D'),
+
+    ('Escudo de Ar','D'),
+
+    -- mobilidade
+    ('Tornado de Agua','M'),
+    ('Rampa de Gelo','M'),
+    ('Corrida na Água','M'),
+
+    ('Tornado de Areia','M'),
+    ('Redemoinho de Poeira','M'),
+    ('Túnel da Terra','M'),
+    ('Onda da Terra','M'),
+    ('Magnetização','M'),
+    ('Escalada de Poeira','M'),
+    ('Impulso de areia','M'),
+
+    ('Pés Propulsores','M'),
+
+    ('Tornado de Ar','M'),
+    ('Roda de Ar','M'),
+    ('Esfera de Ar','M'),
+    ('Patinete Aéreo','M'),
+    ('Vôo','M'),
+
+    -- cura
+    ('Cura Simples','C'),
+    ('Cura Aprimorada','C');
+
+-----------------------
+INSERT INTO ataque(nome, dano_causado, descricao, nivel_necessario_aprender, elemento)
 VALUES
-    -- Movimentos de Água
-    ('Chicote de Água', 10, 'Cria um chicote de água', 1, 'dobra', 'Água', NULL),
-    ('Discos de Gelo', 10, 'Lança discos de gelo nos inimigos', 1, 'dobra', 'Água', NULL),
-    ('Sopro de Gelo', 5, 'Congela objetos e inimigos com sopro de ar frio', 2, 'dobra', 'Água', NULL),
-    ('Escudo de Gelo', 0, 'Cria um escudo defensivo de gelo', 3, 'dobra', 'Água', NULL),
-    ('Garras de Gelo', 12, 'Cria garras cortantes de gelo', 2, 'dobra', 'Água', NULL),
-    ('Espinhos de Gelo', 18, 'Dispara espinhos afiados de gelo', 3, 'dobra', 'Água', NULL),
-    ('Espada de Gelo', 20, 'Forma uma espada com gelo', 4, 'dobra', 'Água', NULL),
-    ('Tornado de Agua', 0, 'Cria um tornado para movimentação', 2, 'dobra', 'Água', NULL),
-    ('Rampa de Gelo', 0, 'Cria rampas de gelo para movimentação ou defesa', 2, 'dobra', 'Água', NULL),
-    ('Marionete', 40, 'Permite manipular os movimentos de organismos vivos', 5, 'dobra', 'Água', 'Sangue'),
-    ('Curar', 10, 'Habilidade de curar ferimentos usando água', 2, 'dobra', 'Água', 'Cura'),
-    ('Equilibrio Espiritual', 0, 'Induz a mudança entre as energias positiva e negativa em espiritos', 3, 'dobra', 'Água', 'Espíritos'),
-    ('Corrida na Água', 0, 'Permite de correr sobre a Água em alta velocidade', 2, 'dobra', 'Água', NULL),
-    -- Movimentos de Terra
-    ('Lançamento de Pedra', 5, 'Levita pedaços de pedras e lança contra inimigos', 1, 'dobra', 'Terra', NULL),
-    ('Bloco de Terra', 10, 'Lanca blocos de terra contra inimigos', 1, 'dobra', 'Terra', NULL),
-    ('Coluna da Terra', 0, 'Cria colunas de rocha para se defender', 2, 'dobra', 'Terra', NULL),
-    ('Compressão da Terra', 0, 'Comprime grandes pedaços de rocha em formas menores e mais densas', 3, 'dobra', 'Terra', NULL),
-    ('Mão ou Corpo de Terra', 10, 'Cria réplicas parciais ou totais de corpos humanos e movê-los', 2, 'dobra', 'Terra', NULL),
-    ('Naufrágio de Terra', 0, 'Dobra a terra para afundar inimigos ou criar abrigos', 3, 'dobra', 'Terra', NULL),
-    ('Esmagamento da Terra', 0, 'Destroí-e rochas e pedregulhos com socos e pontapés', 3, 'dobra', 'Terra', NULL),
-    ('Terremotos', 5, 'Cria terremotos no solo para desequilibrar oponentes e causar danos', 2, 'dobra', 'Terra', NULL),
-    ('Mover o Solo', 0, 'Alterar o solo para afastar ou desorientar o alvo', 2, 'dobra', 'Terra', NULL),
-    ('Areia Movediça', 0, 'Transformar superfícies em areia movediça para imobilizar ou suavizar quedas', 3, 'dobra', 'Terra', NULL),
-    ('Algemas de Pedra', 0, 'Cria algemas de pedra para imobilizar inimigos', 2, 'dobra', 'Terra', NULL),
-    ('Escudo de Rocha', 0, 'Cria escudos de rocha para defesa ou ataque', 2, 'dobra', 'Terra', NULL),
-    ('Escorregador', 0, 'Cria deslizamentos de rochas para atacar ou redirecionar ataques', 3, 'dobra', 'Terra', NULL),
-    ('Tornado de Areia', 0, 'Manipular areia para formar uma coluna giratória para o transporte', 3, 'dobra', 'Terra', 'Areia'),
-    ('Armadura de Rocha', 0, 'Cria armaduras de rocha para defesa ou ataque', 2, 'dobra', 'Terra', NULL),
-    ('Bomba de Terra', 20, 'Enviar uma pedra ao solo para causar danos e lançar inimigos', 3, 'dobra', 'Terra', NULL),
-    ('Túnel da Terra', 0, 'Mover-se através da terra criando túneis', 3, 'dobra', 'Terra', NULL),
-    ('Onda da Terra', 0, 'Criar ondas de terra para transporte ou como ataque poderoso', 3, 'dobra', 'Terra', NULL),
-    ('Magnetização', 0, 'Magnetizar membros para escalar paredes rochosas', 3, 'dobra', 'Terra', NULL),
-    ('Balas de Rocha Compactada', 50, 'Disparar fragmentos de rocha com grande velocidade e dano', 5, 'dobra', 'Terra', NULL),
-    ('Redemoinho de Poeira', 0, 'Criar redemoinhos de poeira para flutuar ou atacar', 5, 'dobra', 'Terra', NULL),
-    ('Armadura de Terra Aprimorada', 0, 'Criar um gigantesco corpo de rocha antropomórfica para combate', 5, 'dobra', 'Terra', NULL),
-    ('Levitação da Terra Aprimorada', 0, 'Mover estátuas do tamanho de uma colina', 5, 'dobra', 'Terra', NULL),
-    ('Escalada de Poeira', 0, 'Criar pilares finos de tamanho crescente para escalar paredes', 3, 'dobra', 'Terra', NULL),
-    ('Detecção de Mentiras', 0, 'Permite perceber as mais leves alterações dos comportamentos das pessoas', 3, 'dobra', 'Terra', NULL),
-    ('Onda de Lava', 40, 'Cria uma onda de lava para causar danos', 4, 'dobra', 'Terra', 'Lava'),
-    ('Disco de Lava', 30, 'Cria um disco de lava para atacar', 4, 'dobra', 'Terra', 'Lava'),
-    ('Sentido Sismico', 0, 'Permite enxergar o ambiente ao redor independente de sua visão', 4, 'dobra', 'Terra', NULL),
-    ('Impulso de areia', 0, 'Cria um impulso de areia para atacar', 3, 'dobra', 'Terra', 'Areia'),
-    ('Lançamento de Metal', 20, 'Levita pedaços de metal e lança contra inimigos', 4, 'dobra', 'Terra', NULL),
-    ('Escudo de Metal', 0, 'Cria um escudo defensivo de metal', 4, 'dobra', 'Terra', 'Metal'),
-    -- Movimentos de Fogo
-    ('Chute Ardente', 10, 'Corta o alvo com um arco de fogo', 1, 'dobra', 'Fogo', NULL),
-    ('Bloqueio de Fogo', 0, 'Desarmar e extinguir uma explosão de fogo de outro dobrador de fogo', 2, 'dobra', 'Fogo', NULL),
-    ('Lâmina de Fogo', 20, 'Cria lâminas finas de fogo para cortar objetos sem destruir-los completamente', 2, 'dobra', 'Fogo', NULL),
-    ('Bomba de Fogo', 20, 'Em um curto alcance é possível criar uma explosão', 3, 'dobra', 'Fogo', NULL),
-    ('Circulo de Fogo', 5, 'Cria um círculo de fogo', 1, 'dobra', 'Fogo', NULL),
-    ('Adaga de Fogo', 15, 'Cria uma chama muito concentrada para cortar com uma adaga', 2, 'dobra', 'Fogo', NULL),
-    ('Chicote de Fogo', 10, 'Cria um chicote de fogo', 1, 'dobra', 'Fogo', NULL),
-    ('Corrente de Fogo', 15, 'Dispara fluxo continuo de fogo com os punhos', 1, 'dobra', 'Fogo', NULL),
-    ('Açoite de Fogo', 30, 'Cria um longo ataque de fogo e derruba sobre seus inimigos', 3, 'dobra', 'Fogo', NULL),
-    ('Soco de Fogo', 15, 'Os socos produzem bolas de fogo em miniatura', 1, 'dobra', 'Fogo', NULL),
-    ('Escudo de Fogo', 0, 'Cria um escudo protetor de fogo', 4, 'dobra', 'Fogo', NULL),
-    ('Cometa de Fogo', 40, 'Presiona o fogo em uma bola e atira para o inimigo', 4, 'dobra', 'Fogo', NULL),
-    ('Míssil de Fogo', 35, 'Cria um míssil de fogo que segue o alvo', 4, 'dobra', 'Fogo', NULL),
-    ('Lançar Raio', 60, 'Atira um raio nos inimigos', 4, 'dobra', 'Fogo', 'Raio'),
-    ('Explosão Mental', 50, 'Cria um feixe poderoso que explode após contato com uma superfície sólida', 4, 'dobra', 'Fogo', 'Combustão'),
-    -- Movimentos de Ar
-    ('Bola de Ar', 5, 'Cria uma bola comprimida de ar ', 1, 'dobra', 'Ar', NULL),
-    ('Jato de Ar', 20, 'Cria um jato de ar capaz de empurrar ou explodir rochas', 1, 'dobra', 'Ar', NULL),
-    ('Bomba de Ar', 10, 'Cria uma poderosa corrente de ar para fora em todas as direções ao redor do Dobrador', 2, 'dobra', 'Ar', NULL),
-    ('Almofada de Ar', 0, 'Cria uma almofada de ar para aparar a queda', 2, 'dobra', 'Ar', NULL),
-    ('Funil de Ar', 5, 'Cria um pequeno funil de ar para lancar pequenos projéteis', 1, 'dobra', 'Ar', NULL),
-    ('Soco de Ar', 10, 'Comprime o ar que pode ser arremessado aos pés ou aos punhos', 1, 'dobra', 'Ar', NULL),
-    ('Escudo de Ar', 0, 'Cria um escudo defensivo de ar', 3, 'dobra', 'Ar', NULL),
-    ('Roda de Ar', 0, 'Cria uma roda de ar para movimentação rápida', 2, 'dobra', 'Ar', NULL),
-    ('Sopro de Ar', 20, 'Gera um jato de ar com a boca', 2, 'dobra', 'Ar', NULL),
-    ('Sucção', 0, 'Cria uma sucção para trazer os alvos em direção ao Dobrador', 1, 'dobra', 'Ar', NULL),
-    ('Lâmina de Ar', 20, 'Cria lâminas finas de ar para cortar objetos sem destruir-los completamente', 3, 'dobra', 'Ar', NULL),
-    ('Casulo de Ar', 0, 'Cria um casulo de ar para movimentação rápida', 3, 'dobra', 'Ar', NULL),
-    ('Tornado de Ar', 0, 'Cria um tornado para movimentação', 3, 'dobra', 'Ar', NULL),
-    ('Esteira de Ar', 20, 'Dispara uma rajada de ar altamente comprimido em forma do corpo do dobrador', 3, 'dobra', 'Ar', NULL),
-    ('Asfixia', 60, 'Cria uma bola de ar em torno da cabeça para matar o alvo', 4, 'dobra', 'Ar', NULL),
-    ('Esfera de Ar', 0, 'Cria uma esfera de ar para movimentação rápida', 5, 'dobra', 'Ar', NULL),
-    ('Vendaval', 20, 'Desencadea ventos extremamente poderosos', 5, 'dobra', 'Ar', NULL),
-    ('Furacão', 30, 'Cria uma furação', 5, 'dobra', 'Ar', NULL),
-    ('Patinete Aéreo', 0, 'Cria um bola de ar que pode ser montada como se fosse um pião', 2, 'dobra', 'Ar', NULL),
-    ('Vôo', 0, 'Permite o Dobrador voar', 5, 'dobra', 'Ar', 'Vôo'),
-    ('Planar', 0, 'Permite o Dobrador voar com o auxilio de um planador', 2, 'dobra', 'Ar', NULL),
-    ('Projeção espiritual', 0, 'Permite o Dobrador projetar seu espírito em outro local', 5, 'dobra', 'Ar', 'Projeção espiritual'),
-    -- Movimentos Normais
-    ('Ataque de Espada', 10, 'Golpeia o alvo com uma espada', 1, 'golpe', NULL, NULL),
-    ('Lançamento de Bumerangue', 5, 'Lanca um bumerangue no inimigo', 1, 'golpe', NULL, NULL);
+    ('Chicote de Água', 10, 'Cria um chicote de água', 1, 'agua'),
+    ('Sopro de Gelo', 5, 'Congela objetos e inimigos com sopro de ar frio', 2, 'agua'),
+    ('Discos de Gelo', 10, 'Lança discos de gelo nos inimigos', 1, 'agua'),
+    ('Garras de Gelo', 12, 'Cria garras cortantes de gelo', 2, 'agua'),
+    ('Espinhos de Gelo', 18, 'Dispara espinhos afiados de gelo', 3, 'agua'),
+    ('Espada de Gelo', 20, 'Forma uma espada com gelo', 4, 'agua'),
+    ('Marionete', 40, 'Permite manipular os movimentos de organismos vivos', 5, 'agua'),
+
+    ('Lançamento de Pedra', 5, 'Levita pedaços de pedras e lança contra inimigos', 1, 'terra'),
+    ('Bloco de Terra', 10, 'Lanca blocos de terra contra inimigos', 1, 'terra'),
+    ('Esmagamento da Terra', 5, 'Soco capaz de destruir rochas e pedregulhos', 3, 'terra'),
+    ('Terremotos', 5, 'Cria terremotos no solo para desequilibrar oponentes e causar danos', 2, 'terra'),
+    ('Bomba de Terra', 20, 'Enviar uma pedra ao solo para causar danos e lançar inimigos', 3, 'terra'),
+    ('Balas de Rocha Compactada', 50, 'Disparar fragmentos de rocha com grande velocidade e dano', 5, 'terra'),
+    ('Onda de Lava', 40, 'Cria uma onda de lava para causar danos', 4, 'terra'),
+    ('Disco de Lava', 30, 'Cria um disco de lava para atacar', 4, 'terra'),
+    ('Lançamento de Metal', 20, 'Levita pedaços de metal e lança contra inimigos', 4, 'terra'),
+
+    ('Chute Ardente', 10, 'Corta o alvo com um arco de fogo', 1, 'fogo'),
+    ('Lâmina de Fogo', 20, 'Cria lâminas finas de fogo para cortar objetos sem destruir-los completamente', 2, 'fogo'),
+    ('Bomba de Fogo', 20, 'Em um curto alcance é possível criar uma explosão', 3, 'fogo'),
+    ('Adaga de Fogo', 15, 'Cria uma chama muito concentrada para cortar com uma adaga', 2, 'fogo'),
+    ('Chicote de Fogo', 10, 'Cria um chicote de fogo', 1, 'fogo'),
+    ('Corrente de Fogo', 15, 'Dispara fluxo continuo de fogo com os punhos', 1, 'fogo'),
+    ('Açoite de Fogo', 30, 'Cria um longo ataque de fogo e derruba sobre seus inimigos', 3, 'fogo'),
+    ('Soco de Fogo', 15, 'Os socos produzem bolas de fogo em miniatura', 1, 'fogo'),
+    ('Cometa de Fogo', 40, 'Presiona o fogo em uma bola e atira para o inimigo', 4, 'fogo'),
+    ('Míssil de Fogo', 35, 'Cria um míssil de fogo que segue o alvo', 4, 'fogo'),
+    ('Raio', 60, 'Atira um raio nos inimigos', 4, 'fogo'),
+    ('Explosão Mental', 50, 'Cria um feixe poderoso que explode após contato com uma superfície sólida', 4, 'fogo'),
+
+    ('Jato de Ar', 20, 'Cria um jato de ar capaz de empurrar ou explodir rochas', 1, 'ar'),
+    ('Bomba de Ar', 10, 'Cria uma poderosa corrente de ar para fora em todas as direções ao redor do Dobrador', 2, 'ar'),
+    ('Soco de Ar', 10, 'Comprime o ar que pode ser arremessado aos pés ou aos punhos', 1, 'ar'),
+    ('Sopro de Ar', 20, 'Gera um jato de ar com a boca', 2, 'ar'),
+    ('Lâmina de Ar', 20, 'Cria lâminas finas de ar para cortar objetos sem destruir-los completamente', 3, 'ar'),
+    ('Esteira de Ar', 20, 'Dispara uma rajada de ar altamente comprimido em forma do corpo do dobrador', 3, 'ar'),
+    ('Asfixia', 60, 'Cria uma bola de ar em torno da cabeça para matar o alvo', 4, 'ar'),
+    ('Vendaval', 20, 'Desencadea ventos extremamente poderosos', 5, 'ar'),
+    ('Furacão', 30, 'Cria uma furação', 5, 'ar'),
+
+    ('Ataque de Espada', 10, 'Golpeia o alvo com uma espada', 1, 'nenhum'),
+    ('Lançamento de Bumerangue', 5, 'Lanca um bumerangue no inimigo', 1, 'nenhum');
+
+INSERT INTO defesa(nome, dano_bloqueado, descricao, nivel_necessario_aprender, elemento)
+VALUES
+    ('Escudo de Gelo', 10, 'Cria um escudo defensivo de gelo', 2, 'agua'),
+
+    ('Escudo de Rocha', 10, 'Cria um escudo defensivo com rochas', 2, 'terra'),
+    ('Coluna da Terra', 10, 'Cria colunas de rocha para se defender', 2, 'terra'),
+    ('Armadura de Rocha', 15, 'Se envolve em uma armadura feita de rocha', 2, 'terra'),
+    ('Armadura de Terra Aprimorada', 40, 'Criar um gigantesco corpo de rocha antropomórfica para combate', 5, 'terra'),
+    ('Escudo de Metal', 30, 'Cria um escudo defensivo de metal', 4, 'terra'),
+
+    ('Escudo de Fogo', 10, 'Cria um escudo protetor de fogo', 2, 'fogo'),
+    ('Bloqueio de Fogo', 5, 'Desarmar e extinguir uma explosão de fogo de outro dobrador de fogo', 2, 'fogo'),
+
+    ('Escudo de Ar', 10, 'Cria um escudo defensivo de ar', 2, 'ar');
+
+INSERT INTO mobilidade(nome, chance_esquiva, descricao, nivel_necessario_aprender, elemento)
+VALUES
+    ('Tornado de Agua', 20, 'Cria um tornado para movimentação', 2, 'agua'),
+    ('Rampa de Gelo', 5, 'Cria rampas de gelo para movimentação ou defesa', 2, 'agua'),
+    ('Corrida na Água', 30, 'Permite de correr sobre a Água em alta velocidade', 2, 'agua'),
+
+    ('Tornado de Areia', 20, 'Manipular areia para formar uma coluna giratória para o transporte', 3, 'terra'),
+    ('Redemoinho de Poeira', 40, 'Criar redemoinhos de poeira para flutuar ou atacar', 5, 'terra'),
+    ('Túnel da Terra', 5, 'Mover-se através da terra criando túneis', 3, 'terra'),
+    ('Onda da Terra', 30, 'Criar ondas de terra onde o dobrador pode surfar', 3, 'terra'),
+    ('Magnetização', 5, 'Magnetizar membros para escalar paredes rochosas', 3, 'terra'),
+    ('Escalada de Poeira', 20, 'Criar pilares finos de tamanho crescente para escalar paredes', 3, 'terra'),
+    ('Impulso de areia', 10, 'Cria um impulso de areia para atacar', 3, 'terra'),
+
+    ('Pés Propulsores', 30, 'Cria pequenos jatos de fogo nos pés do dobrador permitindo que ele voe', 4, 'fogo'),
+
+    ('Tornado de Ar', 20, 'Cria um tornado para movimentação', 3, 'ar'),
+    ('Roda de Ar', 10, 'Cria uma roda de ar para movimentação rápida', 2, 'ar'),
+    ('Esfera de Ar', 20, 'Cria uma esfera de ar para movimentação rápida', 5, 'ar'),
+    ('Patinete Aéreo', 30, 'Cria um bola de ar que pode ser montada como se fosse um pião', 2, 'ar'),
+    ('Vôo', 50, 'Permite o Dobrador voar', 5, 'ar');
+
+INSERT INTO cura(nome, pontos_cura, descricao, nivel_necessario_aprender, elemento)
+VALUES
+    ('Cura Simples', 10, 'Habilidade de curar pequenos ferimentos usando água', 2, 'agua'),
+    ('Cura Aprimorada', 50, 'Habilidade de curar grandes ferimentos usando água', 2, 'agua');
+
 
 INSERT INTO item(id, tipo)
 VALUES
@@ -174,7 +236,7 @@ VALUES
     (54, 'A'),
     (55, 'A');
 
-INSERT INTO pergaminho(id, nome, peso, preco, raridade, movimento)
+INSERT INTO pergaminho(id, nome, peso, preco, raridade, tecnica)
 VALUES
     -- Pergaminhos de Água
       (1, 'Pergaminho do Gelo Cortante', 1.0, 30, 'comum', 'Discos de Gelo'),

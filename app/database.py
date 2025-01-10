@@ -4,7 +4,7 @@ import pandas as pd
 
 class Database:
     def __init__(self):
-        time.sleep(5) # aguarda 5 segundos para garantir que o banco de dados esteja pronto
+        time.sleep(10) # aguarda 5 segundos para garantir que o banco de dados esteja pronto
         self.conn = psycopg2.connect(
             user="postgres",
             password="postgres",
@@ -18,18 +18,15 @@ class Database:
         self.cur.close()
         self.conn.close()
 
-    def getTecnicasAtaque(self):
-        self.cur.execute("SELECT * FROM ataque")
-        return pd.DataFrame(self.cur.fetchall(), columns=[desc[0] for desc in self.cur.description])
-    
-    def getTecnicasCura(self):
-        self.cur.execute("SELECT * FROM cura")
-        return pd.DataFrame(self.cur.fetchall(), columns=[desc[0] for desc in self.cur.description])
-    
-    def getTecnicasDefesa(self):
-        self.cur.execute("SELECT * FROM defesa")
-        return pd.DataFrame(self.cur.fetchall(), columns=[desc[0] for desc in self.cur.description])
-
-    def getTecnicasMobilidade(self):
-        self.cur.execute("SELECT * FROM mobilidade")
-        return pd.DataFrame(self.cur.fetchall(), columns=[desc[0] for desc in self.cur.description])
+    def create_player(self, nome):
+        # Cria uma nova referência de um PC na tabela personagem
+        sql_personagem = "INSERT INTO personagem (tipo) VALUES (%s) RETURNING id"
+        self.cur.execute(sql_personagem, ('P',))
+        id_personagem = self.cur.fetchone()[0]
+        
+        # Cria um novo jogador na tabela pc (playable character)
+        sql_jogador = "INSERT INTO pc (id, nome) VALUES (%s, %s)"
+        self.cur.execute(sql_jogador, (id_personagem, nome))
+        
+        self.conn.commit()
+        return id_personagem

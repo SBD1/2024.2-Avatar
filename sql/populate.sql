@@ -319,3 +319,12 @@ VALUES
         -- Prata -> 39
         -- Platina -> 55
         -- Elementos -> 75
+
+INSERT INTO nacao VALUES ('Teste', 'Nação de Teste');
+
+INSERT INTO cidade VALUES ('Cidade teste', 'Teste', 1, 'Teste');
+
+INSERT INTO area VALUES 
+(1, 'area_inicial','descricao', 1, 1, 1, 2, 'Cidade teste'),
+(2, 'teste','descricao 2', 2, 2, 1, 2, 'Cidade teste');
+

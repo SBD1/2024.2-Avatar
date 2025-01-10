@@ -43,7 +43,7 @@ CREATE TABLE pergaminho
   peso REAL NOT NULL,
   preco INT NOT NULL,
   raridade TEXT CHECK (raridade in ('comum', 'raro', 'epico', 'lendario')) DEFAULT 'comum',
-  movimento VARCHAR(50) NOT NULL,
+  tecnica VARCHAR(50) NOT NULL,
 
   FOREIGN KEY (id)  REFERENCES item(id)
 );
@@ -115,10 +115,9 @@ CREATE TABLE pc
   vida_max INT NOT NULL,
   vida_atual INT NOT NULL,
   xp INT NOT NULL,
+  elemento TEXT CHECK (elemento in ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum')) DEFAULT 'nenhum',
   nivel INT NOT NULL,
-  num_ouro INT,
-  num_prata INT,
-  num_cobre INT,
+  moedas INT DEFAULT 0,
   peso_max_inventario REAL DEFAULT 100.00,
   id_area_atual INT NOT NULL,
   item_capacete INT,
@@ -143,6 +142,7 @@ CREATE TABLE amigo
   vida_max INT NOT NULL,
   vida_atual INT NOT NULL,
   xp INT NOT NULL,
+  elemento TEXT CHECK (elemento in ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum')) DEFAULT 'nenhum',
   nivel INT NOT NULL,
   fala_entrada VARCHAR(150) NOT NULL,
   fala_saida VARCHAR(150) NOT NULL,
@@ -175,6 +175,7 @@ CREATE TABLE inimigo
   vida_max INT NOT NULL,
   vida_atual INT NOT NULL,
   xp INT NOT NULL,
+  elemento TEXT CHECK (elemento in ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum')) DEFAULT 'nenhum',
   nivel INT NOT NULL,
   fala_entrada VARCHAR(150) NOT NULL,
   fala_saida VARCHAR(150) NOT NULL,
@@ -207,53 +208,65 @@ CREATE TABLE combate
   FOREIGN KEY (id_inimigo) REFERENCES inimigo(id)
 );
 
-CREATE TABLE dobra
+CREATE TABLE tecnica
 (
   nome VARCHAR(50) PRIMARY KEY,
-  mult_dano INT NOT NULL
+  tipo CHAR(1) NOT NULL
 );
 
-CREATE TABLE subdobra
+CREATE TABLE ataque 
 (
   nome VARCHAR(50) PRIMARY KEY,
-  mult_dano INT NOT NULL,
-  dobra VARCHAR(50) NOT NULL,
-
-  FOREIGN KEY (dobra) REFERENCES dobra(nome)
-);
-
-CREATE TABLE movimento
-(
-  nome VARCHAR(50) PRIMARY KEY,
-  dano INT NOT NULL,
+  elemento TEXT CHECK (elemento in ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum')),
   descricao VARCHAR(250) NOT NULL,
   nivel_necessario_aprender INT NOT NULL,
-  tipo TEXT CHECK (tipo in ('dobra', 'golpe')),
-  dobra VARCHAR(50),
-  subdobra VARCHAR(50),
+  dano_causado INT NOT NULL,
 
-  FOREIGN KEY (dobra) REFERENCES dobra(nome),
-  FOREIGN KEY (subdobra) REFERENCES subdobra(nome)
+  FOREIGN KEY (nome)  REFERENCES tecnica(nome)
 );
 
-CREATE TABLE sabe_movimento
+CREATE TABLE defesa 
 (
-  id_personagem INT,
-  nome_movimento VARCHAR(50),
+  nome VARCHAR(50) PRIMARY KEY,
+  elemento TEXT CHECK (elemento in ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum')),
+  descricao VARCHAR(250) NOT NULL,
+  nivel_necessario_aprender INT NOT NULL,
+  dano_bloqueado INT NOT NULL,
 
-  PRIMARY KEY (id_personagem, nome_movimento),
-  FOREIGN KEY (id_personagem) REFERENCES personagem(id),
-  FOREIGN KEY (nome_movimento) REFERENCES movimento(nome)
+  FOREIGN KEY (nome)  REFERENCES tecnica(nome)
 );
 
-CREATE TABLE domina_dobra
+
+CREATE TABLE mobilidade 
+(
+  nome VARCHAR(50) PRIMARY KEY,
+  elemento TEXT CHECK (elemento in ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum')),
+  descricao VARCHAR(250) NOT NULL,
+  nivel_necessario_aprender INT NOT NULL,
+  chance_esquiva INT NOT NULL,
+
+  FOREIGN KEY (nome)  REFERENCES tecnica(nome)
+);
+
+CREATE TABLE cura 
+(
+  nome VARCHAR(50) PRIMARY KEY,
+  elemento TEXT CHECK (elemento in ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum')),
+  descricao VARCHAR(250) NOT NULL,
+  nivel_necessario_aprender INT NOT NULL,
+  pontos_cura INT NOT NULL,
+
+  FOREIGN KEY (nome)  REFERENCES tecnica(nome)
+);
+
+CREATE TABLE sabe_tecnica
 (
   id_personagem INT,
-  nome_dobra VARCHAR(50),
+  nome_tecnica VARCHAR(50),
 
-  PRIMARY KEY (id_personagem, nome_dobra),
+  PRIMARY KEY (id_personagem, nome_tecnica),
   FOREIGN KEY (id_personagem) REFERENCES personagem(id),
-  FOREIGN KEY (nome_dobra) REFERENCES dobra(nome)
+  FOREIGN KEY (nome_tecnica) REFERENCES tecnica(nome)
 );
 
 ALTER TABLE instancia_item
@@ -261,4 +274,4 @@ ALTER TABLE instancia_item
   ADD FOREIGN KEY (id_inimigo) REFERENCES inimigo(id),
   ADD FOREIGN KEY (id_mercador) REFERENCES amigo(id);
 
-ALTER TABLE pergaminho ADD FOREIGN KEY (movimento) REFERENCES movimento(nome);
+ALTER TABLE pergaminho ADD FOREIGN KEY (tecnica) REFERENCES tecnica(nome);

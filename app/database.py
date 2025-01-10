@@ -18,14 +18,18 @@ class Database:
         self.cur.close()
         self.conn.close()
 
-    def getDobras(self):
-        self.cur.execute("SELECT * FROM dobra")
+    def getTecnicasAtaque(self):
+        self.cur.execute("SELECT * FROM ataque")
         return pd.DataFrame(self.cur.fetchall(), columns=[desc[0] for desc in self.cur.description])
     
-    def getMovimentos(self):
-        self.cur.execute("SELECT * FROM movimento")
+    def getTecnicasCura(self):
+        self.cur.execute("SELECT * FROM cura")
         return pd.DataFrame(self.cur.fetchall(), columns=[desc[0] for desc in self.cur.description])
     
-    def getSubdobras(self):
-        self.cur.execute("SELECT * FROM subdobra")
+    def getTecnicasDefesa(self):
+        self.cur.execute("SELECT * FROM defesa")
+        return pd.DataFrame(self.cur.fetchall(), columns=[desc[0] for desc in self.cur.description])
+
+    def getTecnicasMobilidade(self):
+        self.cur.execute("SELECT * FROM mobilidade")
         return pd.DataFrame(self.cur.fetchall(), columns=[desc[0] for desc in self.cur.description])

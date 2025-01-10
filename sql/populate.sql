@@ -236,7 +236,7 @@ VALUES
     (54, 'A'),
     (55, 'A');
 
-INSERT INTO pergaminho(id, nome, peso, preco, raridade, movimento)
+INSERT INTO pergaminho(id, nome, peso, preco, raridade, tecnica)
 VALUES
     -- Pergaminhos de Água
       (1, 'Pergaminho do Gelo Cortante', 1.0, 30, 'comum', 'Discos de Gelo'),

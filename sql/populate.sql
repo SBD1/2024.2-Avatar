@@ -47,6 +47,7 @@ VALUES
 
     -- defesa
     ('Escudo de Gelo','D'),
+    ('Equilibrio Espiritual', 'D'),
 
     ('Escudo de Rocha','D'),
     ('Coluna da Terra','D'),
@@ -134,6 +135,7 @@ VALUES
 INSERT INTO defesa(nome, dano_bloqueado, descricao, nivel_necessario_aprender, elemento)
 VALUES
     ('Escudo de Gelo', 10, 'Cria um escudo defensivo de gelo', 2, 'agua'),
+    ('Equilibrio Espiritual', 25, 'Entra em harmonia com a água e seu espírito, formando uma barreira fluida que envolve seu corpo. Essa defesa mística absorve impactos e dissipa ataques.', 5, 'agua'),
 
     ('Escudo de Rocha', 10, 'Cria um escudo defensivo com rochas', 2, 'terra'),
     ('Coluna da Terra', 10, 'Cria colunas de rocha para se defender', 2, 'terra'),
@@ -236,7 +238,7 @@ VALUES
     (54, 'A'),
     (55, 'A');
 
-INSERT INTO pergaminho(id, nome, peso, preco, raridade, movimento)
+INSERT INTO pergaminho(id, nome, peso, preco, raridade, tecnica)
 VALUES
     -- Pergaminhos de Água
       (1, 'Pergaminho do Gelo Cortante', 1.0, 30, 'comum', 'Discos de Gelo'),
@@ -254,13 +256,13 @@ VALUES
       (11, 'Pergaminho de Fogo Marcial', 1.0, 30, 'comum', 'Soco de Fogo'),
       (12, 'Pergaminho de Fogo Cortante', 1.0, 70, 'raro', 'Adaga de Fogo'),
       (13, 'Pergaminho de Astrologia Ofensiva', 1.0, 130, 'epico', 'Cometa de Fogo'),
-      (14, 'Pergaminho de Relâmpago', 1.0, 220, 'lendario', 'Lançar Raio'),
+      (14, 'Pergaminho de Relâmpago', 1.0, 220, 'lendario', 'Raio'),
       (15, 'Pergaminho de Combustão', 1.0, 130, 'epico', 'Explosão Mental'),
       -- Pergaminhos de Ar
       (16, 'Pergaminho de Ar Condensado', 1.0, 30, 'comum', 'Jato de Ar'),
       (17, 'Pergaminho de Ventos Protetivos', 1.0, 70, 'raro', 'Escudo de Ar'),
       (18, 'Pergaminho de Asfixia', 1.0, 220, 'lendario', 'Asfixia'),
-      (19, 'Pergaminho de Ar Espiritual', 1.0, 130, 'epico', 'Projeção espiritual'),
+      (19, 'Pergaminho dos Pés Leves', 1.0, 130, 'epico', 'Pés Propulsores'),
       (20, 'Pergaminho de Ventos Selvagens', 1.0, 130, 'epico', 'Furacão');
 
 INSERT INTO pocao(id, nome, peso, preco, pontos_cura)

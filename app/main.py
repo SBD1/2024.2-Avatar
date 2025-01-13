@@ -35,7 +35,7 @@ class Game():
       
       # Carregar Jogo
       elif choice == startOptions[1]:
-        print("Carregar Jogo")
+        self.load_game()
 
       # Sair
       elif choice == startOptions[2]:
@@ -58,6 +58,28 @@ class Game():
     print(f"Seja bem vindo {nome}!")
 
     self.gameplay(id_jogador)
+
+  def load_game(self):
+    clear()
+    print("================================")
+    print("CARREGAR JOGO")
+    print("================================")
+    jogadores = self.db.get_players()
+    if len(jogadores) == 0:
+      print("Nenhum jogo salvo.")
+      input("Pressione Enter para voltar ao menu...")
+      return
+
+    for jogador in jogadores:
+      print(f'{jogador.nome} - ID: {jogador.id}')
+    input("AAA")
+    # jogadores_choices = [Choice(jogador["nome"], jogador["id"]) for jogador in jogadores]
+    # jogador = inquirer.select(
+    #   message="Escolha o jogador que deseja carregar",
+    #   choices=jogadores_choices,
+    # ).execute()
+
+    # self.gameplay(jogador)
 
   def gameplay(self, id_jogador):
     clear()

@@ -1,10 +1,18 @@
 import psycopg2
 import time
 import pandas as pd
+from types import SimpleNamespace
+
+# Tranforma o resultado (tupla) em um objeto tipo SimpleNamespace
+def transform_result(description, fetch):
+    # pega todas as colunas do resultado
+    columns = [col[0] for col in description]
+    # cria um objeto SimpleNamespace para cada linha
+    return [SimpleNamespace(**dict(zip(columns, row))) for row in fetch]
 
 class Database:
     def __init__(self):
-        time.sleep(10) # aguarda 5 segundos para garantir que o banco de dados esteja pronto
+        time.sleep(5) # aguarda 5 segundos para garantir que o banco de dados esteja pronto
         self.conn = psycopg2.connect(
             user="postgres",
             password="postgres",
@@ -44,6 +52,17 @@ class Database:
           "nivel": player_data[5],
           "id_area_atual": player_data[9],
       }
+
+    def get_players(self):
+      sql = "SELECT id, nome FROM pc"
+      self.cur.execute(sql)
+
+      players = self.cur.fetchall()
+
+      if players == None:
+        return []
+
+      return transform_result(self.cur.description, players)
     
     def get_area(self, id_area):
       sql = "SELECT * FROM area WHERE id = %s"
@@ -72,4 +91,5 @@ class Database:
       sql = "UPDATE pc SET id_area_atual = %s WHERE id = %s"
       self.cur.execute(sql, (id_area, id_jogador))
       self.conn.commit()
+
       

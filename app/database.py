@@ -39,8 +39,13 @@ class Database:
         try:
             with self.conn.cursor(cursor_factory=NamedTupleCursor) as cursor:
                 cursor.execute(sql, params)
+                if cursor.description:
+                    results = cursor.fetchall()
+                    if results:
+                        self.conn.commit()
+                        return results[0]
                 self.conn.commit()
-                return cursor.fetchone()[0]
+                return None
         except psycopg2.Error as e:
             print(f"Erro ao executar create: {e}")
             self.conn.rollback()
@@ -56,7 +61,7 @@ class Database:
             self.conn.rollback()
             raise
 
-    def close_connection(self):
+    def close(self):
         self.conn.close()
 
 
@@ -70,7 +75,6 @@ class Database:
         return id_personagem
 
     def get_player(self, id_jogador):
-
         sql = "SELECT * FROM pc WHERE id = %s"
         return self.query_one(sql, (id_jogador,))
 

@@ -70,6 +70,7 @@ class Database:
         return id_personagem
 
     def get_player(self, id_jogador):
+
         sql = "SELECT * FROM pc WHERE id = %s"
         return self.query_one(sql, (id_jogador,))
 
@@ -77,6 +78,16 @@ class Database:
         sql = "SELECT * FROM area WHERE id = %s"
         return self.query_one(sql, (id_area,))
 
+
+    def get_players(self):
+      sql = "SELECT id, nome FROM pc ORDER BY id"
+      players = self.query_all(sql)
+
+      if players == None:
+        return []
+
+      return players
+  
     def get_nome_area(self, id_area):
         sql = "SELECT nome FROM area WHERE id = %s"
         result = self.query_one(sql, (id_area,))

@@ -70,16 +70,13 @@ class Game():
       input("Pressione Enter para voltar ao menu...")
       return
 
-    for jogador in jogadores:
-      print(f'{jogador.nome} - ID: {jogador.id}')
-    input("AAA")
-    # jogadores_choices = [Choice(jogador["nome"], jogador["id"]) for jogador in jogadores]
-    # jogador = inquirer.select(
-    #   message="Escolha o jogador que deseja carregar",
-    #   choices=jogadores_choices,
-    # ).execute()
+    jogadores_choices = [Choice(jogador.id, f'{jogador.id}. {jogador.nome}') for jogador in jogadores]
+    jogador = inquirer.select(
+      message="Escolha o jogador que deseja carregar",
+      choices=jogadores_choices,
+    ).execute()
 
-    # self.gameplay(jogador)
+    self.gameplay(jogador)
 
   def gameplay(self, id_jogador):
     clear()

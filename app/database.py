@@ -48,7 +48,7 @@ class Database:
       return transform_result(self.cur.description, [player_data])[0]
 
     def get_players(self):
-      sql = "SELECT id, nome FROM pc"
+      sql = "SELECT id, nome FROM pc ORDER BY id"
       self.cur.execute(sql)
 
       players = self.cur.fetchall()

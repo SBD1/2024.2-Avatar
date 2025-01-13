@@ -1,75 +1,111 @@
 import psycopg2
+from psycopg2.extras import NamedTupleCursor
 import time
-import pandas as pd
 
 class Database:
     def __init__(self):
-        time.sleep(10) # aguarda 5 segundos para garantir que o banco de dados esteja pronto
-        self.conn = psycopg2.connect(
-            user="postgres",
-            password="postgres",
-            host="db",
-            port="5432",
-            database="DB",
-        )
-        self.cur = self.conn.cursor()
+        time.sleep(10)  # Aguarda o banco estar pronto
+        try:
+            self.conn = psycopg2.connect(
+                user="postgres",
+                password="postgres",
+                host="db",
+                port="5432",
+                database="DB",
+            )
+        except psycopg2.Error as e:
+            print(f"Erro ao conectar ao banco de dados: {e}")
+            raise
 
-    def close(self):
-        self.cur.close()
+    def query_all(self, sql, params=None):
+        try:
+            with self.conn.cursor(cursor_factory=NamedTupleCursor) as cursor:
+                cursor.execute(sql, params)
+                return cursor.fetchall()
+        except psycopg2.Error as e:
+            print(f"Erro ao executar query_all: {e}")
+            raise
+
+    def query_one(self, sql, params=None):
+        try:
+            with self.conn.cursor(cursor_factory=NamedTupleCursor) as cursor:
+                cursor.execute(sql, params)
+                return cursor.fetchone()
+        except psycopg2.Error as e:
+            print(f"Erro ao executar query_one: {e}")
+            raise
+
+    def create(self, sql, params=None):
+        try:
+            with self.conn.cursor(cursor_factory=NamedTupleCursor) as cursor:
+                cursor.execute(sql, params)
+                self.conn.commit()
+                return cursor.fetchone()[0]
+        except psycopg2.Error as e:
+            print(f"Erro ao executar create: {e}")
+            self.conn.rollback()
+            raise
+
+    def update(self, sql, params=None):
+        try:
+            with self.conn.cursor() as cursor:
+                cursor.execute(sql, params)
+                self.conn.commit()
+        except psycopg2.Error as e:
+            print(f"Erro ao executar update: {e}")
+            self.conn.rollback()
+            raise
+
+    def close_connection(self):
         self.conn.close()
 
+
     def create_player(self, nome):
-        # Cria uma nova referência de um PC na tabela personagem
         sql_personagem = "INSERT INTO personagem (tipo) VALUES (%s) RETURNING id"
-        self.cur.execute(sql_personagem, ('P',))
-        id_personagem = self.cur.fetchone()[0]
-        
-        # Cria um novo jogador na tabela pc (playable character)
+        id_personagem = self.create(sql_personagem, ('P',))
+
         sql_jogador = "INSERT INTO pc (id, nome) VALUES (%s, %s)"
-        self.cur.execute(sql_jogador, (id_personagem, nome))
-        
-        self.conn.commit()
+        self.create(sql_jogador, (id_personagem, nome))
+
         return id_personagem
 
     def get_player(self, id_jogador):
-      sql = "SELECT * FROM pc WHERE id = %s"
-      self.cur.execute(sql, (id_jogador,))
-      player_data = self.cur.fetchone()
-      return {
-          "id": player_data[0],
-          "nome": player_data[1],
-          "vida_atual": player_data[2],
-          "vida_max": player_data[3],
-          "xp": player_data[4],
-          "nivel": player_data[5],
-          "id_area_atual": player_data[9],
-      }
-    
+        sql = "SELECT * FROM pc WHERE id = %s"
+        return self.query_one(sql, (id_jogador,))
+
     def get_area(self, id_area):
-      sql = "SELECT * FROM area WHERE id = %s"
-      self.cur.execute(sql, (id_area,))
-      areas = self.cur.fetchone()
-      return {
-          "id": areas[0],
-          "nome": areas[1],
-          "descricao": areas[2],
-          "area_norte": areas[3],
-          "area_sul": areas[4],
-          "area_leste": areas[5],
-          "area_oeste": areas[6],
-          "cidade": areas[7],
-      }
-    
+        sql = "SELECT * FROM area WHERE id = %s"
+        return self.query_one(sql, (id_area,))
+
     def get_nome_area(self, id_area):
-      sql = "SELECT nome FROM area WHERE id = %s"
-      self.cur.execute(sql, (id_area,))
-      result = self.cur.fetchone()[0]
-      if (result == None):
-        return "Nenhuma"
-      return result
+        sql = "SELECT nome FROM area WHERE id = %s"
+        result = self.query_one(sql, (id_area,))
+        return result.nome if result else "Nenhuma"
 
     def update_player_area(self, id_jogador, id_area):
-      sql = "UPDATE pc SET id_area_atual = %s WHERE id = %s"
-      self.cur.execute(sql, (id_area, id_jogador))
-      self.conn.commit()
-      
+        sql = "UPDATE pc SET id_area_atual = %s WHERE id = %s"
+        self.update(sql, (id_area, id_jogador))
+
+    def get_tecnica(self, nome):
+        sql = "SELECT tipo FROM tecnica WHERE nome = %s"
+        tipo_tecnica = self.query_one(sql, (nome,))
+        
+        if not tipo_tecnica:
+            print(f"Técnica '{nome}' não encontrada.")
+            return None
+        
+        tipo = tipo_tecnica.tipo
+
+        if tipo == 'A':
+            sql = "SELECT * FROM ataque WHERE nome = %s"
+        elif tipo == 'D':
+            sql = "SELECT * FROM defesa WHERE nome = %s"
+        elif tipo == 'M':
+            sql = "SELECT * FROM mobilidade WHERE nome = %s"
+        elif tipo == 'C':
+            sql = "SELECT * FROM cura WHERE nome = %s"
+        else:
+            print(f"Tipo de técnica inválido: {tipo}")
+            return None
+
+        return self.query_one(sql, (nome,))

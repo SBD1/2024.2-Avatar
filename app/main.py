@@ -95,37 +95,37 @@ class Game():
       clear()
       print("================================")
       print("STATUS DO JOGADOR")
-      print(jogador["nome"])
-      print(f'Pontos de Vida: {jogador["vida_atual"]}/{jogador["vida_max"]}')
-      print(f'Nível: {jogador["nivel"]} ({jogador["xp"]} XP)')
+      print(jogador.nome)
+      print(f'Pontos de Vida: {jogador.vida_atual}/{jogador.vida_max}')
+      print(f'Nível: {jogador.nivel} ({jogador.xp} XP)')
       print("================================")
 
-      area_atual = self.db.get_area(jogador["id_area_atual"])
+      area_atual = self.db.get_area(jogador.id_area_atual)
 
-      print(f'Cidade atual: {area_atual["cidade"]}')
-      print(f'Area Atual: {area_atual["nome"]}')
-      print(f'Descrição: {area_atual["descricao"]}')
+      print(f'Cidade atual: {area_atual.cidade}')
+      print(f'Area Atual: {area_atual.nome}')
+      print(f'Descrição: {area_atual.descricao}')
       print()
 
       direcao = inquirer.select(
         message="Para qual direção você quer se mover?",
         choices=[
-          Choice("norte", f'Norte: {self.db.get_nome_area(area_atual["area_norte"])}'),
-          Choice("sul", f'Sul: {self.db.get_nome_area(area_atual["area_sul"])}'),
-          Choice("leste", f'Leste: {self.db.get_nome_area(area_atual["area_leste"])}'),
-          Choice("oeste", f'Oeste: {self.db.get_nome_area(area_atual["area_oeste"])}'),
+          Choice("norte", f'Norte: {self.db.get_nome_area(area_atual.area_norte)}'),
+          Choice("sul", f'Sul: {self.db.get_nome_area(area_atual.area_sul)}'),
+          Choice("leste", f'Leste: {self.db.get_nome_area(area_atual.area_leste)}'),
+          Choice("oeste", f'Oeste: {self.db.get_nome_area(area_atual.area_oeste)}'),
           "Voltar ao Menu Inicial"
         ]
       ).execute()
 
       if direcao == "norte":
-        id_prox_area = area_atual["area_norte"]
+        id_prox_area = area_atual.area_norte
       elif direcao == "sul":
-        id_prox_area = area_atual["area_sul"]
+        id_prox_area = area_atual.area_sul
       elif direcao == "leste":
-        id_prox_area = area_atual["area_leste"]
+        id_prox_area = area_atual.area_leste
       elif direcao == "oeste":
-        id_prox_area = area_atual["area_oeste"]
+        id_prox_area = area_atual.area_oeste
       
       elif direcao == "Voltar ao Menu Inicial":
         break

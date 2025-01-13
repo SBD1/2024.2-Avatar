@@ -3,11 +3,12 @@ import time
 import pandas as pd
 from types import SimpleNamespace
 
-# Tranforma o resultado (tupla) em um objeto tipo SimpleNamespace
+# Tranforma o resultado (tupla) em uma lista de objetos
 def transform_result(description, fetch):
     # pega todas as colunas do resultado
     columns = [col[0] for col in description]
     # cria um objeto SimpleNamespace para cada linha
+    
     return [SimpleNamespace(**dict(zip(columns, row))) for row in fetch]
 
 class Database:
@@ -43,15 +44,8 @@ class Database:
       sql = "SELECT * FROM pc WHERE id = %s"
       self.cur.execute(sql, (id_jogador,))
       player_data = self.cur.fetchone()
-      return {
-          "id": player_data[0],
-          "nome": player_data[1],
-          "vida_atual": player_data[2],
-          "vida_max": player_data[3],
-          "xp": player_data[4],
-          "nivel": player_data[5],
-          "id_area_atual": player_data[9],
-      }
+      # [0] no final, pois transform_result sempre retorna uma lista de objetos (mesmo que unico)
+      return transform_result(self.cur.description, [player_data])[0]
 
     def get_players(self):
       sql = "SELECT id, nome FROM pc"
@@ -68,16 +62,7 @@ class Database:
       sql = "SELECT * FROM area WHERE id = %s"
       self.cur.execute(sql, (id_area,))
       areas = self.cur.fetchone()
-      return {
-          "id": areas[0],
-          "nome": areas[1],
-          "descricao": areas[2],
-          "area_norte": areas[3],
-          "area_sul": areas[4],
-          "area_leste": areas[5],
-          "area_oeste": areas[6],
-          "cidade": areas[7],
-      }
+      return transform_result(self.cur.description, [areas])[0]
     
     def get_nome_area(self, id_area):
       sql = "SELECT nome FROM area WHERE id = %s"

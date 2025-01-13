@@ -181,26 +181,23 @@ INSERT INTO contem_item (id_instancia_item, id_area) VALUES
     (7, 1);  -- Pergaminho de Defesa Rochosa na área 1
 
 INSERT INTO personagem (id, tipo) VALUES
-    (1, 'G'),  -- Personagem de id 1 é um Guerreiro
-    (2, 'M');  -- Personagem de id 2 é um Mago
-    (3, 'G'),  -- Personagem de id 3 é um Guerreiro
-    (4, 'M');  -- Personagem de id 4 é um Mago
+    (1, 'P'),  -- Personagem de id 1 é um Personagem Controlável (PC)
+    (2, 'A'),  -- Personagem de id 2 é um Amigo
+    (3, 'I'),  -- Personagem de id 3 é um Inimigo
+    (4, 'P');  -- Personagem de id 4 é outro Personagem Controlável (PC)
 
 -- Personagem Jogável (PC)
 INSERT INTO pc (id, nome, vida_max, vida_atual, xp, elemento, nivel, moedas, peso_max_inventario,
                 id_area_atual, item_capacete, item_peitoral, item_acessorio, item_botas, item_arma) VALUES
     (1, 'Aragorn', 200, 150, 500, 'fogo', 10, 100, 100.0, 1, 36, 41, 46, 51, 26),  -- Guerreiro com itens
-    (2, 'Merlin', 150, 120, 300, 'ar', 8, 150, 100.0, 2, 37, 42, 47, 52, 27),  -- Mago com itens
-    (3, 'Gimli', 180, 180, 700, 'terra', 12, 50, 120.0, 3, 38, 43, 48, 53, 28),  -- Guerreiro com itens
-    (4, 'Gandalf', 220, 200, 800, 'todos', 15, 200, 100.0, 4, 39, 44, 49, 54, 29);  -- Mago com itens
 
 INSERT INTO amigo (id, nome, vida_max, vida_atual, xp, elemento, nivel, fala_entrada, fala_saida, eh_mestre,
                     nivel_necessario_discipulo, eh_mercador, nivel_necessario_compra, mult_preco,
                     eh_curandeiro, preco_por_ponto_cura, id_area) VALUES
-    (1, 'Elrond', 250, 240, 600, 'ar', 15, 'Bem-vindo, jovem herói.', 'Até logo, que os ventos te guiem.', TRUE, 5, FALSE, NULL, NULL, FALSE, NULL, 1),  -- Mestre
-    (2, 'Frodo', 150, 100, 400, 'agua', 10, 'Estou aqui para ajudar no que for preciso.', 'Volte sempre, meu amigo.', FALSE, NULL, TRUE, 5, 1.5, TRUE, 10, 2),  -- Mercador e Curandeiro
-    (3, 'Samwise', 180, 170, 550, 'terra', 12, 'Sempre ao seu lado, amigo.', 'Até a próxima, Aragorn.', FALSE, NULL, TRUE, 7, 1.2, FALSE, NULL, 3),  -- Mercador
-    (4, 'Gimli', 200, 200, 700, 'fogo', 14, 'Os ventos de fogo me guiarão.', 'Até mais, nos veremos em breve.', FALSE, NULL, FALSE, NULL, NULL, TRUE, 15, 4);  -- Curandeiro
+    (10, 'Iroh', 250, 240, 600, 'fogo', 15, 'Bem-vindo, jovem aprendiz.', 'Que o fogo do seu espírito o guie.', TRUE, 5, FALSE, NULL, NULL, FALSE, NULL, 1),  -- Mestre
+    (11, 'Katara', 150, 100, 400, 'agua', 10, 'Estou aqui para ajudar você.', 'Volte sempre, confie na sua força.', FALSE, NULL, TRUE, 5, 1.5, TRUE, 10, 2),  -- Mercadora e Curandeira
+    (12, 'Toph', 180, 170, 550, 'terra', 12, 'Sempre com os pés no chão, amigo.', 'Nos vemos por aí, pedra dura.', FALSE, NULL, TRUE, 7, 1.2, FALSE, NULL, 3),  -- Mercadora
+    (13, 'Zuko', 200, 200, 700, 'fogo', 14, 'Estou aqui para lutar ao seu lado.', 'Até breve, que sua chama nunca se apague.', FALSE, NULL, FALSE, NULL, NULL, TRUE, 15, 4);  -- Curandeiro
 
 INSERT INTO fala_historia (dialogo, id_amigo) VALUES
     ('O destino nos chama, jovem guerreiro.', 1),  -- Elrond

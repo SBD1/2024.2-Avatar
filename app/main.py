@@ -3,7 +3,7 @@ from prompt_toolkit.validation import ValidationError, Validator
 from database import Database
 import os
 
-from asciiArt import AANG
+from asciiArt import AANG, APPA
 
 
 # limpa o terminal
@@ -60,9 +60,25 @@ class Game():
   def gameplay(self, id_jogador):
     clear()
     print("================================")
+    print(APPA)
     print("GAMEPLAY")
     print("================================")
     print("O mundo está em guerra, e o equilíbrio entre os quatro elementos foi quebrado. Em um tempo de incerteza, heróis surgem de onde menos se espera. Agora é sua vez de agir. Você será testado em coragem, sabedoria e poder. Sua jornada será difícil, mas sua determinação pode mudar o destino do mundo. Prepare-se para enfrentar desafios e lutar pela paz. O futuro depende de suas escolhas!")
+    print()
+    input("Pressione Enter para começar...")
+
+    while True:
+      jogador = self.db.get_player(id_jogador)
+      clear()
+      print("================================")
+      print("STATUS DO JOGADOR")
+      print(jogador["nome"])
+      print(f'Pontos de Vida: {jogador["vidaAtual"]}/{jogador["vidaMax"]}')
+      print(f'Nível: {jogador["nivel"]} ({jogador["xp"]} XP)')
+      print("================================")
+
+      input("ha ha ha")
+
     
     
 def valida_nome_jogador(answers, current):

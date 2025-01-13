@@ -30,3 +30,16 @@ class Database:
         
         self.conn.commit()
         return id_personagem
+
+    def get_player(self, id_jogador):
+        sql = "SELECT * FROM pc WHERE id = %s"
+        self.cur.execute(sql, (id_jogador,))
+        player_data = self.cur.fetchone()
+        return {
+            "id": player_data[0],
+            "nome": player_data[1],
+            "vidaAtual": player_data[2],
+            "vidaMax": player_data[3],
+            "xp": player_data[4],
+            "nivel": player_data[5]
+        }

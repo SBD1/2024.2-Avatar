@@ -1,5 +1,5 @@
 from InquirerPy import inquirer
-from prompt_toolkit.validation import ValidationError, Validator
+from InquirerPy.base.control import Choice
 from database import Database
 import os
 
@@ -16,30 +16,32 @@ class Game():
     self.db = Database()
   
   def start(self):
-    clear()
-    print("================================")
-    print(AANG)
-    print("RPG AVATAR: A LENDA DE AANG")
-    print("================================")
+    while True:
+      clear()
+      print("================================")
+      print(AANG)
+      print("RPG AVATAR: A LENDA DE AANG")
+      print("================================")
 
-    startOptions = ["Iniciar Novo Jogo", "Carregar Jogo", "Sair"]
-    choice = inquirer.select(
+      startOptions = ["Iniciar Novo Jogo", "Carregar Jogo", "Sair"]
+      choice = inquirer.select(
       message="Bem vindo Jogador, escolha uma opção",
-      choices= startOptions,
-    ).execute()
+      choices=startOptions,
+      ).execute()
 
-    # Iniciar Novo Jogo
-    if choice == startOptions[0]:
-      self.new_game()
+      # Iniciar Novo Jogo
+      if choice == startOptions[0]:
+        self.new_game()
       
-    # Carregar Jogo
-    elif choice == startOptions[1]:
-      print("Carregar Jogo")
+      # Carregar Jogo
+      elif choice == startOptions[1]:
+        print("Carregar Jogo")
 
-    # Sair
-    elif choice == startOptions[2]:
-      print("Saindo...")
-      self.db.close()
+      # Sair
+      elif choice == startOptions[2]:
+        print("Saindo...")
+        self.db.close()
+        break
 
   def new_game(self):
     clear()
@@ -61,9 +63,8 @@ class Game():
     clear()
     print("================================")
     print(APPA)
-    print("GAMEPLAY")
-    print("================================")
     print("O mundo está em guerra, e o equilíbrio entre os quatro elementos foi quebrado. Em um tempo de incerteza, heróis surgem de onde menos se espera. Agora é sua vez de agir. Você será testado em coragem, sabedoria e poder. Sua jornada será difícil, mas sua determinação pode mudar o destino do mundo. Prepare-se para enfrentar desafios e lutar pela paz. O futuro depende de suas escolhas!")
+    print("================================")
     print()
     input("Pressione Enter para começar...")
 
@@ -73,22 +74,42 @@ class Game():
       print("================================")
       print("STATUS DO JOGADOR")
       print(jogador["nome"])
-      print(f'Pontos de Vida: {jogador["vidaAtual"]}/{jogador["vidaMax"]}')
+      print(f'Pontos de Vida: {jogador["vida_atual"]}/{jogador["vida_max"]}')
       print(f'Nível: {jogador["nivel"]} ({jogador["xp"]} XP)')
       print("================================")
 
-      input("ha ha ha")
+      area_atual = self.db.get_area(jogador["id_area_atual"])
 
-    
-    
-def valida_nome_jogador(answers, current):
-  # Verifica se o comprimento está entre 3 e 50 caracteres
-  if len(current) < 3:
-    raise Exception("O valor precisa ter pelo menos 3 caracteres.")
-  elif len(current) > 50:
-    raise Exception("O valor não pode ter mais de 50 caracteres.")
-  return True
+      print(f'Cidade atual: {area_atual["cidade"]}')
+      print(f'Area Atual: {area_atual["nome"]}')
+      print(f'Descrição: {area_atual["descricao"]}')
+      print()
 
+      direcao = inquirer.select(
+        message="Para qual direção você quer se mover?",
+        choices=[
+          Choice("norte", f'Norte: {self.db.get_nome_area(area_atual["area_norte"])}'),
+          Choice("sul", f'Sul: {self.db.get_nome_area(area_atual["area_sul"])}'),
+          Choice("leste", f'Leste: {self.db.get_nome_area(area_atual["area_leste"])}'),
+          Choice("oeste", f'Oeste: {self.db.get_nome_area(area_atual["area_oeste"])}'),
+          "Voltar ao Menu Inicial"
+        ]
+      ).execute()
+
+      if direcao == "norte":
+        id_prox_area = area_atual["area_norte"]
+      elif direcao == "sul":
+        id_prox_area = area_atual["area_sul"]
+      elif direcao == "leste":
+        id_prox_area = area_atual["area_leste"]
+      elif direcao == "oeste":
+        id_prox_area = area_atual["area_oeste"]
+      
+      elif direcao == "Voltar ao Menu Inicial":
+        break
+
+      self.db.update_player_area(id_jogador, id_prox_area)
+    
 
 if __name__ == "__main__":
   game = Game()

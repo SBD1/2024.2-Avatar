@@ -220,9 +220,8 @@ INSERT INTO fala_combate (dialogo, id_inimigo) VALUES
 
 INSERT INTO combate (id_pc, id_inimigo, data_hora, id_vencedor) VALUES
     (1, 1, '2025-01-15 10:30:00', 1),  -- PC 1 (guerreiro) vs Orc - vencedor: PC
-    (2, 2, '2025-01-15 12:45:00', 2),  -- PC 2 (mago) vs Golem - vencedor: Inimigo (Golem)
-    (3, 3, '2025-01-16 14:00:00', 3),  -- PC 3 (arqueiro) vs Dragão - vencedor: PC
-    (4, 4, '2025-01-17 16:30:00', 4);  -- PC 4 (curandeiro) vs Necromante - vencedor: Inimigo (Necromante)
+    (1, 2, '2025-01-15 12:45:00', 1),  -- PC 1 (guerreiro) vs Golem - vencedor: PC
+    (1, 3, '2025-01-16 14:00:00', 1);  -- PC 1 (guerreiro) vs Dragão - vencedor: PC
 
 INSERT INTO tecnica(nome, tipo) VALUES
     -- ataque

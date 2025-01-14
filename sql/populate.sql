@@ -1,27 +1,5 @@
 USE Avatar;
 
-INSERT INTO nacao(nome, descricao) VALUES
-('Norte', 'Uma nação situada ao norte, conhecida por seu clima frio e montanhas imponentes.'),
-('Sul', 'Uma nação tropical com vastas florestas e fauna diversificada.'),
-('Leste', 'Uma nação rica em cultura e história, famosa por seus grandes templos.'),
-('Oeste', 'Uma nação industrializada com grandes cidades e avanços tecnológicos.');
-
-INSERT INTO cidade(nome, descricao, nivel_necessario_entrar, nacao) VALUES
-('Aurora', 'Cidade localizada nas montanhas geladas da Nação do Norte.', 5, 'Norte'),
-('Florestalis', 'Cidade tropical cercada por florestas densas na Nação do Sul.', 3, 'Sul'),
-('Templicus', 'Cidade histórica repleta de templos antigos na Nação do Leste.', 7, 'Leste'),
-('Techville', 'Cidade moderna e tecnológica na Nação do Oeste.', 2, 'Oeste');
-
-INSERT INTO area(nome, descricao, area_norte, area_sul, area_leste, area_oeste, cidade) VALUES
-('Pico Congelado', 'Uma área montanhosa coberta de neve eterna.', NULL, 2, NULL, NULL, 'Aurora'),
-('Vale Gélido', 'Um vale entre montanhas, frequentemente nevado.', 1, NULL, NULL, NULL, 'Aurora'),
-('Selva Profunda', 'Uma densa floresta tropical com fauna selvagem.', NULL, NULL, 5, NULL, 'Florestalis'),
-('Cachoeira Cristalina', 'Uma área com uma cachoeira magnífica e um lago cristalino.', NULL, NULL, NULL, 3, 'Florestalis'),
-('Templo Antigo', 'Um templo sagrado com segredos antigos.', NULL, NULL, 7, NULL, 'Templicus'),
-('Ruínas Misteriosas', 'Ruínas que guardam enigmas e artefatos antigos.', 5, NULL, NULL, NULL, 'Templicus'),
-('Laboratório Secreto', 'Um laboratório de pesquisa escondido.', NULL, NULL, NULL, 9, 'Techville'),
-('Praça Central', 'O coração da cidade tecnológica.', 7, NULL, NULL, NULL, 'Techville');
-
 INSERT INTO item(id, tipo) VALUES
     -- Pergaminhos (S -> Scroll)
     (1, 'S'),

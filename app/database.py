@@ -66,6 +66,9 @@ class Database:
 
 
   def create_player(self, nome):
+    sql_update_id = "SELECT setval('personagem_id_seq', (SELECT MAX(id) FROM personagem))"
+    self.update(sql_update_id)
+  
     sql_personagem = "INSERT INTO personagem (tipo) VALUES (%s) RETURNING id"
     id_personagem = self.create(sql_personagem, ('P',))
 

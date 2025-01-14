@@ -124,3 +124,54 @@ class Database:
       return None
 
     return self.query_one(sql, (nome,))
+  
+  def get_tecnicas_personagem(self, id_personagem):
+    sql = """
+    SELECT * 
+    FROM sabe_tecnica ST 
+    JOIN tecnica T 
+    ON ST.nome_tecnica = T.nome 
+    WHERE ST.id_personagem = %s
+    """
+    return self.query_all(sql, (id_personagem,))
+
+  def get_ataques_personagem(self, id_personagem):
+    sql = """
+    SELECT * 
+    FROM sabe_tecnica ST 
+    JOIN ataque A 
+    ON ST.nome_tecnica = A.nome 
+    WHERE ST.id_personagem = %s
+    """
+    return self.query_all(sql, (id_personagem,))
+  
+  def get_defesas_personagem(self, id_personagem):
+    sql = """
+    SELECT * 
+    FROM sabe_tecnica ST 
+    JOIN defesa D 
+    ON ST.nome_tecnica = D.nome 
+    WHERE ST.id_personagem = %s
+    """
+    return self.query_all(sql, (id_personagem,))
+  
+  def get_mobilidades_personagem(self, id_personagem):
+    sql = """
+    SELECT * 
+    FROM sabe_tecnica ST 
+    JOIN mobilidade M 
+    ON ST.nome_tecnica = M.nome 
+    WHERE ST.id_personagem = %s
+    """
+    return self.query_all(sql, (id_personagem,))
+  
+  def get_curas_personagem(self, id_personagem):
+    sql = """
+    SELECT * 
+    FROM sabe_tecnica ST 
+    JOIN cura C 
+    ON ST.nome_tecnica = C.nome 
+    WHERE ST.id_personagem = %s
+    """
+    return self.query_all(sql, (id_personagem,))
+  

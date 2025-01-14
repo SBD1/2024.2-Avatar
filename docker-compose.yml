@@ -22,6 +22,9 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+    volumes:
+      - ./app:/app 
+    command: python3 /app/main.py 
     stdin_open: true
     tty: true
 

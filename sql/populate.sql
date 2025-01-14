@@ -1,184 +1,4 @@
-USE Avatar;
 
-INSERT INTO nacao(nome, descricao) VALUES
-('Norte', 'Uma nação situada ao norte, conhecida por seu clima frio e montanhas imponentes.'),
-('Sul', 'Uma nação tropical com vastas florestas e fauna diversificada.'),
-('Leste', 'Uma nação rica em cultura e história, famosa por seus grandes templos.'),
-('Oeste', 'Uma nação industrializada com grandes cidades e avanços tecnológicos.');
-
-INSERT INTO cidade(nome, descricao, nivel_necessario_entrar, nacao) VALUES
-('Aurora', 'Cidade localizada nas montanhas geladas da Nação do Norte.', 5, 'Norte'),
-('Florestalis', 'Cidade tropical cercada por florestas densas na Nação do Sul.', 3, 'Sul'),
-('Templicus', 'Cidade histórica repleta de templos antigos na Nação do Leste.', 7, 'Leste'),
-('Techville', 'Cidade moderna e tecnológica na Nação do Oeste.', 2, 'Oeste');
-
-INSERT INTO area(nome, descricao, area_norte, area_sul, area_leste, area_oeste, cidade) VALUES
-('Pico Congelado', 'Uma área montanhosa coberta de neve eterna.', NULL, 2, NULL, NULL, 'Aurora'),
-('Vale Gélido', 'Um vale entre montanhas, frequentemente nevado.', 1, NULL, NULL, NULL, 'Aurora'),
-('Selva Profunda', 'Uma densa floresta tropical com fauna selvagem.', NULL, NULL, 5, NULL, 'Florestalis'),
-('Cachoeira Cristalina', 'Uma área com uma cachoeira magnífica e um lago cristalino.', NULL, NULL, NULL, 3, 'Florestalis'),
-('Templo Antigo', 'Um templo sagrado com segredos antigos.', NULL, NULL, 7, NULL, 'Templicus'),
-('Ruínas Misteriosas', 'Ruínas que guardam enigmas e artefatos antigos.', 5, NULL, NULL, NULL, 'Templicus'),
-('Laboratório Secreto', 'Um laboratório de pesquisa escondido.', NULL, NULL, NULL, 9, 'Techville'),
-('Praça Central', 'O coração da cidade tecnológica.', 7, NULL, NULL, NULL, 'Techville');
-
-INSERT INTO item(id, tipo) VALUES
-    -- Pergaminhos (S -> Scroll)
-    (1, 'S'),
-    (2, 'S'),
-    (3, 'S'),
-    (4, 'S'),
-    (5, 'S'),
-    (6, 'S'),
-    (7, 'S'),
-    (8, 'S'),
-    (9, 'S'),
-    (10, 'S'),
-    (11, 'S'),
-    (12, 'S'),
-    (13, 'S'),
-    (14, 'S'),
-    (15, 'S'),
-    (16, 'S'),
-    (17, 'S'),
-    (18, 'S'),
-    (19, 'S'),
-    (20, 'S'),
-    -- Poções (P -> Potion)
-    (21, 'P'),
-    (22, 'P'),
-    (23, 'P'),
-    (24, 'P'),
-    (25, 'P'),
-    -- Arma (W -> Weapon)
-    (26, 'W'),
-    (27, 'W'),
-    (28, 'W'),
-    (29, 'W'),
-    (30, 'W'),
-    (31, 'W'),
-    (32, 'W'),
-    (33, 'W'),
-    (34, 'W'),
-    (35, 'W'),
-    -- Armadura (A -> Armor)
-    (36, 'A'),
-    (37, 'A'),
-    (38, 'A'),
-    (39, 'A'),
-    (40, 'A'),
-    (41, 'A'),
-    (42, 'A'),
-    (43, 'A'),
-    (44, 'A'),
-    (45, 'A'),
-    (46, 'A'),
-    (47, 'A'),
-    (48, 'A'),
-    (49, 'A'),
-    (50, 'A'),
-    (51, 'A'),
-    (52, 'A'),
-    (53, 'A'),
-    (54, 'A'),
-    (55, 'A');
-
-INSERT INTO pergaminho(id, nome, peso, preco, raridade, tecnica) VALUES
-    -- Pergaminhos de Água
-      (1, 'Pergaminho do Gelo Cortante', 1.0, 30, 'comum', 'Discos de Gelo'),
-      (2, 'Pergaminho do Gelo Perfurante', 1.0, 130, 'epico', 'Espinhos de Gelo'),
-      (3, 'Pergaminho da Água Espiritual', 1.0, 130, 'epico', 'Equilibrio Espiritual'),
-      (4, 'Pergaminho de Sangue', 1.0, 220, 'lendario', 'Marionete'),
-      (5, 'Pergaminho da Tensão Superficial', 1.0, 70, 'raro', 'Corrida na Água'),
-      -- Pergaminhos de Terra
-      (6, 'Pergaminho de Impacto de Terra', 1.0, 30, 'comum', 'Bloco de Terra'),
-      (7, 'Pergaminho de Defesa Rochosa', 1.0, 70, 'raro', 'Escudo de Rocha'),
-      (8, 'Pergaminho de Artilharia Rochosa', 1.0, 220, 'lendario', 'Balas de Rocha Compactada'),
-      (9, 'Pergaminho de Lava', 1.0, 130, 'epico', 'Disco de Lava'),
-      (10, 'Pergaminho de Defesa Metálica', 1.0, 130, 'epico', 'Escudo de Metal'),
-      -- Pergaminhos de Fogo
-      (11, 'Pergaminho de Fogo Marcial', 1.0, 30, 'comum', 'Soco de Fogo'),
-      (12, 'Pergaminho de Fogo Cortante', 1.0, 70, 'raro', 'Adaga de Fogo'),
-      (13, 'Pergaminho de Astrologia Ofensiva', 1.0, 130, 'epico', 'Cometa de Fogo'),
-      (14, 'Pergaminho de Relâmpago', 1.0, 220, 'lendario', 'Lançar Raio'),
-      (15, 'Pergaminho de Combustão', 1.0, 130, 'epico', 'Explosão Mental'),
-      -- Pergaminhos de Ar
-      (16, 'Pergaminho de Ar Condensado', 1.0, 30, 'comum', 'Jato de Ar'),
-      (17, 'Pergaminho de Ventos Protetivos', 1.0, 70, 'raro', 'Escudo de Ar'),
-      (18, 'Pergaminho de Asfixia', 1.0, 220, 'lendario', 'Asfixia'),
-      (19, 'Pergaminho de Ar Espiritual', 1.0, 130, 'epico', 'Projeção espiritual'),
-      (20, 'Pergaminho de Ventos Selvagens', 1.0, 130, 'epico', 'Furacão');
-
-INSERT INTO pocao(id, nome, peso, preco, pontos_cura) VALUES
-    (21, 'Poção Inferior', 1.0, 5, 10),
-    (22, 'Poção Básica', 1.0, 10, 25),
-    (23, 'Poção Intermediária', 1.0, 20, 60),
-    (24, 'Poção Avançada', 1.0, 50, 180),
-    (25, 'Poção Superior', 1.0, 100, 400);
-
-INSERT INTO arma(id, nome, peso, preco, dano) VALUES
-    (26, 'Lança de Pedra', 5.0, 15, 10),
-    (27, 'Adaga de Latão', 3.5, 30, 15),
-    (28, 'Machado de Alumínio', 6.5, 60, 25),
-    (29, 'Espada de Cobre', 5.5, 80, 40),
-    (30, 'Cajado de Bronze', 7.5, 110, 60),
-    (31, 'Rapieira de Prata', 6.0, 150, 75),
-    (32, 'Espada de Ouro', 7.0, 230, 100),
-    (33, 'Gládio de Platina', 8.0, 320, 135),
-    (34, 'Lança de Titânio', 10.0, 450, 180),
-    (35, 'Cajado dos Elementos', 11.5, 700, 250);
-
-INSERT INTO armadura(id, nome, peso, preco, pontos_protecao, parte_corpo) VALUES
-    -- capacete
-    (36, 'Capacete de Couro', 2.5, 20, 4, 'capacete'),
-    (37, 'Balde de Latão', 4.0, 50, 6, 'capacete'),
-    (38, 'Capacete de Prata', 5.5, 100, 9, 'capacete'),
-    (39, 'Visor de Platina', 6.0, 190, 13, 'capacete'),
-    (40, 'Coroa dos Elementos', 1.5, 400, 18, 'capacete'),
-    -- peitoral
-    (41, 'Peitoral de Couro', 7.0, 25, 6, 'peitoral'),
-    (42, 'Ombreiras de Latão', 9.5, 65, 9, 'peitoral'),
-    (43, 'Cota de Malha Prateada', 8.0, 120, 13, 'peitoral'),
-    (44, 'Peitoral de Platina', 12.0, 225, 18, 'peitoral'),
-    (45, 'Manto dos Elementos', 3.5, 500, 24, 'peitoral'),
-    -- acessorio
-    (46, 'Braceletes de Couro', 1.0, 15, 2, 'acessorio'),
-    (47, 'Anel de Latão', 0.5, 35, 5, 'acessorio'),
-    (48, 'Brincos de Prata', 0.5, 75, 8, 'acessorio'),
-    (49, 'Anel de Platina', 0.5, 160, 11, 'acessorio'),
-    (50, 'Braceletes dos Elementos', 1.0, 350, 15, 'acessorio'),
-    -- botas
-    (51, 'Perneiras de Couro', 3.5, 20, 4, 'botas'),
-    (52, 'Sabaton de Latão', 4.0, 50, 6, 'botas'),
-    (53, 'Botas de Prata', 5.5, 100, 9, 'botas'),
-    (54, 'Perneiras de Platina', 8.0, 190, 13, 'botas'),
-    (55, 'Botas dos Elementos', 2.0, 400, 18, 'botas');
-
-    -- Proteção das Armaduras por Nível (os 4 slots juntos):
-        -- Couro -> 16
-        -- Latão -> 26
-        -- Prata -> 39
-        -- Platina -> 55
-        -- Elementos -> 75
-
-INSERT INTO instancia_item (id_item, id_pc, id_inimigo, id_mercador) VALUES
-    -- Personagem com item
-    (1, 1, NULL, NULL), -- Pergaminho do Gelo Cortante para o personagem com id 1
-    (2, 1, NULL, NULL), -- Pergaminho do Gelo Perfurante para o personagem com id 1
-    (3, NULL, 2, NULL), -- Pergaminho da Água Espiritual para inimigo com id 2
-    (4, NULL, 3, NULL), -- Pergaminho de Sangue para inimigo com id 3
-    (5, NULL, NULL, 1), -- Poção Inferior para mercador com id 1
-    (6, 2, NULL, NULL), -- Pergaminho de Impacto de Terra para o personagem com id 2
-    (7, NULL, 1, NULL); -- Pergaminho de Defesa Rochosa para inimigo com id 1
-
-INSERT INTO contem_item (id_instancia_item, id_area) VALUES
-    (1, 1),  -- Pergaminho do Gelo Cortante na área 1
-    (2, 2),  -- Pergaminho do Gelo Perfurante na área 2
-    (3, 1),  -- Pergaminho da Água Espiritual na área 1
-    (4, 3),  -- Pergaminho de Sangue na área 3
-    (5, 2),  -- Poção Inferior na área 2
-    (6, 3),  -- Pergaminho de Impacto de Terra na área 3
-    (7, 1);  -- Pergaminho de Defesa Rochosa na área 1
 
 INSERT INTO personagem (id, tipo) VALUES
     (1, 'P'),  -- Personagem de id 1 é um Personagem Controlável (PC)
@@ -220,9 +40,8 @@ INSERT INTO fala_combate (dialogo, id_inimigo) VALUES
 
 INSERT INTO combate (id_pc, id_inimigo, data_hora, id_vencedor) VALUES
     (1, 1, '2025-01-15 10:30:00', 1),  -- PC 1 (guerreiro) vs Orc - vencedor: PC
-    (2, 2, '2025-01-15 12:45:00', 2),  -- PC 2 (mago) vs Golem - vencedor: Inimigo (Golem)
-    (3, 3, '2025-01-16 14:00:00', 3),  -- PC 3 (arqueiro) vs Dragão - vencedor: PC
-    (4, 4, '2025-01-17 16:30:00', 4);  -- PC 4 (curandeiro) vs Necromante - vencedor: Inimigo (Necromante)
+    (1, 2, '2025-01-15 12:45:00', 1),  -- PC 1 (guerreiro) vs Golem - vencedor: PC
+    (1, 3, '2025-01-16 14:00:00', 1);  -- PC 1 (guerreiro) vs Dragão - vencedor: PC
 
 INSERT INTO tecnica(nome, tipo) VALUES
     -- ataque
@@ -272,6 +91,7 @@ INSERT INTO tecnica(nome, tipo) VALUES
 
     -- defesa
     ('Escudo de Gelo','D'),
+    ('Equilibrio Espiritual', 'D'),
 
     ('Escudo de Rocha','D'),
     ('Coluna da Terra','D'),
@@ -357,6 +177,7 @@ INSERT INTO ataque(nome, dano_causado, descricao, nivel_necessario_aprender, ele
 
 INSERT INTO defesa(nome, dano_bloqueado, descricao, nivel_necessario_aprender, elemento) VALUES
     ('Escudo de Gelo', 10, 'Cria um escudo defensivo de gelo', 2, 'agua'),
+    ('Equilibrio Espiritual', 25, 'Entra em harmonia com a água e seu espírito, formando uma barreira fluida que envolve seu corpo. Essa defesa mística absorve impactos e dissipa ataques.', 5, 'agua'),
 
     ('Escudo de Rocha', 10, 'Cria um escudo defensivo com rochas', 2, 'terra'),
     ('Coluna da Terra', 10, 'Cria colunas de rocha para se defender', 2, 'terra'),
@@ -393,6 +214,180 @@ INSERT INTO mobilidade(nome, chance_esquiva, descricao, nivel_necessario_aprende
 INSERT INTO cura(nome, pontos_cura, descricao, nivel_necessario_aprender, elemento) VALUES
     ('Cura Simples', 10, 'Habilidade de curar pequenos ferimentos usando água', 2, 'agua'),
     ('Cura Aprimorada', 50, 'Habilidade de curar grandes ferimentos usando água', 2, 'agua');
+
+
+INSERT INTO item(id, tipo)
+VALUES
+    -- Pergaminhos (S -> Scroll)
+    (1, 'S'),
+    (2, 'S'),
+    (3, 'S'),
+    (4, 'S'),
+    (5, 'S'),
+    (6, 'S'),
+    (7, 'S'),
+    (8, 'S'),
+    (9, 'S'),
+    (10, 'S'),
+    (11, 'S'),
+    (12, 'S'),
+    (13, 'S'),
+    (14, 'S'),
+    (15, 'S'),
+    (16, 'S'),
+    (17, 'S'),
+    (18, 'S'),
+    (19, 'S'),
+    (20, 'S'),
+    -- Poções (P -> Potion)
+    (21, 'P'),
+    (22, 'P'),
+    (23, 'P'),
+    (24, 'P'),
+    (25, 'P'),
+    -- Arma (W -> Weapon)
+    (26, 'W'),
+    (27, 'W'),
+    (28, 'W'),
+    (29, 'W'),
+    (30, 'W'),
+    (31, 'W'),
+    (32, 'W'),
+    (33, 'W'),
+    (34, 'W'),
+    (35, 'W'),
+    -- Armadura (A -> Armor)
+    (36, 'A'),
+    (37, 'A'),
+    (38, 'A'),
+    (39, 'A'),
+    (40, 'A'),
+    (41, 'A'),
+    (42, 'A'),
+    (43, 'A'),
+    (44, 'A'),
+    (45, 'A'),
+    (46, 'A'),
+    (47, 'A'),
+    (48, 'A'),
+    (49, 'A'),
+    (50, 'A'),
+    (51, 'A'),
+    (52, 'A'),
+    (53, 'A'),
+    (54, 'A'),
+    (55, 'A');
+
+INSERT INTO pergaminho(id, nome, peso, preco, raridade, tecnica)
+VALUES
+    -- Pergaminhos de Água
+      (1, 'Pergaminho do Gelo Cortante', 1.0, 30, 'comum', 'Discos de Gelo'),
+      (2, 'Pergaminho do Gelo Perfurante', 1.0, 130, 'epico', 'Espinhos de Gelo'),
+      (3, 'Pergaminho da Água Espiritual', 1.0, 130, 'epico', 'Equilibrio Espiritual'),
+      (4, 'Pergaminho de Sangue', 1.0, 220, 'lendario', 'Marionete'),
+      (5, 'Pergaminho da Tensão Superficial', 1.0, 70, 'raro', 'Corrida na Água'),
+      -- Pergaminhos de Terra
+      (6, 'Pergaminho de Impacto de Terra', 1.0, 30, 'comum', 'Bloco de Terra'),
+      (7, 'Pergaminho de Defesa Rochosa', 1.0, 70, 'raro', 'Escudo de Rocha'),
+      (8, 'Pergaminho de Artilharia Rochosa', 1.0, 220, 'lendario', 'Balas de Rocha Compactada'),
+      (9, 'Pergaminho de Lava', 1.0, 130, 'epico', 'Disco de Lava'),
+      (10, 'Pergaminho de Defesa Metálica', 1.0, 130, 'epico', 'Escudo de Metal'),
+      -- Pergaminhos de Fogo
+      (11, 'Pergaminho de Fogo Marcial', 1.0, 30, 'comum', 'Soco de Fogo'),
+      (12, 'Pergaminho de Fogo Cortante', 1.0, 70, 'raro', 'Adaga de Fogo'),
+      (13, 'Pergaminho de Astrologia Ofensiva', 1.0, 130, 'epico', 'Cometa de Fogo'),
+      (14, 'Pergaminho de Relâmpago', 1.0, 220, 'lendario', 'Raio'),
+      (15, 'Pergaminho de Combustão', 1.0, 130, 'epico', 'Explosão Mental'),
+      -- Pergaminhos de Ar
+      (16, 'Pergaminho de Ar Condensado', 1.0, 30, 'comum', 'Jato de Ar'),
+      (17, 'Pergaminho de Ventos Protetivos', 1.0, 70, 'raro', 'Escudo de Ar'),
+      (18, 'Pergaminho de Asfixia', 1.0, 220, 'lendario', 'Asfixia'),
+      (19, 'Pergaminho dos Pés Leves', 1.0, 130, 'epico', 'Pés Propulsores'),
+      (20, 'Pergaminho de Ventos Selvagens', 1.0, 130, 'epico', 'Furacão');
+
+INSERT INTO pocao(id, nome, peso, preco, pontos_cura)
+VALUES
+    (21, 'Poção Inferior', 1.0, 5, 10),
+    (22, 'Poção Básica', 1.0, 10, 25),
+    (23, 'Poção Intermediária', 1.0, 20, 60),
+    (24, 'Poção Avançada', 1.0, 50, 180),
+    (25, 'Poção Superior', 1.0, 100, 400);
+
+INSERT INTO arma(id, nome, peso, preco, dano)
+VALUES
+    (26, 'Lança de Pedra', 5.0, 15, 10),
+    (27, 'Adaga de Latão', 3.5, 30, 15),
+    (28, 'Machado de Alumínio', 6.5, 60, 25),
+    (29, 'Espada de Cobre', 5.5, 80, 40),
+    (30, 'Cajado de Bronze', 7.5, 110, 60),
+    (31, 'Rapieira de Prata', 6.0, 150, 75),
+    (32, 'Espada de Ouro', 7.0, 230, 100),
+    (33, 'Gládio de Platina', 8.0, 320, 135),
+    (34, 'Lança de Titânio', 10.0, 450, 180),
+    (35, 'Cajado dos Elementos', 11.5, 700, 250);
+
+INSERT INTO armadura(id, nome, peso, preco, pontos_protecao, parte_corpo)
+VALUES
+    -- capacete
+    (36, 'Capacete de Couro', 2.5, 20, 4, 'capacete'),
+    (37, 'Balde de Latão', 4.0, 50, 6, 'capacete'),
+    (38, 'Capacete de Prata', 5.5, 100, 9, 'capacete'),
+    (39, 'Visor de Platina', 6.0, 190, 13, 'capacete'),
+    (40, 'Coroa dos Elementos', 1.5, 400, 18, 'capacete'),
+    -- peitoral
+    (41, 'Peitoral de Couro', 7.0, 25, 6, 'peitoral'),
+    (42, 'Ombreiras de Latão', 9.5, 65, 9, 'peitoral'),
+    (43, 'Cota de Malha Prateada', 8.0, 120, 13, 'peitoral'),
+    (44, 'Peitoral de Platina', 12.0, 225, 18, 'peitoral'),
+    (45, 'Manto dos Elementos', 3.5, 500, 24, 'peitoral'),
+    -- acessorio
+    (46, 'Braceletes de Couro', 1.0, 15, 2, 'acessorio'),
+    (47, 'Anel de Latão', 0.5, 35, 5, 'acessorio'),
+    (48, 'Brincos de Prata', 0.5, 75, 8, 'acessorio'),
+    (49, 'Anel de Platina', 0.5, 160, 11, 'acessorio'),
+    (50, 'Braceletes dos Elementos', 1.0, 350, 15, 'acessorio'),
+    -- botas
+    (51, 'Perneiras de Couro', 3.5, 20, 4, 'botas'),
+    (52, 'Sabaton de Latão', 4.0, 50, 6, 'botas'),
+    (53, 'Botas de Prata', 5.5, 100, 9, 'botas'),
+    (54, 'Perneiras de Platina', 8.0, 190, 13, 'botas'),
+    (55, 'Botas dos Elementos', 2.0, 400, 18, 'botas');
+
+    -- Proteção das Armaduras por Nível (os 4 slots juntos):
+        -- Couro -> 16
+        -- Latão -> 26
+        -- Prata -> 39
+        -- Platina -> 55
+        -- Elementos -> 75
+
+
+
+INSERT INTO instancia_item (id_item, id_pc, id_inimigo, id_mercador) VALUES
+    -- Personagem com item
+    (1, 1, NULL, NULL), -- Pergaminho do Gelo Cortante para o personagem com id 1
+    (2, 1, NULL, NULL), -- Pergaminho do Gelo Perfurante para o personagem com id 1
+    (3, NULL, 2, NULL), -- Pergaminho da Água Espiritual para inimigo com id 2
+    (4, NULL, 3, NULL), -- Pergaminho de Sangue para inimigo com id 3
+    (5, NULL, NULL, 1), -- Poção Inferior para mercador com id 1
+    (6, 2, NULL, NULL), -- Pergaminho de Impacto de Terra para o personagem com id 2
+    (7, NULL, 1, NULL); -- Pergaminho de Defesa Rochosa para inimigo com id 1
+
+INSERT INTO contem_item (id_instancia_item, id_area) VALUES
+    (1, 1),  -- Pergaminho do Gelo Cortante na área 1
+    (2, 2),  -- Pergaminho do Gelo Perfurante na área 2
+    (3, 1),  -- Pergaminho da Água Espiritual na área 1
+    (4, 3),  -- Pergaminho de Sangue na área 3
+    (5, 2),  -- Poção Inferior na área 2
+    (6, 3),  -- Pergaminho de Impacto de Terra na área 3
+    (7, 1);  -- Pergaminho de Defesa Rochosa na área 1
+INSERT INTO nacao VALUES ('Teste', 'Nação de Teste');
+
+INSERT INTO cidade VALUES ('Cidade teste', 'Teste', 1, 'Teste');
+
+INSERT INTO area VALUES 
+(1, 'area_inicial','descricao', 1, 1, 1, 2, 'Cidade teste'),
+(2, 'teste','descricao 2', 2, 2, 1, 2, 'Cidade teste');
+
 
 INSERT INTO sabe_tecnica (id_personagem, nome_tecnica) VALUES
     -- Personagem 1

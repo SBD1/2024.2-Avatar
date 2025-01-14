@@ -47,7 +47,8 @@ CREATE TABLE pergaminho (
   preco INT NOT NULL,
   raridade ENUM_RARIDADE DEFAULT 'comum',
   tecnica VARCHAR(50) NOT NULL,
-  FOREIGN KEY (id) REFERENCES item(id)
+  FOREIGN KEY (id) REFERENCES item(id),
+  FOREIGN KEY (tecnica) REFERENCES tecnica(nome)
 );
 
 CREATE TABLE pocao (
@@ -84,7 +85,10 @@ CREATE TABLE instancia_item (
   id_pc INT,
   id_inimigo INT,
   id_mercador INT,
-  FOREIGN KEY (id_item) REFERENCES item(id)
+  FOREIGN KEY (id_item) REFERENCES item(id),
+  FOREIGN KEY (id_pc) REFERENCES pc(id),
+  FOREIGN KEY (id_inimigo) REFERENCES inimigo(id),
+  FOREIGN KEY (id_mercador) REFERENCES amigo(id)
 );
 
 CREATE TABLE contem_item (

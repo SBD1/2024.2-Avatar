@@ -55,7 +55,14 @@ class Game():
     ).execute()
     
     id_jogador = self.db.create_player(nome)
-    print(f"Seja bem vindo {nome}!")
+    
+    clear()
+    print("================================")
+    print(APPA)
+    print("O mundo está em guerra, e o equilíbrio entre os quatro elementos foi quebrado. Em um tempo de incerteza, heróis surgem de onde menos se espera. Agora é sua vez de agir. Você será testado em coragem, sabedoria e poder. Sua jornada será difícil, mas sua determinação pode mudar o destino do mundo. Prepare-se para enfrentar desafios e lutar pela paz. O futuro depende de suas escolhas!")
+    print("================================")
+    print()
+    input("Pressione Enter para começar...")
 
     self.gameplay(id_jogador)
 
@@ -79,13 +86,6 @@ class Game():
     self.gameplay(jogador)
 
   def gameplay(self, id_jogador):
-    clear()
-    print("================================")
-    print(APPA)
-    print("O mundo está em guerra, e o equilíbrio entre os quatro elementos foi quebrado. Em um tempo de incerteza, heróis surgem de onde menos se espera. Agora é sua vez de agir. Você será testado em coragem, sabedoria e poder. Sua jornada será difícil, mas sua determinação pode mudar o destino do mundo. Prepare-se para enfrentar desafios e lutar pela paz. O futuro depende de suas escolhas!")
-    print("================================")
-    print()
-    input("Pressione Enter para começar...")
 
     while True:
       jogador = self.db.get_player(id_jogador)

@@ -1,10 +1,13 @@
--- Criação do banco de dados
-CREATE DATABASE IF NOT EXISTS Avatar;
-USE Avatar;
+CREATE TYPE ENUM_ELEMENTO AS ENUM ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum');
+CREATE TYPE ENUM_PARTE_CORPO AS ENUM ('capacete', 'peitoral', 'acessorio', 'botas');
+CREATE TYPE ENUM_RARIDADE AS ENUM ('comum', 'raro', 'epico', 'lendario');
 
--- Criação das tabelas
+CREATE TYPE ENUM_TIPO_ITEM AS ENUM ('S', 'P', 'W', 'A');
+CREATE TYPE ENUM_TIPO_TECNICA AS ENUM ('A', 'D', 'M', 'C');
+CREATE TYPE ENUM_TIPO_PERSONAGEM AS ENUM ('P', 'I', 'A');
+
 CREATE TABLE nacao (
-  nome VARCHAR(20) PRIMARY KEY,
+  nome VARCHAR(20) PRIMARY KEY ,
   descricao VARCHAR(250) NOT NULL
 );
 
@@ -34,7 +37,7 @@ CREATE TABLE area (
 
 CREATE TABLE item (
   id INT PRIMARY KEY,
-  tipo CHAR(1) NOT NULL
+  tipo ENUM_TIPO_ITEM NOT NULL
 );
 
 CREATE TABLE pergaminho (
@@ -42,7 +45,7 @@ CREATE TABLE pergaminho (
   nome VARCHAR(50) UNIQUE NOT NULL,
   peso REAL NOT NULL,
   preco INT NOT NULL,
-  raridade TEXT CHECK (raridade IN ('comum', 'raro', 'epico', 'lendario')) DEFAULT 'comum',
+  raridade ENUM_RARIDADE DEFAULT 'comum',
   tecnica VARCHAR(50) NOT NULL,
   FOREIGN KEY (id) REFERENCES item(id)
 );
@@ -71,8 +74,8 @@ CREATE TABLE armadura (
   peso REAL NOT NULL,
   preco INT NOT NULL,
   pontos_protecao INT NOT NULL,
-  parte_corpo TEXT CHECK (parte_corpo IN ('capacete', 'peitoral', 'acessorio', 'botas')) NOT NULL,
-  FOREIGN KEY (id) REFERENCES item(id)
+  parte_corpo ENUM_PARTE_CORPO NOT NULL,
+  FOREIGN KEY (id)  REFERENCES item(id)
 );
 
 CREATE TABLE instancia_item (
@@ -91,6 +94,7 @@ CREATE TABLE contem_item (
   FOREIGN KEY (id_area) REFERENCES area(id)
 );
 
+
 CREATE TABLE personagem (
   id INT PRIMARY KEY,
   tipo CHAR(1) NOT NULL
@@ -99,14 +103,14 @@ CREATE TABLE personagem (
 CREATE TABLE pc (
   id INT PRIMARY KEY,
   nome VARCHAR(50) NOT NULL,
-  vida_max INT NOT NULL,
-  vida_atual INT NOT NULL,
-  xp INT NOT NULL,
-  elemento TEXT CHECK (elemento IN ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum')) DEFAULT 'nenhum',
-  nivel INT NOT NULL,
+  vida_max INT NOT NULL DEFAULT 100,
+  vida_atual INT NOT NULL DEFAULT 100,
+  xp INT NOT NULL DEFAULT 0,
+  elemento ENUM_ELEMENTO DEFAULT 'nenhum',
+  nivel INT NOT NULL DEFAULT 1,
   moedas INT DEFAULT 0,
   peso_max_inventario REAL DEFAULT 100.00,
-  id_area_atual INT NOT NULL,
+  id_area_atual INT NOT NULL DEFAULT 1,
   item_capacete INT,
   item_peitoral INT,
   item_acessorio INT,
@@ -127,7 +131,7 @@ CREATE TABLE amigo (
   vida_max INT NOT NULL,
   vida_atual INT NOT NULL,
   xp INT NOT NULL,
-  elemento TEXT CHECK (elemento IN ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum')) DEFAULT 'nenhum',
+  elemento ENUM_ELEMENTO DEFAULT 'nenhum',
   nivel INT NOT NULL,
   fala_entrada VARCHAR(150) NOT NULL,
   fala_saida VARCHAR(150) NOT NULL,
@@ -156,7 +160,7 @@ CREATE TABLE inimigo (
   vida_max INT NOT NULL,
   vida_atual INT NOT NULL,
   xp INT NOT NULL,
-  elemento TEXT CHECK (elemento IN ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum')) DEFAULT 'nenhum',
+  elemento ENUM_ELEMENTO DEFAULT 'nenhum',
   nivel INT NOT NULL,
   fala_entrada VARCHAR(150) NOT NULL,
   fala_saida VARCHAR(150) NOT NULL,
@@ -187,12 +191,12 @@ CREATE TABLE combate (
 -- Criação das tabelas de técnicas
 CREATE TABLE tecnica (
   nome VARCHAR(50) PRIMARY KEY,
-  tipo CHAR(1) NOT NULL
+  tipo ENUM_TIPO_TECNICA NOT NULL
 );
 
 CREATE TABLE ataque (
   nome VARCHAR(50) PRIMARY KEY,
-  elemento TEXT CHECK (elemento IN ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum')),
+  elemento ENUM_ELEMENTO NOT NULL,
   descricao VARCHAR(250) NOT NULL,
   nivel_necessario_aprender INT NOT NULL,
   dano_causado INT NOT NULL,
@@ -201,7 +205,7 @@ CREATE TABLE ataque (
 
 CREATE TABLE defesa (
   nome VARCHAR(50) PRIMARY KEY,
-  elemento TEXT CHECK (elemento IN ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum')),
+  elemento ENUM_ELEMENTO NOT NULL,
   descricao VARCHAR(250) NOT NULL,
   nivel_necessario_aprender INT NOT NULL,
   dano_bloqueado INT NOT NULL,
@@ -210,7 +214,7 @@ CREATE TABLE defesa (
 
 CREATE TABLE mobilidade (
   nome VARCHAR(50) PRIMARY KEY,
-  elemento TEXT CHECK (elemento IN ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum')),
+  elemento ENUM_ELEMENTO NOT NULL,
   descricao VARCHAR(250) NOT NULL,
   nivel_necessario_aprender INT NOT NULL,
   chance_esquiva INT NOT NULL,
@@ -219,7 +223,7 @@ CREATE TABLE mobilidade (
 
 CREATE TABLE cura (
   nome VARCHAR(50) PRIMARY KEY,
-  elemento TEXT CHECK (elemento IN ('ar', 'agua', 'terra', 'fogo', 'todos', 'nenhum')),
+  elemento ENUM_ELEMENTO NOT NULL,
   descricao VARCHAR(250) NOT NULL,
   nivel_necessario_aprender INT NOT NULL,
   pontos_cura INT NOT NULL,

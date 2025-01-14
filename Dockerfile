@@ -1,3 +1,5 @@
+#Usado para instalar as dependências (libs) do projeto
+
 FROM ubuntu:20.04
 
 RUN apt-get update
@@ -9,6 +11,3 @@ COPY ./app/requirements.txt /app/requirements.txt
 
 RUN pip3 install -r requirements.txt
 
-COPY ./app/main.py /app
-
-CMD python3 main.py

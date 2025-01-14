@@ -34,7 +34,7 @@ CREATE TABLE area (
 
 CREATE TABLE item (
   id INT PRIMARY KEY,
-  tipo CHAR(1) NOT NULL
+  tipo CHAR(1) NOT NULL CHECK (tipo IN ('S', 'P', 'W', 'A'))
 );
 
 CREATE TABLE pergaminho (
@@ -44,7 +44,8 @@ CREATE TABLE pergaminho (
   preco INT NOT NULL,
   raridade TEXT CHECK (raridade IN ('comum', 'raro', 'epico', 'lendario')) DEFAULT 'comum',
   tecnica VARCHAR(50) NOT NULL,
-  FOREIGN KEY (id) REFERENCES item(id)
+  FOREIGN KEY (id) REFERENCES item(id),
+  FOREIGN KEY (tecnica) REFERENCES tecnica(nome)
 );
 
 CREATE TABLE pocao (
@@ -81,7 +82,10 @@ CREATE TABLE instancia_item (
   id_pc INT,
   id_inimigo INT,
   id_mercador INT,
-  FOREIGN KEY (id_item) REFERENCES item(id)
+  FOREIGN KEY (id_item) REFERENCES item(id),
+  FOREIGN KEY (id_pc) REFERENCES pc(id),
+  FOREIGN KEY (id_inimigo) REFERENCES inimigo(id),
+  FOREIGN KEY (id_mercador) REFERENCES amigo(id)
 );
 
 CREATE TABLE contem_item (

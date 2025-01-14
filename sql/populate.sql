@@ -1,5 +1,49 @@
-INSERT INTO tecnica(nome, tipo)
-VALUES
+
+
+INSERT INTO personagem (id, tipo) VALUES
+    (1, 'P'),  -- Personagem de id 1 é um Personagem Controlável (PC)
+    (2, 'A'),  -- Personagem de id 2 é um Amigo
+    (3, 'I'),  -- Personagem de id 3 é um Inimigo
+    (4, 'P');  -- Personagem de id 4 é outro Personagem Controlável (PC)
+
+-- Personagem Jogável (PC)
+INSERT INTO pc (id, nome, vida_max, vida_atual, xp, elemento, nivel, moedas, peso_max_inventario,
+                id_area_atual, item_capacete, item_peitoral, item_acessorio, item_botas, item_arma) VALUES
+    (1, 'Aragorn', 200, 150, 500, 'fogo', 10, 100, 100.0, 1, 36, 41, 46, 51, 26),  -- Guerreiro com itens
+
+INSERT INTO amigo (id, nome, vida_max, vida_atual, xp, elemento, nivel, fala_entrada, fala_saida, eh_mestre,
+                    nivel_necessario_discipulo, eh_mercador, nivel_necessario_compra, mult_preco,
+                    eh_curandeiro, preco_por_ponto_cura, id_area) VALUES
+    (10, 'Iroh', 250, 240, 600, 'fogo', 15, 'Bem-vindo, jovem aprendiz.', 'Que o fogo do seu espírito o guie.', TRUE, 5, FALSE, NULL, NULL, FALSE, NULL, 1),  -- Mestre
+    (11, 'Katara', 150, 100, 400, 'agua', 10, 'Estou aqui para ajudar você.', 'Volte sempre, confie na sua força.', FALSE, NULL, TRUE, 5, 1.5, TRUE, 10, 2),  -- Mercadora e Curandeira
+    (12, 'Toph', 180, 170, 550, 'terra', 12, 'Sempre com os pés no chão, amigo.', 'Nos vemos por aí, pedra dura.', FALSE, NULL, TRUE, 7, 1.2, FALSE, NULL, 3),  -- Mercadora
+    (13, 'Zuko', 200, 200, 700, 'fogo', 14, 'Estou aqui para lutar ao seu lado.', 'Até breve, que sua chama nunca se apague.', FALSE, NULL, FALSE, NULL, NULL, TRUE, 15, 4);  -- Curandeiro
+
+INSERT INTO fala_historia (dialogo, id_amigo) VALUES
+    ('O destino nos chama, jovem guerreiro.', 1),  -- Elrond
+    ('Cuidado, os perigos estão por toda parte.', 2),  -- Frodo
+    ('Fique atento, Aragorn, o caminho será difícil.', 3),  -- Samwise
+    ('Com a força do fogo, nós venceremos!', 4);  -- Gimli
+
+INSERT INTO inimigo (id, nome, vida_max, vida_atual, xp, elemento, nivel, fala_entrada, fala_saida, xp_ganho,
+                    num_moedas_ganho, id_area) VALUES
+    (1, 'Orc', 150, 150, 100, 'terra', 5, 'Prepare-se para enfrentar minha força!', 'Você pode ter vencido, mas isso não vai acabar aqui...', 100, 10, 1),  -- Orc
+    (2, 'Golem', 250, 250, 200, 'fogo', 8, 'Eu sou a rocha que você não pode quebrar.', 'Você pode ter me derrotado, mas não vai sobreviver ao que está por vir.', 200, 20, 2),  -- Golem
+    (3, 'Dragão', 500, 500, 500, 'ar', 12, 'Vocês não têm ideia do que estão enfrentando.', 'Este é apenas o começo de minha vingança!', 500, 50, 3),  -- Dragão
+    (4, 'Necromante', 400, 400, 300, 'agua', 10, 'A morte sempre prevalecerá.', 'Você pode ter me derrotado, mas a escuridão nunca se apaga.', 300, 30, 4);  -- Necromante
+
+INSERT INTO fala_combate (dialogo, id_inimigo) VALUES
+    ('Você jamais me derrotará, mortal!', 1),  -- Orc
+    ('Eu sou invencível! Sinta meu poder!', 2),  -- Golem
+    ('As minhas asas irão te esmagar!', 3),  -- Dragão
+    ('A morte será o seu fim, insignificante!', 4);  -- Necromante
+
+INSERT INTO combate (id_pc, id_inimigo, data_hora, id_vencedor) VALUES
+    (1, 1, '2025-01-15 10:30:00', 1),  -- PC 1 (guerreiro) vs Orc - vencedor: PC
+    (1, 2, '2025-01-15 12:45:00', 1),  -- PC 1 (guerreiro) vs Golem - vencedor: PC
+    (1, 3, '2025-01-16 14:00:00', 1);  -- PC 1 (guerreiro) vs Dragão - vencedor: PC
+
+INSERT INTO tecnica(nome, tipo) VALUES
     -- ataque
     ('Chicote de Água','A'),
     ('Sopro de Gelo','A'),
@@ -86,8 +130,7 @@ VALUES
     ('Cura Aprimorada','C');
 
 -----------------------
-INSERT INTO ataque(nome, dano_causado, descricao, nivel_necessario_aprender, elemento)
-VALUES
+INSERT INTO ataque(nome, dano_causado, descricao, nivel_necessario_aprender, elemento) VALUES
     ('Chicote de Água', 10, 'Cria um chicote de água', 1, 'agua'),
     ('Sopro de Gelo', 5, 'Congela objetos e inimigos com sopro de ar frio', 2, 'agua'),
     ('Discos de Gelo', 10, 'Lança discos de gelo nos inimigos', 1, 'agua'),
@@ -132,8 +175,7 @@ VALUES
     ('Ataque de Espada', 10, 'Golpeia o alvo com uma espada', 1, 'nenhum'),
     ('Lançamento de Bumerangue', 5, 'Lanca um bumerangue no inimigo', 1, 'nenhum');
 
-INSERT INTO defesa(nome, dano_bloqueado, descricao, nivel_necessario_aprender, elemento)
-VALUES
+INSERT INTO defesa(nome, dano_bloqueado, descricao, nivel_necessario_aprender, elemento) VALUES
     ('Escudo de Gelo', 10, 'Cria um escudo defensivo de gelo', 2, 'agua'),
     ('Equilibrio Espiritual', 25, 'Entra em harmonia com a água e seu espírito, formando uma barreira fluida que envolve seu corpo. Essa defesa mística absorve impactos e dissipa ataques.', 5, 'agua'),
 
@@ -148,8 +190,7 @@ VALUES
 
     ('Escudo de Ar', 10, 'Cria um escudo defensivo de ar', 2, 'ar');
 
-INSERT INTO mobilidade(nome, chance_esquiva, descricao, nivel_necessario_aprender, elemento)
-VALUES
+INSERT INTO mobilidade(nome, chance_esquiva, descricao, nivel_necessario_aprender, elemento) VALUES
     ('Tornado de Agua', 20, 'Cria um tornado para movimentação', 2, 'agua'),
     ('Rampa de Gelo', 5, 'Cria rampas de gelo para movimentação ou defesa', 2, 'agua'),
     ('Corrida na Água', 30, 'Permite de correr sobre a Água em alta velocidade', 2, 'agua'),
@@ -170,8 +211,7 @@ VALUES
     ('Patinete Aéreo', 30, 'Cria um bola de ar que pode ser montada como se fosse um pião', 2, 'ar'),
     ('Vôo', 50, 'Permite o Dobrador voar', 5, 'ar');
 
-INSERT INTO cura(nome, pontos_cura, descricao, nivel_necessario_aprender, elemento)
-VALUES
+INSERT INTO cura(nome, pontos_cura, descricao, nivel_necessario_aprender, elemento) VALUES
     ('Cura Simples', 10, 'Habilidade de curar pequenos ferimentos usando água', 2, 'agua'),
     ('Cura Aprimorada', 50, 'Habilidade de curar grandes ferimentos usando água', 2, 'agua');
 
@@ -320,6 +360,26 @@ VALUES
         -- Platina -> 55
         -- Elementos -> 75
 
+
+
+INSERT INTO instancia_item (id_item, id_pc, id_inimigo, id_mercador) VALUES
+    -- Personagem com item
+    (1, 1, NULL, NULL), -- Pergaminho do Gelo Cortante para o personagem com id 1
+    (2, 1, NULL, NULL), -- Pergaminho do Gelo Perfurante para o personagem com id 1
+    (3, NULL, 2, NULL), -- Pergaminho da Água Espiritual para inimigo com id 2
+    (4, NULL, 3, NULL), -- Pergaminho de Sangue para inimigo com id 3
+    (5, NULL, NULL, 1), -- Poção Inferior para mercador com id 1
+    (6, 2, NULL, NULL), -- Pergaminho de Impacto de Terra para o personagem com id 2
+    (7, NULL, 1, NULL); -- Pergaminho de Defesa Rochosa para inimigo com id 1
+
+INSERT INTO contem_item (id_instancia_item, id_area) VALUES
+    (1, 1),  -- Pergaminho do Gelo Cortante na área 1
+    (2, 2),  -- Pergaminho do Gelo Perfurante na área 2
+    (3, 1),  -- Pergaminho da Água Espiritual na área 1
+    (4, 3),  -- Pergaminho de Sangue na área 3
+    (5, 2),  -- Poção Inferior na área 2
+    (6, 3),  -- Pergaminho de Impacto de Terra na área 3
+    (7, 1);  -- Pergaminho de Defesa Rochosa na área 1
 INSERT INTO nacao VALUES ('Teste', 'Nação de Teste');
 
 INSERT INTO cidade VALUES ('Cidade teste', 'Teste', 1, 'Teste');
@@ -328,3 +388,32 @@ INSERT INTO area VALUES
 (1, 'area_inicial','descricao', 1, 1, 1, 2, 'Cidade teste'),
 (2, 'teste','descricao 2', 2, 2, 1, 2, 'Cidade teste');
 
+
+INSERT INTO sabe_tecnica (id_personagem, nome_tecnica) VALUES
+    -- Personagem 1
+    (1, 'Chicote de Água'),
+    (1, 'Sopro de Gelo'),
+    (1, 'Discos de Gelo'),
+    (1, 'Garras de Gelo'),
+    (1, 'Escudo de Gelo'),
+    
+    -- Personagem 2
+    (2, 'Lançamento de Pedra'),
+    (2, 'Bloco de Terra'),
+    (2, 'Esmagamento da Terra'),
+    (2, 'Escudo de Rocha'),
+    (2, 'Coluna da Terra'),
+    
+    -- Personagem 3
+    (3, 'Chute Ardente'),
+    (3, 'Lâmina de Fogo'),
+    (3, 'Bomba de Fogo'),
+    (3, 'Escudo de Fogo'),
+    (3, 'Bloqueio de Fogo'),
+    
+    -- Personagem 4
+    (4, 'Jato de Ar'),
+    (4, 'Bomba de Ar'),
+    (4, 'Soco de Ar'),
+    (4, 'Escudo de Ar'),
+    (4, 'Tornado de Ar');

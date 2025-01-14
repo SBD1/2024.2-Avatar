@@ -174,4 +174,78 @@ class Database:
     WHERE ST.id_personagem = %s
     """
     return self.query_all(sql, (id_personagem,))
+
+# Buscas para itens
+
+  def get_pergaminho(self, id_pergaminho):
+    sql = """
+    SELECT * 
+    FROM pergaminho
+    WHERE id = %s
+    """
+    return self.query_all(sql, (id_pergaminho,))
+
+  def get_pocao(self, id_pocao):
+    sql = """
+    SELECT * 
+    FROM pocao
+    WHERE id = %s
+    """
+    return self.query_all(sql, (id_pocao,))
+
   
+  def get_arma(self, id_arma):
+    sql = """
+    SELECT * 
+    FROM arma
+    WHERE id = %s
+    """
+    return self.query_all(sql, (id_arma,))
+  
+  def get_armadura(self, id_armadura):
+    sql = """
+    SELECT * 
+    FROM armadura
+    WHERE id = %s
+    """
+    return self.query_all(sql, (id_armadura,))
+
+  def get_instancia_item(self, id_instancia):
+    sql = """
+    SELECT * 
+    FROM instancia_item
+    WHERE id_instancia = %s
+    """
+    return self.query_all(sql, (id_instancia,))
+
+  def get_itens_por_personagem(self, id_personagem):
+    sql = """
+    SELECT * 
+    FROM instancia_item
+    WHERE id_pc = %s
+    """
+    return self.query_all(sql, (id_personagem,))
+
+  def get_itens_por_inimigo(self, id_inimigo):
+    sql = """
+    SELECT * 
+    FROM instancia_item
+    WHERE id_inimigo = %s
+    """
+    return self.query_all(sql, (id_inimigo,))
+
+  def get_itens_por_personagem(self, id_mercador):
+    sql = """
+    SELECT * 
+    FROM instancia_item
+    WHERE id_mercador = %s
+    """
+    return self.query_all(sql, (id_mercador,))
+
+  def get_itens_por_area(self, id_area):
+    sql = """
+    SELECT * 
+    FROM contem_item
+    WHERE id_area = %s
+    """
+    return self.query_all(sql, (id_area,))

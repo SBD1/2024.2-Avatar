@@ -3,7 +3,7 @@ from InquirerPy.base.control import Choice
 from database import Database
 import os
 
-from asciiArt import AANG, APPA
+from ascii_art import AANG, APPA
 
 
 # limpa o terminal

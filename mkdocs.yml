@@ -44,14 +44,13 @@ theme:
 # Page tree
 nav: 
   - Início: index.md
-  - Modelo Entidade Relacionamento:
-    - Versão 01: MER/v1.md
-  - Dicionário de Dados:
-    - Versão 01: DD/v1.md
-  - Modelo Relacional:
-    - Versão 01: MR/v1.md
+  - Modelo Entidade Relacionamento: MER/v1.md
+  - Dicionário de Dados: DD/v1.md
+  - Modelo Relacional: MR/v1.md
   - Apresentações:
     - Modulo 01: Apresentacoes/Modulo01.md
+    - Modulo 02: Apresentacoes/Modulo02.md
+
 
 
 # Extensions

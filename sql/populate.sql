@@ -8,18 +8,18 @@ VALUES
 
 INSERT INTO cidade(nome, descricao, nivel_necessario_entrar, nacao)
 VALUES
-    ('Tribo da Água do Sul', '', 1, 'Tribos da Água');
-    ('Templo do Ar do Sul', '', 1, 'Nômades do Ar');
-    ('Ilha Kyoshi', '', 1, 'Reino da Terra');
-    ('Omashu', '', 1, 'Reino da Terra');
-    ('Região de Floresta', '', 1, 'Reino da Terra');
-    ('Região Costeira', '', 1, 'Reino da Terra');
-    ('Templo do Ar do Norte', '', 1, 'Nômades do Ar');
-    ('Tribo da Água do Norte', '', 1, 'Tribos da Água');
-    --('Ba Sing Se', '', 23, 'Reino da Terra'),
-    --('Capital da Nação do Fogo', '', 23, 'Nação do Fogo'),
+    ('Tribo da Água do Sul', '', 1, 'Tribos da Água'),
+    ('Templo do Ar do Sul', '', 1, 'Nômades do Ar'),
+    ('Ilha Kyoshi', '', 1, 'Reino da Terra'),
+    ('Omashu', '', 1, 'Reino da Terra'),
+    ('Região de Floresta', '', 1, 'Reino da Terra'),
+    ('Região Costeira', '', 1, 'Reino da Terra'),
+    ('Templo do Ar do Norte', '', 1, 'Nômades do Ar'),
+    ('Tribo da Água do Norte', '', 1, 'Tribos da Água'),
+    ('Ba Sing Se', '', 23, 'Reino da Terra'),
+    ('Capital da Nação do Fogo', '', 23, 'Nação do Fogo');
     
-INSERT INTO area(id, nome, descricao, area_norte, area_sul,area_leste,area_oeste, cidade)
+INSERT INTO area(id, nome, descricao, area_norte, area_sul, area_leste, area_oeste, cidade)
 VALUES
     --  Região do Polo Sul
     (1, 'Centro da Cidade Portuária', '', 8, NULL, 2, 4, 'Tribo da Água do Sul'),
@@ -38,10 +38,10 @@ VALUES
     --  Arredores e lugares do Reino da Terra
     (14, 'Entrada da Vila de Kyoshi', '', 15, 3, NULL, NULL, 'Ilha Kyoshi'),
     (15, 'Centro da Vila de Kyoshi', '', 21, 14, 16, 20, 'Ilha Kyoshi'),
-    (16, 'Distrito Comercial', '', 17, 18, 19, 15, 'Ilha Kyoshi')
-    (17, 'Curandeira de Kyoshi', '', NULL, 16, NULL, NULL, 'Ilha Kyoshi')
-    (18, 'Mercadora de Kyoshi', '', 16, NULL, NULL, NULL, 'Ilha Kyoshi')
-    (19, 'Mestra de Kyoshi', '', NULL, NULL, NULL, 16, 'Ilha Kyoshi')
+    (16, 'Distrito Comercial', '', 17, 18, 19, 15, 'Ilha Kyoshi'),
+    (17, 'Curandeira de Kyoshi', '', NULL, 16, NULL, NULL, 'Ilha Kyoshi'),
+    (18, 'Mercadora de Kyoshi', '', 16, NULL, NULL, NULL, 'Ilha Kyoshi'),
+    (19, 'Mestra de Kyoshi', '', NULL, NULL, NULL, 16, 'Ilha Kyoshi'),
     (20, 'Região Residencial', '', NULL, NULL, 20, NULL, 'Ilha Kyoshi'),
     (21, 'Centro de Omashu', '', 27, 15, 23, 22, 'Omashu'),
     (22, 'Palácio Real de Omashu', '', NULL, NULL, 21, NULL, 'Omashu'),
@@ -59,7 +59,7 @@ VALUES
     (32, 'Centro do Templo do Ar do Norte', '', 34, 31, 33, NULL, 'Templo do Ar do Norte'),
     (33, 'Campo de Refugiados', '', NULL, NULL, NULL, 32, 'Templo do Ar do Norte'),
     (34, '1º Centro de Agna Qel''a', '', 35, 32, 36, 40, 'Tribo da Água do Norte'),
-    (35, 'Palácio Real de Agna Qel''a', '', NULL, 35, NULL, NULL, 'Tribo da Água do Norte')
+    (35, 'Palácio Real de Agna Qel''a', '', NULL, 35, NULL, NULL, 'Tribo da Água do Norte'),
     (36, 'Área de Comércio', '', 39, 38, 37, 34, 'Tribo da Água do Norte'),
     (37, 'Mercador de Agna Qel''a', '', NULL, NULL, NULL, 36, 'Tribo da Água do Norte'),
     (38, 'Curandeira de Agna Qel''a', '', 36, NULL, NULL, NULL, 'Tribo da Água do Norte'),
@@ -73,47 +73,40 @@ VALUES
 
 INSERT INTO personagem (id, tipo) VALUES
     (1, 'P'),  -- Personagem de id 1 é um Personagem Controlável (PC)
-    (2, 'A'),  -- Personagem de id 2 é um Amigo
-    (3, 'I'),  -- Personagem de id 3 é um Inimigo
-    (4, 'P');  -- Personagem de id 4 é outro Personagem Controlável (PC)
+    (3, 'A'),  -- Personagem de id 3 é um Amigo
+    (4, 'A'),  -- Personagem de id 4 é um Amigo
+    (5, 'A'),  -- Personagem de id 5 é um Amigo
+    (6, 'A'),  -- Personagem de id 6 é um Amigo
+    (7, 'I'),  -- Personagem de id 7 é um Inimigo
+    (8, 'I'),  -- Personagem de id 8 é um Inimigo
+    (9, 'I'),  -- Personagem de id 9 é um Inimigo
+    (10, 'I'); -- Personagem de id 10 é um Inimigo
 
--- Personagem Jogável (PC)
-INSERT INTO pc (id, nome, vida_max, vida_atual, xp, elemento, nivel, moedas, peso_max_inventario,
-                id_area_atual, item_capacete, item_peitoral, item_acessorio, item_botas, item_arma) VALUES
-    (1, 'Aragorn', 200, 150, 500, 'fogo', 10, 100, 100.0, 1, 36, 41, 46, 51, 26),  -- Guerreiro com itens
+    -- Personagem Jogável (PC)
+    INSERT INTO pc (id, nome, vida_max, vida_atual, xp, elemento, nivel, moedas, peso_max_inventario,
+      id_area_atual, item_capacete, item_peitoral, item_acessorio, item_botas, item_arma) VALUES
+    (1, 'Aragorn', 200, 150, 500, 'fogo', 10, 100, 100.0, 1, NULL, NULL, NULL, NULL, NULL);
 
-INSERT INTO amigo (id, nome, vida_max, vida_atual, xp, elemento, nivel, fala_entrada, fala_saida, eh_mestre,
-                    nivel_necessario_discipulo, eh_mercador, nivel_necessario_compra, mult_preco,
-                    eh_curandeiro, preco_por_ponto_cura, id_area) VALUES
-    (10, 'Iroh', 250, 240, 600, 'fogo', 15, 'Bem-vindo, jovem aprendiz.', 'Que o fogo do seu espírito o guie.', TRUE, 5, FALSE, NULL, NULL, FALSE, NULL, 1),  -- Mestre
-    (11, 'Katara', 150, 100, 400, 'agua', 10, 'Estou aqui para ajudar você.', 'Volte sempre, confie na sua força.', FALSE, NULL, TRUE, 5, 1.5, TRUE, 10, 2),  -- Mercadora e Curandeira
-    (12, 'Toph', 180, 170, 550, 'terra', 12, 'Sempre com os pés no chão, amigo.', 'Nos vemos por aí, pedra dura.', FALSE, NULL, TRUE, 7, 1.2, FALSE, NULL, 3),  -- Mercadora
-    (13, 'Zuko', 200, 200, 700, 'fogo', 14, 'Estou aqui para lutar ao seu lado.', 'Até breve, que sua chama nunca se apague.', FALSE, NULL, FALSE, NULL, NULL, TRUE, 15, 4);  -- Curandeiro
+    INSERT INTO amigo (id, nome, vida_max, vida_atual, xp, elemento, nivel, fala_entrada, fala_saida, eh_mestre,
+      nivel_necessario_discipulo, eh_mercador, nivel_necessario_compra, mult_preco,
+      eh_curandeiro, preco_por_ponto_cura, id_area) VALUES
+    (3, 'Iroh', 250, 240, 600, 'fogo', 15, 'Bem-vindo, jovem aprendiz.', 'Que o fogo do seu espírito o guie.', TRUE, 5, FALSE, NULL, NULL, FALSE, NULL, 1),  -- Mestre
+    (4, 'Katara', 150, 100, 400, 'agua', 10, 'Estou aqui para ajudar você.', 'Volte sempre, confie na sua força.', FALSE, NULL, TRUE, 5, 1.5, TRUE, 10, 2),  -- Mercadora e Curandeira
+    (5, 'Toph', 180, 170, 550, 'terra', 12, 'Sempre com os pés no chão, amigo.', 'Nos vemos por aí, pedra dura.', FALSE, NULL, TRUE, 7, 1.2, FALSE, NULL, 3),  -- Mercadora
+    (6, 'Zuko', 200, 200, 700, 'fogo', 14, 'Estou aqui para lutar ao seu lado.', 'Até breve, que sua chama nunca se apague.', FALSE, NULL, FALSE, NULL, NULL, TRUE, 15, 4);  -- Curandeiro
 
-INSERT INTO fala_historia (dialogo, id_amigo) VALUES
-    ('O destino nos chama, jovem guerreiro.', 1),  -- Elrond
-    ('Cuidado, os perigos estão por toda parte.', 2),  -- Frodo
-    ('Fique atento, Aragorn, o caminho será difícil.', 3),  -- Samwise
-    ('Com a força do fogo, nós venceremos!', 4);  -- Gimli
+    INSERT INTO fala_historia (dialogo, id_amigo) VALUES
+    ('O destino nos chama, jovem guerreiro.', 3),  -- Iroh
+    ('Cuidado, os perigos estão por toda parte.', 4),  -- Katara
+    ('Fique atento, Aragorn, o caminho será difícil.', 5),  -- Toph
+    ('Com a força do fogo, nós venceremos!', 6);  -- Zuko
 
-INSERT INTO inimigo (id, nome, vida_max, vida_atual, xp, elemento, nivel, fala_entrada, fala_saida, xp_ganho,
-                    num_moedas_ganho, id_area) VALUES
-    (1, 'Orc', 150, 150, 100, 'terra', 5, 'Prepare-se para enfrentar minha força!', 'Você pode ter vencido, mas isso não vai acabar aqui...', 100, 10, 1),  -- Orc
-    (2, 'Golem', 250, 250, 200, 'fogo', 8, 'Eu sou a rocha que você não pode quebrar.', 'Você pode ter me derrotado, mas não vai sobreviver ao que está por vir.', 200, 20, 2),  -- Golem
-    (3, 'Dragão', 500, 500, 500, 'ar', 12, 'Vocês não têm ideia do que estão enfrentando.', 'Este é apenas o começo de minha vingança!', 500, 50, 3),  -- Dragão
-    (4, 'Necromante', 400, 400, 300, 'agua', 10, 'A morte sempre prevalecerá.', 'Você pode ter me derrotado, mas a escuridão nunca se apaga.', 300, 30, 4);  -- Necromante
-
-INSERT INTO fala_combate (dialogo, id_inimigo) VALUES
-    ('Você jamais me derrotará, mortal!', 1),  -- Orc
-    ('Eu sou invencível! Sinta meu poder!', 2),  -- Golem
-    ('As minhas asas irão te esmagar!', 3),  -- Dragão
-    ('A morte será o seu fim, insignificante!', 4);  -- Necromante
-
-INSERT INTO combate (id_pc, id_inimigo, data_hora, id_vencedor) VALUES
-    (1, 1, '2025-01-15 10:30:00', 1),  -- PC 1 (guerreiro) vs Orc - vencedor: PC
-    (1, 2, '2025-01-15 12:45:00', 1),  -- PC 1 (guerreiro) vs Golem - vencedor: PC
-    (1, 3, '2025-01-16 14:00:00', 1);  -- PC 1 (guerreiro) vs Dragão - vencedor: PC
-
+    INSERT INTO inimigo (id, nome, vida_max, vida_atual, xp, elemento, nivel, fala_entrada, fala_saida, xp_ganho,
+      num_moedas_ganho, id_area) VALUES
+    (7, 'Orc', 150, 150, 100, 'terra', 5, 'Prepare-se para enfrentar minha força!', 'Você pode ter vencido, mas isso não vai acabar aqui...', 100, 10, 1),  -- Orc
+    (8, 'Golem', 250, 250, 200, 'fogo', 8, 'Eu sou a rocha que você não pode quebrar.', 'Você pode ter me derrotado, mas não vai sobreviver ao que está por vir.', 200, 20, 2),  -- Golem
+    (9, 'Dragão', 500, 500, 500, 'ar', 12, 'Vocês não têm ideia do que estão enfrentando.', 'Vocês podem ter me vencido, mas a batalha ainda não acabou.', 500, 50, 3);  -- Dragão
+    
 INSERT INTO tecnica(nome, tipo) VALUES
     -- ataque
     ('Chicote de Água','A'),
@@ -437,20 +430,20 @@ INSERT INTO instancia_item (id_item, id_pc, id_inimigo, id_mercador) VALUES
     -- Personagem com item
     (1, 1, NULL, NULL), -- Pergaminho do Gelo Cortante para o personagem com id 1
     (2, 1, NULL, NULL), -- Pergaminho do Gelo Perfurante para o personagem com id 1
-    (3, NULL, 2, NULL), -- Pergaminho da Água Espiritual para inimigo com id 2
-    (4, NULL, 3, NULL), -- Pergaminho de Sangue para inimigo com id 3
-    (5, NULL, NULL, 1), -- Poção Inferior para mercador com id 1
-    (6, 2, NULL, NULL), -- Pergaminho de Impacto de Terra para o personagem com id 2
-    (7, NULL, 1, NULL); -- Pergaminho de Defesa Rochosa para inimigo com id 1
+    (3, NULL, 8, NULL), -- Pergaminho da Água Espiritual para inimigo com id 2
+    (4, NULL, 9, NULL), -- Pergaminho de Sangue para inimigo com id 3
+    (5, NULL, NULL, 4), -- Poção Inferior para mercador com id 1
+    (6, 1, NULL, NULL), -- Pergaminho de Impacto de Terra para o personagem com id 2
+    (7, NULL, 7, NULL); -- Pergaminho de Defesa Rochosa para inimigo com id 1
 
 INSERT INTO contem_item (id_instancia_item, id_area) VALUES
     (1, 1),  -- Pergaminho do Gelo Cortante na área 1
     (2, 2),  -- Pergaminho do Gelo Perfurante na área 2
-    (3, 1),  -- Pergaminho da Água Espiritual na área 1
-    (4, 3),  -- Pergaminho de Sangue na área 3
-    (5, 2),  -- Poção Inferior na área 2
-    (6, 3),  -- Pergaminho de Impacto de Terra na área 3
-    (7, 1);  -- Pergaminho de Defesa Rochosa na área 1
+    (3, 5),  -- Pergaminho da Água Espiritual na área 1
+    (4, 8),  -- Pergaminho de Sangue na área 3
+    (5, 6),  -- Poção Inferior na área 2
+    (6, 10),  -- Pergaminho de Impacto de Terra na área 3
+    (7, 9);  -- Pergaminho de Defesa Rochosa na área 1
 
 
 INSERT INTO sabe_tecnica (id_personagem, nome_tecnica) VALUES
@@ -462,11 +455,11 @@ INSERT INTO sabe_tecnica (id_personagem, nome_tecnica) VALUES
     (1, 'Escudo de Gelo'),
     
     -- Personagem 2
-    (2, 'Lançamento de Pedra'),
-    (2, 'Bloco de Terra'),
-    (2, 'Esmagamento da Terra'),
-    (2, 'Escudo de Rocha'),
-    (2, 'Coluna da Terra'),
+    (5, 'Lançamento de Pedra'),
+    (5, 'Bloco de Terra'),
+    (5, 'Esmagamento da Terra'),
+    (5, 'Escudo de Rocha'),
+    (5, 'Coluna da Terra'),
     
     -- Personagem 3
     (3, 'Chute Ardente'),

@@ -104,30 +104,97 @@ class Game():
       print(f'Descrição: {area_atual.descricao}')
       print()
 
-      direcao = inquirer.select(
-        message="Para qual direção você quer se mover?",
-        choices=[
-          Choice("norte", f'Norte: {self.db.get_nome_area(area_atual.area_norte)}'),
-          Choice("sul", f'Sul: {self.db.get_nome_area(area_atual.area_sul)}'),
-          Choice("leste", f'Leste: {self.db.get_nome_area(area_atual.area_leste)}'),
-          Choice("oeste", f'Oeste: {self.db.get_nome_area(area_atual.area_oeste)}'),
-          "Voltar ao Menu Inicial"
-        ]
+      choices = [
+        Choice("norte", f'Ir para o Norte: {self.db.get_nome_area(area_atual.area_norte)}'),
+        Choice("sul", f'Ir para o Sul: {self.db.get_nome_area(area_atual.area_sul)}'),
+        Choice("leste", f'Ir para o Leste: {self.db.get_nome_area(area_atual.area_leste)}'),
+        Choice("oeste", f'Ir para o Oeste: {self.db.get_nome_area(area_atual.area_oeste)}'),
+        "Abrir o inventário"
+      ]
+
+      itens_na_area = ["Item 1", "Item 2"] # Buscar os itens no banco
+      if itens_na_area:
+        choices.append("Procurar por Itens na área")
+
+      npcs_na_area = ["NPC 1", "NPC 2", "NPC 3", "NPC 4"] # Buscar os NPCs no banco
+      if npcs_na_area:
+        choices.append("Procurar por NPCs na área")
+      
+      inimigos_na_area = ["Inimigo 1", "Inimigo 2", "Inimigo 3"] # Buscar os Inimigos no banco
+      if inimigos_na_area:
+        choices.append("Procurar por Inimigos na área")
+
+      choices.append("Voltar ao Menu Inicial")
+
+      opcao = inquirer.select(
+        message="Que ação deseja realizar?",
+        choices=choices
       ).execute()
 
-      if direcao == "norte":
+      if opcao == "norte":
         id_prox_area = area_atual.area_norte
-      elif direcao == "sul":
+        self.db.update_player_area(id_jogador, id_prox_area)
+      elif opcao == "sul":
         id_prox_area = area_atual.area_sul
-      elif direcao == "leste":
+        self.db.update_player_area(id_jogador, id_prox_area)
+      elif opcao == "leste":
         id_prox_area = area_atual.area_leste
-      elif direcao == "oeste":
+        self.db.update_player_area(id_jogador, id_prox_area)
+      elif opcao == "oeste":
         id_prox_area = area_atual.area_oeste
-      
-      elif direcao == "Voltar ao Menu Inicial":
-        break
+        self.db.update_player_area(id_jogador, id_prox_area)
 
-      self.db.update_player_area(id_jogador, id_prox_area)
+      elif opcao == "Abrir o inventário":
+        while True:
+          opcao_inventario = inquirer.select(
+            message="Qual aba deseja abrir?",
+            choices=["Poções", "Pergaminhos", "Armas", "Armaduras", "Fechar o inventário"]
+          ).execute()
+
+          if opcao_inventario == "Fechar o inventário":
+            break
+        
+      elif opcao == "Procurar por Itens na área":
+        while True:
+          choices_item = [Choice(item) for item in itens_na_area] # Colocar só o nome do item
+          choices_item.append("Voltar")
+
+          opcao_item = inquirer.select(
+            message="Qual item deseja coletar?",
+            choices=choices_item
+          ).execute()
+
+          if opcao_item == "Voltar":
+            break
+
+      elif opcao == "Procurar por NPCs na área":
+        while True:
+          choices_npc = [Choice(npc) for npc in npcs_na_area] # Colocar só o nome do NPC
+          choices_npc.append("Voltar")
+
+          opcao_npc = inquirer.select(
+            message="Com quem deseja conversar?",
+            choices=choices_npc
+          ).execute()
+
+          if opcao_npc == "Voltar":
+            break
+
+      elif opcao == "Procurar por Inimigos na área":
+        while True:
+          choices_inimigo = [Choice(inimigo) for inimigo in inimigos_na_area] # Colocar só o nome do Inimigo
+          choices_inimigo.append("Voltar")
+
+          opcao_inimigo = inquirer.select(
+            message="Quem deseja enfrentar?",
+            choices=choices_inimigo
+          ).execute()
+
+          if opcao_inimigo == "Voltar":
+            break
+      
+      elif opcao == "Voltar ao Menu Inicial":
+        break
     
 
 if __name__ == "__main__":

@@ -112,15 +112,15 @@ class Game():
         "Abrir o inventário"
       ]
 
-      itens_na_area = ["Item 1", "Item 2"] # Buscar os itens no banco
-      if itens_na_area:
+      itens_na_area = self.db.get_itens_por_area(area_atual.id)
+      if len(itens_na_area) > 0:
         choices.append("Procurar por Itens na área")
 
-      npcs_na_area = ["NPC 1", "NPC 2", "NPC 3", "NPC 4"] # Buscar os NPCs no banco
+      npcs_na_area = self.db.get_npcs_por_area(area_atual.id)
       if npcs_na_area:
         choices.append("Procurar por NPCs na área")
       
-      inimigos_na_area = ["Inimigo 1", "Inimigo 2", "Inimigo 3"] # Buscar os Inimigos no banco
+      inimigos_na_area = self.db.get_inimigos_por_area(area_atual.id)
       if inimigos_na_area:
         choices.append("Procurar por Inimigos na área")
 
@@ -156,7 +156,7 @@ class Game():
         
       elif opcao == "Procurar por Itens na área":
         while True:
-          choices_item = [Choice(item) for item in itens_na_area] # Colocar só o nome do item
+          choices_item = [Choice(item.nome) for item in itens_na_area] # Colocar só o nome do item
           choices_item.append("Voltar")
 
           opcao_item = inquirer.select(
@@ -169,7 +169,7 @@ class Game():
 
       elif opcao == "Procurar por NPCs na área":
         while True:
-          choices_npc = [Choice(npc) for npc in npcs_na_area] # Colocar só o nome do NPC
+          choices_npc = [Choice(npc.nome) for npc in npcs_na_area] # Colocar só o nome do NPC
           choices_npc.append("Voltar")
 
           opcao_npc = inquirer.select(
@@ -182,7 +182,7 @@ class Game():
 
       elif opcao == "Procurar por Inimigos na área":
         while True:
-          choices_inimigo = [Choice(inimigo) for inimigo in inimigos_na_area] # Colocar só o nome do Inimigo
+          choices_inimigo = [Choice(inimigo.nome) for inimigo in inimigos_na_area] # Colocar só o nome do Inimigo
           choices_inimigo.append("Voltar")
 
           opcao_inimigo = inquirer.select(

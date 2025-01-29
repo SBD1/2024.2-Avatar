@@ -177,41 +177,107 @@ class Database:
     WHERE ST.id_personagem = %s
     """
     return self.query_all(sql, (id_personagem,))
+  
+# Buscas para NPC
+
+  def get_npc(self, id_npc):
+    sql = """
+    SELECT *
+    FROM amigo
+    WHERE id = %s
+    """
+    return self.query_one(sql, (id_npc,))
+  
+  def get_npcs_por_area(self, id_area):
+    sql = """
+    SELECT *
+    FROM amigo
+    WHERE id_area = %s
+    """
+    npcs_area = self.query_all(sql, (id_area,))
+    
+    if npcs_area == None:
+      return []
+    
+    return npcs_area
+  
+# Buscas para inimigo
+
+  def get_inimigo(self, id_inimigo):
+    sql = """
+    SELECT *
+    FROM inimigo
+    WHERE id = %s
+    """
+    return self.query_one(sql, (id_inimigo,))
+  
+  def get_inimigos_por_area(self, id_area):
+    sql = """
+    SELECT *
+    FROM inimigo
+    WHERE id_area = %s
+    """
+    inimigos_area = self.query_all(sql, (id_area,))
+    
+    if inimigos_area == None:
+      return []
+    
+    return inimigos_area
 
 # Buscas para itens
 
-  def get_pergaminho(self, id_pergaminho):
+  def get_pergaminho(self, id_instancia, id_pergaminho):
     sql = """
-    SELECT * 
-    FROM pergaminho
-    WHERE id = %s
+    SELECT *
+    FROM
+      (SELECT id_instancia
+      FROM instancia_item
+      WHERE id_instancia = %s),
+      (SELECT * 
+      FROM pergaminho
+      WHERE id = %s)
     """
-    return self.query_all(sql, (id_pergaminho,))
+    return self.query_one(sql, (id_instancia, id_pergaminho,))
 
-  def get_pocao(self, id_pocao):
+  def get_pocao(self, id_instancia, id_pocao):
     sql = """
-    SELECT * 
-    FROM pocao
-    WHERE id = %s
+    SELECT *
+    FROM
+      (SELECT id_instancia
+      FROM instancia_item
+      WHERE id_instancia = %s),
+      (SELECT * 
+      FROM pocao
+      WHERE id = %s)
     """
-    return self.query_all(sql, (id_pocao,))
+    return self.query_one(sql, (id_instancia, id_pocao,))
 
   
-  def get_arma(self, id_arma):
+  def get_arma(self, id_instancia, id_arma):
     sql = """
-    SELECT * 
-    FROM arma
-    WHERE id = %s
+    SELECT *
+    FROM
+      (SELECT id_instancia
+      FROM instancia_item
+      WHERE id_instancia = %s),
+      (SELECT * 
+      FROM arma
+      WHERE id = %s)
     """
-    return self.query_all(sql, (id_arma,))
+    return self.query_one(sql, (id_instancia, id_arma,))
   
-  def get_armadura(self, id_armadura):
+  def get_armadura(self, id_instancia, id_armadura):
     sql = """
-    SELECT * 
-    FROM armadura
-    WHERE id = %s
+    SELECT *
+    FROM
+      (SELECT id_instancia
+      FROM instancia_item
+      WHERE id_instancia = %s),
+      (SELECT * 
+      FROM armadura
+      WHERE id = %s)
     """
-    return self.query_all(sql, (id_armadura,))
+    return self.query_one(sql, (id_instancia, id_armadura,))
 
   def get_instancia_item(self, id_instancia):
     sql = """
@@ -219,7 +285,25 @@ class Database:
     FROM instancia_item
     WHERE id_instancia = %s
     """
-    return self.query_all(sql, (id_instancia,))
+    return self.query_one(sql, (id_instancia,))
+  
+  def get_item(self, id_instancia):
+    sql = """
+      SELECT *
+      FROM instancia_item, item
+      WHERE instancia_item.id_instancia = %s AND instancia_item.id_item = item.id
+    """
+    item = self.query_one(sql, (id_instancia,))
+    if item.tipo == 'S':
+      item = self.get_pergaminho(id_instancia, item.id)
+    elif item.tipo == 'P':
+      item = self.get_pocao(id_instancia, item.id)
+    elif item.tipo == 'W':
+      item = self.get_arma(id_instancia, item.id)
+    elif item.tipo == 'A':
+      item = self.get_armadura(id_instancia, item.id)
+    
+    return item
 
   def get_itens_por_personagem(self, id_personagem):
     sql = """
@@ -237,7 +321,7 @@ class Database:
     """
     return self.query_all(sql, (id_inimigo,))
 
-  def get_itens_por_personagem(self, id_mercador):
+  def get_itens_por_npc(self, id_mercador):
     sql = """
     SELECT * 
     FROM instancia_item
@@ -251,4 +335,13 @@ class Database:
     FROM contem_item
     WHERE id_area = %s
     """
-    return self.query_all(sql, (id_area,))
+    instancias_area = self.query_all(sql, (id_area,))
+    
+    if instancias_area == None:
+      return []
+    
+    itens = []
+    for instancia in instancias_area:
+      itens.append(self.get_item(instancia.id_instancia_item))
+    
+    return itens

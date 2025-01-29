@@ -434,16 +434,28 @@ INSERT INTO instancia_item (id_item, id_pc, id_inimigo, id_mercador) VALUES
     (4, NULL, 9, NULL), -- Pergaminho de Sangue para inimigo com id 3
     (5, NULL, NULL, 4), -- Poção Inferior para mercador com id 1
     (6, 1, NULL, NULL), -- Pergaminho de Impacto de Terra para o personagem com id 2
-    (7, NULL, 7, NULL); -- Pergaminho de Defesa Rochosa para inimigo com id 1
+    (7, NULL, 7, NULL), -- Pergaminho de Defesa Rochosa para inimigo com id 1
+    (22, 1, NULL, NULL), -- Poção Básica para o personagem com id 1
+    (24, 1, NULL, NULL), -- Poção Avançada para o personagem com id 1
+    (29, 1, NULL, NULL), -- Espada de Cobre para o personagem com id 1
+    (37, 1, NULL, NULL), -- Balde de Latão para o personagem com id 1
+    (41, 1, NULL, NULL), -- Peitoral de Couro para o personagem com id 1
+    (1, NULL, NULL, NULL),  -- Pergaminho do Gelo Cortante na área 1
+    (2, NULL, NULL, NULL),  -- Pergaminho do Gelo Perfurante na área 2
+    (3, NULL, NULL, NULL),  -- Pergaminho da Água Espiritual na área 1
+    (4, NULL, NULL, NULL),  -- Pergaminho de Sangue na área 3
+    (21, NULL, NULL, NULL),  -- Poção Inferior na área 2
+    (6, NULL, NULL, NULL),  -- Pergaminho de Impacto de Terra na área 3
+    (7, NULL, NULL, NULL);  -- Pergaminho de Defesa Rochosa na área 1
 
 INSERT INTO contem_item (id_instancia_item, id_area) VALUES
-    (1, 1),  -- Pergaminho do Gelo Cortante na área 1
-    (2, 2),  -- Pergaminho do Gelo Perfurante na área 2
-    (3, 5),  -- Pergaminho da Água Espiritual na área 1
-    (4, 8),  -- Pergaminho de Sangue na área 3
-    (5, 6),  -- Poção Inferior na área 2
-    (6, 10),  -- Pergaminho de Impacto de Terra na área 3
-    (7, 9);  -- Pergaminho de Defesa Rochosa na área 1
+    (13, 1),  -- Pergaminho do Gelo Cortante na área 1
+    (14, 2),  -- Pergaminho do Gelo Perfurante na área 2
+    (15, 1),  -- Pergaminho da Água Espiritual na área 1
+    (16, 3),  -- Pergaminho de Sangue na área 3
+    (17, 2),  -- Poção Inferior na área 2
+    (18, 3),  -- Pergaminho de Impacto de Terra na área 3
+    (19, 1);  -- Pergaminho de Defesa Rochosa na área 1
 
 
 INSERT INTO sabe_tecnica (id_personagem, nome_tecnica) VALUES

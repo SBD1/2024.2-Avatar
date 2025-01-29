@@ -287,23 +287,27 @@ class Database:
     """
     return self.query_one(sql, (id_instancia,))
   
-  def get_item(self, id_instancia):
+  def get_item(self, id_instancia, tipo_item="Todos"):
     sql = """
       SELECT *
       FROM instancia_item, item
       WHERE instancia_item.id_instancia = %s AND instancia_item.id_item = item.id
     """
     item = self.query_one(sql, (id_instancia,))
-    if item.tipo == 'S':
+    if item.tipo == 'S' and (tipo_item == "Pergaminhos" or tipo_item == "Todos"):
       item = self.get_pergaminho(id_instancia, item.id)
-    elif item.tipo == 'P':
+      return item
+    elif item.tipo == 'P' and (tipo_item == "Poções" or tipo_item == "Todos"):
       item = self.get_pocao(id_instancia, item.id)
-    elif item.tipo == 'W':
+      return item
+    elif item.tipo == 'W' and (tipo_item == "Armas" or tipo_item == "Todos"):
       item = self.get_arma(id_instancia, item.id)
-    elif item.tipo == 'A':
+      return item
+    elif item.tipo == 'A' and (tipo_item == "Armaduras" or tipo_item == "Todos"):
       item = self.get_armadura(id_instancia, item.id)
+      return item
     
-    return item
+    return False
 
   def get_itens_por_personagem(self, id_personagem):
     sql = """
@@ -343,5 +347,50 @@ class Database:
     itens = []
     for instancia in instancias_area:
       itens.append(self.get_item(instancia.id_instancia_item))
+    
+    return itens
+  
+  def get_itens_inventario_por_aba(self, id_jogador, aba_inventario):
+    instancias_inventario = self.get_itens_por_personagem(id_jogador)
+    
+    if instancias_inventario == None:
+      return []
+    
+    itens = []
+    
+    if aba_inventario == "Todas":
+      for instancia in instancias_inventario:
+        item = self.get_item(instancia.id_instancia)
+        if item:
+          itens.append(item)
+      return itens
+    
+    elif aba_inventario == "Poções":
+      for instancia in instancias_inventario:
+        item = self.get_item(instancia.id_instancia, "Poções")
+        if item:
+          itens.append(item)
+      return itens
+      
+    elif aba_inventario == "Pergaminhos":
+      for instancia in instancias_inventario:
+        item = self.get_item(instancia.id_instancia, "Pergaminhos")
+        if item:
+          itens.append(item)
+      return itens
+      
+    elif aba_inventario == "Armas":
+      for instancia in instancias_inventario:
+        item = self.get_item(instancia.id_instancia, "Armas")
+        if item:
+          itens.append(item)
+      return itens
+      
+    elif aba_inventario == "Armaduras":
+      for instancia in instancias_inventario:
+        item = self.get_item(instancia.id_instancia, "Armaduras")
+        if item:
+          itens.append(item)
+      return itens
     
     return itens

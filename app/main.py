@@ -128,7 +128,7 @@ class Game():
       if inimigos_na_area:
         choices.append("Procurar por Inimigos na área")
 
-      choices.append("Voltar ao Menu Inicial")
+      choices.append("-- Voltar ao Menu Inicial --")
 
       opcao = inquirer.select(
         message="Que ação deseja realizar?",
@@ -157,111 +157,159 @@ class Game():
         while True:
           opcao_inventario = inquirer.select(
             message="Qual aba deseja abrir?",
-            choices=["Poções", "Pergaminhos", "Armas", "Armaduras", "Fechar o inventário"]
+            choices=["Poções", "Pergaminhos", "Armas", "Armaduras", "-- Fechar o inventário --"]
           ).execute()
 
           if opcao_inventario == "Poções":
             while True:
               pocoes_inventario = self.db.get_itens_inventario_por_aba(id_jogador, "Poções")
               choices_inventario_pocoes = [Choice(item.nome) for item in pocoes_inventario]
-              choices_inventario_pocoes.append("Voltar")
+              choices_inventario_pocoes.append("-- Voltar --")
               
               opcao_inventario_pocoes = inquirer.select(
                 message="Selecione um item para ver seus detalhes",
                 choices=choices_inventario_pocoes
               ).execute()
               
-              if opcao_inventario_pocoes == "Voltar":
+              if opcao_inventario_pocoes == "-- Voltar --":
                 break
+              else:
+                for item in pocoes_inventario:
+                  if (item.nome == opcao_inventario_pocoes):
+                    while True:
+                      opcao_inventario_pocoes_detalhes = inquirer.select(
+                        message=f'Nome: {item.nome}, Peso: {item.peso}, Preço: {item.preco}, Cura: {item.pontos_cura}',
+                        choices=["Usar poção", "Dropar poção", "-- Voltar --"]
+                      ).execute()
+                      
+                      if opcao_inventario_pocoes_detalhes == "-- Voltar --":
+                        break
+                    break
             
           elif opcao_inventario == "Pergaminhos":
             while True:
               pergaminhos_inventario = self.db.get_itens_inventario_por_aba(id_jogador, "Pergaminhos")
               choices_inventario_pergaminhos = [Choice(item.nome) for item in pergaminhos_inventario]
-              choices_inventario_pergaminhos.append("Voltar")
+              choices_inventario_pergaminhos.append("-- Voltar --")
               
               opcao_inventario_pergaminhos = inquirer.select(
                 message="Selecione um item para ver seus detalhes",
                 choices=choices_inventario_pergaminhos
               ).execute()
               
-              if opcao_inventario_pergaminhos == "Voltar":
+              if opcao_inventario_pergaminhos == "-- Voltar --":
                 break
+              else:
+                for item in pergaminhos_inventario:
+                  if (item.nome == opcao_inventario_pergaminhos):
+                    while True:
+                      opcao_inventario_pergaminhos_detalhes = inquirer.select(
+                        message=f'Nome: {item.nome}, Peso: {item.peso}, Preço: {item.preco}, Raridade: {item.raridade}, Técnica: {item.tecnica}',
+                        choices=["Aprender técnica", "Dropar pergaminho", "-- Voltar --"]
+                      ).execute()
+                      
+                      if opcao_inventario_pergaminhos_detalhes == "-- Voltar --":
+                        break
+                    break
             
           elif opcao_inventario == "Armas":
             while True:
               armas_inventario = self.db.get_itens_inventario_por_aba(id_jogador, "Armas")
               choices_inventario_armas = [Choice(item.nome) for item in armas_inventario]
-              choices_inventario_armas.append("Voltar")
+              choices_inventario_armas.append("-- Voltar --")
               
               opcao_inventario_armas = inquirer.select(
                 message="Selecione um item para ver seus detalhes",
                 choices=choices_inventario_armas
               ).execute()
               
-              if opcao_inventario_armas == "Voltar":
+              if opcao_inventario_armas == "-- Voltar --":
                 break
+              else:
+                for item in armas_inventario:
+                  if (item.nome == opcao_inventario_armas):
+                    while True:
+                      opcao_inventario_armas_detalhes = inquirer.select(
+                        message=f'Nome: {item.nome}, Peso: {item.peso}, Preço: {item.preco}, Dano: {item.dano}',
+                        choices=["Equipar arma", "Dropar arma", "-- Voltar --"] # Implementar equipar/desequipar
+                      ).execute()
+                      
+                      if opcao_inventario_armas_detalhes == "-- Voltar --":
+                        break
+                    break
             
           elif opcao_inventario == "Armaduras":
             while True:
               armaduras_inventario = self.db.get_itens_inventario_por_aba(id_jogador, "Armaduras")
               choices_inventario_armaduras = [Choice(item.nome) for item in armaduras_inventario]
-              choices_inventario_armaduras.append("Voltar")
+              choices_inventario_armaduras.append("-- Voltar --")
               
               opcao_inventario_armaduras = inquirer.select(
                 message="Selecione um item para ver seus detalhes",
                 choices=choices_inventario_armaduras
               ).execute()
               
-              if opcao_inventario_armaduras == "Voltar":
+              if opcao_inventario_armaduras == "-- Voltar --":
                 break
+              else:
+                for item in armaduras_inventario:
+                  if (item.nome == opcao_inventario_armaduras):
+                    while True:
+                      opcao_inventario_armaduras_detalhes = inquirer.select(
+                        message=f'Nome: {item.nome}, Peso: {item.peso}, Preço: {item.preco}, Proteção: {item.pontos_protecao}, Parte do Corpo: {item.parte_corpo}',
+                        choices=["Equipar armadura", "Dropar armadura", "-- Voltar --"] # Implementar equipar/desequipar
+                      ).execute()
+                      
+                      if opcao_inventario_armaduras_detalhes == "-- Voltar --":
+                        break
+                    break
           
-          elif opcao_inventario == "Fechar o inventário":
+          elif opcao_inventario == "-- Fechar o inventário --":
             break
       
       # Itens na área
       elif opcao == "Procurar por Itens na área":
         while True:
           choices_item = [Choice(item.nome) for item in itens_na_area] # Colocar só o nome do item
-          choices_item.append("Voltar")
+          choices_item.append("-- Voltar --")
 
           opcao_item = inquirer.select(
-            message="Qual item deseja coletar?",
+            message="Selecione um item para adicioná-lo ao inventário",
             choices=choices_item
           ).execute()
 
-          if opcao_item == "Voltar":
+          if opcao_item == "-- Voltar --":
             break
 
       # NPCs na área
       elif opcao == "Procurar por NPCs na área":
         while True:
           choices_npc = [Choice(npc.nome) for npc in npcs_na_area] # Colocar só o nome do NPC
-          choices_npc.append("Voltar")
+          choices_npc.append("-- Voltar --")
 
           opcao_npc = inquirer.select(
             message="Com quem deseja conversar?",
             choices=choices_npc
           ).execute()
 
-          if opcao_npc == "Voltar":
+          if opcao_npc == "-- Voltar --":
             break
 
       # Inimigos na área
       elif opcao == "Procurar por Inimigos na área":
         while True:
           choices_inimigo = [Choice(inimigo.nome) for inimigo in inimigos_na_area] # Colocar só o nome do Inimigo
-          choices_inimigo.append("Voltar")
+          choices_inimigo.append("-- Voltar --")
 
           opcao_inimigo = inquirer.select(
             message="Quem deseja enfrentar?",
             choices=choices_inimigo
           ).execute()
 
-          if opcao_inimigo == "Voltar":
+          if opcao_inimigo == "-- Voltar --":
             break
       
-      elif opcao == "Voltar ao Menu Inicial":
+      elif opcao == "-- Voltar ao Menu Inicial --":
         break
     
 

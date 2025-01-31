@@ -416,3 +416,51 @@ class Database:
       return itens
     
     return itens
+
+  def equipar_arma(self, id_instancia, id_jogador):
+    item = self.get_item(id_instancia)
+    sql = "UPDATE pc SET item_arma = %s WHERE id = %s"
+    self.update(sql, (id_instancia, id_jogador))
+
+    return True
+
+  def desequipar_arma(self, id_instancia, id_jogador):
+    item = self.get_item(id_instancia)
+    sql = "UPDATE pc SET item_arma = NULL WHERE id = %s"
+    self.update(sql, (id_jogador,))
+
+    return True
+
+  def equipar_armadura(self, id_instancia, id_jogador):
+    item = self.get_item(id_instancia)
+    
+    sql = ""
+    if (item.parte_corpo == 'capacete'):
+      sql = "UPDATE pc SET item_capacete = %s WHERE id = %s"
+    elif (item.parte_corpo == 'peitoral'):
+      sql = "UPDATE pc SET item_peitoral = %s WHERE id = %s"
+    elif (item.parte_corpo == 'acessorio'):
+      sql = "UPDATE pc SET item_acessorio = %s WHERE id = %s"
+    elif (item.parte_corpo == 'botas'):
+      sql = "UPDATE pc SET item_botas = %s WHERE id = %s"
+    
+    self.update(sql, (id_instancia, id_jogador))
+
+    return True
+
+  def desequipar_armadura(self, id_instancia, id_jogador):
+    item = self.get_item(id_instancia)
+    
+    sql = ""
+    if (item.parte_corpo == 'capacete'):
+      sql = "UPDATE pc SET item_capacete = NULL WHERE id = %s"
+    elif (item.parte_corpo == 'peitoral'):
+      sql = "UPDATE pc SET item_peitoral = NULL WHERE id = %s"
+    elif (item.parte_corpo == 'acessorio'):
+      sql = "UPDATE pc SET item_acessorio = NULL WHERE id = %s"
+    elif (item.parte_corpo == 'botas'):
+      sql = "UPDATE pc SET item_botas = NULL WHERE id = %s"
+    
+    self.update(sql, (id_jogador,))
+
+    return True

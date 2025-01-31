@@ -226,12 +226,18 @@ class Game():
             
           elif opcao_inventario == "Armas":
             while True:
+              arma_equipada = None
+              arma_equipada_nome = "-"
+              if (jogador.item_arma != None):
+                arma_equipada = self.db.get_item(jogador.item_arma)
+                arma_equipada_nome = arma_equipada.nome
+
               armas_inventario = self.db.get_itens_inventario_por_aba(id_jogador, "Armas")
               choices_inventario_armas = [Choice(item.nome) for item in armas_inventario]
               choices_inventario_armas.append("-- Voltar --")
               
               opcao_inventario_armas = inquirer.select(
-                message="Selecione um item para ver seus detalhes",
+                message=f"------- Itens equipados: -------\nArma => [ {arma_equipada_nome} ]\n--------------------------------\nSelecione um item para ver seus detalhes",
                 choices=choices_inventario_armas
               ).execute()
               
@@ -239,14 +245,30 @@ class Game():
                 break
               else:
                 for item in armas_inventario:
-                  if (item.nome == opcao_inventario_armas):
+                  if item.nome == opcao_inventario_armas:
                     while True:
+                      equipado_mensagem = ""
+                      if item.nome == arma_equipada_nome:
+                        equipado_mensagem = ["Desequipar arma", "-- Voltar --"]
+                      else:
+                        equipado_mensagem = ["Equipar arma", "Dropar arma", "-- Voltar --"]
+
                       opcao_inventario_armas_detalhes = inquirer.select(
                         message=f'Nome: {item.nome}, Peso: {item.peso}, Preço: {item.preco}, Dano: {item.dano}',
-                        choices=["Equipar arma", "Dropar arma", "-- Voltar --"] # Implementar equipar/desequipar
+                        choices=equipado_mensagem
                       ).execute()
                       
-                      if opcao_inventario_armas_detalhes == "Dropar arma":
+                      if opcao_inventario_armas_detalhes == "Equipar arma":
+                        resultado = self.db.equipar_arma(item.id_instancia, jogador.id)
+                        if (resultado == True):
+                          jogador = self.db.get_player(jogador.id)
+                        break
+                      elif opcao_inventario_armas_detalhes == "Desequipar arma":
+                        resultado = self.db.desequipar_arma(item.id_instancia, jogador.id)
+                        if (resultado == True):
+                          jogador = self.db.get_player(jogador.id)
+                        break
+                      elif opcao_inventario_armas_detalhes == "Dropar arma":
                         resultado = self.db.drop_item(item.id_instancia, area_atual.id)
                         if (resultado == True):
                           itens_na_area = self.db.get_itens_por_area(area_atual.id)
@@ -258,12 +280,36 @@ class Game():
             
           elif opcao_inventario == "Armaduras":
             while True:
+              capacete_equipado = None
+              capacete_equipado_nome = "-"
+              if (jogador.item_capacete != None):
+                capacete_equipado = self.db.get_item(jogador.item_capacete)
+                capacete_equipado_nome = capacete_equipado.nome
+
+              peitoral_equipado = None
+              peitoral_equipado_nome = "-"
+              if (jogador.item_peitoral != None):
+                peitoral_equipado = self.db.get_item(jogador.item_peitoral)
+                peitoral_equipado_nome = peitoral_equipado.nome
+
+              acessorio_equipado = None
+              acessorio_equipado_nome = "-"
+              if (jogador.item_acessorio != None):
+                acessorio_equipado = self.db.get_item(jogador.item_acessorio)
+                acessorio_equipado_nome = acessorio_equipado.nome
+
+              bota_equipada = None
+              bota_equipada_nome = "-"
+              if (jogador.item_botas != None):
+                bota_equipada = self.db.get_item(jogador.item_botas)
+                bota_equipada_nome = bota_equipada.nome
+
               armaduras_inventario = self.db.get_itens_inventario_por_aba(id_jogador, "Armaduras")
               choices_inventario_armaduras = [Choice(item.nome) for item in armaduras_inventario]
               choices_inventario_armaduras.append("-- Voltar --")
               
               opcao_inventario_armaduras = inquirer.select(
-                message="Selecione um item para ver seus detalhes",
+                message=f"------- Itens equipados: -------\nCapacete  => [ {capacete_equipado_nome} ]\nPeitoral  => [ {peitoral_equipado_nome} ]\nAcessório => [ {acessorio_equipado_nome} ]\nBotas     => [ {bota_equipada_nome} ]\n--------------------------------\nSelecione um item para ver seus detalhes",
                 choices=choices_inventario_armaduras
               ).execute()
               
@@ -273,12 +319,28 @@ class Game():
                 for item in armaduras_inventario:
                   if (item.nome == opcao_inventario_armaduras):
                     while True:
+                      equipado_mensagem = ""
+                      if item.nome in {capacete_equipado_nome, peitoral_equipado_nome, acessorio_equipado_nome, bota_equipada_nome}:
+                        equipado_mensagem = ["Desequipar armadura", "-- Voltar --"]
+                      else:
+                        equipado_mensagem = ["Equipar armadura", "Dropar armadura", "-- Voltar --"]
+
                       opcao_inventario_armaduras_detalhes = inquirer.select(
                         message=f'Nome: {item.nome}, Peso: {item.peso}, Preço: {item.preco}, Proteção: {item.pontos_protecao}, Parte do Corpo: {item.parte_corpo}',
-                        choices=["Equipar armadura", "Dropar armadura", "-- Voltar --"] # Implementar equipar/desequipar
+                        choices=equipado_mensagem
                       ).execute()
                       
-                      if opcao_inventario_armaduras_detalhes == "Dropar armadura":
+                      if opcao_inventario_armaduras_detalhes == "Equipar armadura":
+                        resultado = self.db.equipar_armadura(item.id_instancia, jogador.id)
+                        if (resultado == True):
+                          jogador = self.db.get_player(jogador.id)
+                        break
+                      elif opcao_inventario_armaduras_detalhes == "Desequipar armadura":
+                        resultado = self.db.desequipar_armadura(item.id_instancia, jogador.id)
+                        if (resultado == True):
+                          jogador = self.db.get_player(jogador.id)
+                        break
+                      elif opcao_inventario_armaduras_detalhes == "Dropar armadura":
                         resultado = self.db.drop_item(item.id_instancia, area_atual.id)
                         if (resultado == True):
                           itens_na_area = self.db.get_itens_por_area(area_atual.id)

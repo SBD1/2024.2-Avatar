@@ -182,7 +182,13 @@ class Game():
                         choices=["Usar poção", "Dropar poção", "-- Voltar --"]
                       ).execute()
                       
-                      if opcao_inventario_pocoes_detalhes == "-- Voltar --":
+                      if opcao_inventario_pocoes_detalhes == "Dropar poção":
+                        resultado = self.db.drop_item(item.id_instancia, area_atual.id)
+                        if (resultado == True):
+                          itens_na_area = self.db.get_itens_por_area(area_atual.id)
+                          break
+                        
+                      elif opcao_inventario_pocoes_detalhes == "-- Voltar --":
                         break
                     break
             
@@ -208,7 +214,13 @@ class Game():
                         choices=["Aprender técnica", "Dropar pergaminho", "-- Voltar --"]
                       ).execute()
                       
-                      if opcao_inventario_pergaminhos_detalhes == "-- Voltar --":
+                      if opcao_inventario_pergaminhos_detalhes == "Dropar pergaminho":
+                        resultado = self.db.drop_item(item.id_instancia, area_atual.id)
+                        if (resultado == True):
+                          itens_na_area = self.db.get_itens_por_area(area_atual.id)
+                          break
+                        
+                      elif opcao_inventario_pergaminhos_detalhes == "-- Voltar --":
                         break
                     break
             
@@ -234,7 +246,13 @@ class Game():
                         choices=["Equipar arma", "Dropar arma", "-- Voltar --"] # Implementar equipar/desequipar
                       ).execute()
                       
-                      if opcao_inventario_armas_detalhes == "-- Voltar --":
+                      if opcao_inventario_armas_detalhes == "Dropar arma":
+                        resultado = self.db.drop_item(item.id_instancia, area_atual.id)
+                        if (resultado == True):
+                          itens_na_area = self.db.get_itens_por_area(area_atual.id)
+                          break
+                        
+                      elif opcao_inventario_armas_detalhes == "-- Voltar --":
                         break
                     break
             
@@ -260,7 +278,13 @@ class Game():
                         choices=["Equipar armadura", "Dropar armadura", "-- Voltar --"] # Implementar equipar/desequipar
                       ).execute()
                       
-                      if opcao_inventario_armaduras_detalhes == "-- Voltar --":
+                      if opcao_inventario_armaduras_detalhes == "Dropar armadura":
+                        resultado = self.db.drop_item(item.id_instancia, area_atual.id)
+                        if (resultado == True):
+                          itens_na_area = self.db.get_itens_por_area(area_atual.id)
+                          break
+
+                      elif opcao_inventario_armaduras_detalhes == "-- Voltar --":
                         break
                     break
           
@@ -280,6 +304,13 @@ class Game():
 
           if opcao_item == "-- Voltar --":
             break
+          else:
+            for item in itens_na_area:
+              if (item.nome == opcao_item):
+                resultado = self.db.add_item_inventario(item.id_instancia, jogador.id)
+                if (resultado == True):
+                  itens_na_area = self.db.get_itens_por_area(area_atual.id)
+                  break
 
       # NPCs na área
       elif opcao == "Procurar por NPCs na área":

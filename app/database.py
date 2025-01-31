@@ -349,6 +349,28 @@ class Database:
       itens.append(self.get_item(instancia.id_instancia_item))
     
     return itens
+
+  def add_item_inventario(self, id_instancia, id_jogador):
+    item = self.get_instancia_item(id_instancia)
+
+    sql = "UPDATE instancia_item SET id_pc = %s WHERE id_instancia = %s"
+    self.update(sql, (id_jogador, id_instancia))
+
+    sql = "DELETE FROM contem_item WHERE id_instancia_item = %s"
+    self.update(sql, (id_instancia,))
+
+    return True
+
+  def drop_item(self, id_instancia, id_area):
+    item = self.get_instancia_item(id_instancia)
+
+    sql = "UPDATE instancia_item SET id_pc = NULL, id_inimigo = NULL, id_mercador = NULL WHERE id_instancia = %s"
+    self.update(sql, (id_instancia,))
+
+    sql = "INSERT INTO contem_item (id_instancia_item, id_area) VALUES (%s, %s)"
+    self.create(sql, (id_instancia, id_area))
+
+    return True
   
   def get_itens_inventario_por_aba(self, id_jogador, aba_inventario):
     instancias_inventario = self.get_itens_por_personagem(id_jogador)

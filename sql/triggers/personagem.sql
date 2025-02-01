@@ -16,7 +16,7 @@ BEGIN
   DELETE FROM personagem WHERE id = OLD.id;
   RETURN NULL;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER; -- Para permitir a manipulação da table personagem pelo trigger
 
 
 -- PC
@@ -34,7 +34,7 @@ BEGIN
 
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE TRIGGER insert_pc
 BEFORE INSERT ON pc
@@ -68,7 +68,7 @@ BEGIN
 
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE TRIGGER insert_inimigo
 BEFORE INSERT ON inimigo
@@ -136,7 +136,7 @@ BEGIN
 
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE OR REPLACE FUNCTION alterate_amigo()
 RETURNS TRIGGER AS $$

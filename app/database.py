@@ -7,8 +7,8 @@ class Database:
     time.sleep(10)  # Aguarda o banco estar pronto
     try:
       self.conn = psycopg2.connect(
-        user="postgres",
-        password="postgres",
+        user="app_user",
+        password="app_password",
         host="db",
         port="5432",
         database="DB",

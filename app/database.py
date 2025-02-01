@@ -16,7 +16,20 @@ class Database:
     except psycopg2.Error as e:
       print(f"Erro ao conectar ao banco de dados: {e}")
       raise
+  
+  def populate_db(self):
+    try:
+      with self.conn.cursor() as cursor:
+        cursor.execute("CALL populate_database();")
+        cursor.close()
+        self.conn.commit()
+    except psycopg2.Error as e:
+      print(f"Erro ao popular o banco: {e}")
+      self.conn.rollback()
+      raise
 
+
+  
   def query_all(self, sql, params=None):
     try:
       with self.conn.cursor(cursor_factory=NamedTupleCursor) as cursor:

@@ -14,6 +14,7 @@ class Game():
     
   def __init__(self):
     self.db = Database()
+    self.db.populate_db()
   
   def start(self):
     while True:

@@ -1,14 +1,14 @@
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
-from app.model.database import Database
-from app.view.inventario import Inventario
-from app.view.loot import Loot
-from app.view.npcs import Npcs
-from app.view.inimigos import Inimigos
+from model.database import Database
+from view.inventario import Inventario
+from view.loot import Loot
+from view.npcs import Npcs
+from view.inimigos import Inimigos
 
-from app.utils.clear import clear
-from app.assets.ascii_art import AANG, APPA
+from utils.clear import clear
+from assets.ascii_art import AANG, APPA
 
 class Game():
   def __init__(self):
@@ -113,13 +113,13 @@ class Game():
         "Abrir o inventário"
       ]
 
-      if self.loot.get_loot(self, area_atual.id):
+      if self.loot.get_loot(area_atual.id):
         choices.append("Procurar por Itens na área")
 
-      if self.npcs.get_npcs(self, area_atual.id):
+      if self.npcs.get_npcs(area_atual.id):
         choices.append("Procurar por NPCs na área")
       
-      if self.inimigos.get_inimigos(self, id_jogador, area_atual.id):
+      if self.inimigos.get_inimigos(area_atual.id):
         choices.append("Procurar por Inimigos na área")
 
       choices.append("-- Voltar ao Menu Inicial --")

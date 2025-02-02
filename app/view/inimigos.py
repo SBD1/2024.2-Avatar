@@ -3,7 +3,7 @@ from re import A
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
-from app.utils.clear import clear
+from utils.clear import clear
 
 class Inimigos:
   def __init__(self, db):

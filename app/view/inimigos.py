@@ -189,18 +189,18 @@ class Inimigos:
       self.db.deal_damage(jogador.id, acao_inimigo.dano_causado - acao_jogador.dano_bloqueado)
 
     elif j_tipo == "ataque" and i_tipo == "esquiva":
-      if random.random() < acao_inimigo.chance_esquiva: #TODO: Verificar esse random
-        print("O inimigo esquivou!")
-      else:
-        print(f"O inimigo tentou se esquivar mas falhou e levou {acao_inimigo.dano_causado} pontos de dano")
-        self.db.deal_damage(inimigo.id, acao_jogador.dano_causado)
-
+        if random.random() < acao_inimigo.chance_esquiva:
+            print("O inimigo esquivou!")
+        else:
+            print(f"O inimigo tentou se esquivar mas falhou e levou {acao_jogador.dano_causado} pontos de dano")
+            self.db.deal_damage(inimigo.id, acao_jogador.dano_causado)
+    
     elif j_tipo == "esquiva" and i_tipo == "ataque":
-      if random.random() < acao_jogador.chance_esquiva: #TODO: Verificar esse random
-        print("Voce esquivou!")
-      else:
-        print(f"Voce tentou se esquivar mas falhou e levou {acao_jogador.dano_causado} pontos de dano")
-        self.db.deal_damage(jogador.id, acao_inimigo.dano_causado)
+        if random.random() < acao_jogador.chance_esquiva:
+            print("Você esquivou!")
+        else:
+            print(f"Você tentou se esquivar mas falhou e levou {acao_inimigo.dano_causado} pontos de dano")
+            self.db.deal_damage(jogador.id, acao_inimigo.dano_causado)
 
     elif (j_tipo == "defesa" or j_tipo == "esquiva") and i_tipo == "cura":
       print("O inimigo se curou!")

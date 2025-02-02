@@ -160,7 +160,7 @@ class Game():
 
       # Inimigos na área
       elif opcao == "Procurar por Inimigos na área":
-        self.inimigos.handle_inimigos(jogador, area_atual.id)
+        self.inimigos.handle_inimigos(id_jogador, area_atual.id)
       
       elif opcao == "-- Voltar ao Menu Inicial --":
         break

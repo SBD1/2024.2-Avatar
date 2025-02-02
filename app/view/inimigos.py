@@ -42,25 +42,27 @@ class Inimigos:
     while True:
       clear()
       inimigo = self.db.get_inimigo(id_inimigo)
-      jogador = self.db.get_jogador(id_jogador)
+      jogador = self.db.get_player(id_jogador)
 
       print("======================================")
       print("                BATALHA               ")
       print("======================================")
-      print(f"{jogador.nome} | Vida: {jogador.vida_atual}/{jogador.vida_max}")
-      print("                versus                ")
-      print(f"{inimigo.nome} | Vida: {inimigo.vida_atual}/{inimigo.vida_max}")
+      print(f"{jogador.vida_atual}/{jogador.vida_max} >>> {jogador.nome}")
+      print("\n")
+      print(f"{inimigo.vida_atual}/{inimigo.vida_max} >>> {inimigo.nome}")
       print("======================================")
-      print("\n\n\n\n\n")
+      print("\n\n\n\n")
 
       if inimigo.vida_atual <= 0:
         print(f"{jogador.nome} derrotou {inimigo.nome}!")
         self.db.add_combate(id_jogador, id_inimigo, id_jogador)
+        print("Pressione Enter para voltar...")
         break
 
       if jogador.vida_atual <= 0:
         print(f"{inimigo.nome} derrotou {jogador.nome}!")
         self.db.add_combate(id_jogador, id_inimigo, id_inimigo)
+        print("Pressione Enter para voltar...")
         break
 
       acao = inquirer.select(
@@ -79,15 +81,15 @@ class Inimigos:
           message="Qual ataque deseja usar?",
           choices=[
             Choice(ataque, ataque.nome) for ataque in j_ataques
-          ]
+          ] + ["-- Voltar --"]
         ).execute()
-      
+
       elif acao == "defender":
         acao_jogador = inquirer.select(
           message="Qual defesa deseja usar?",
           choices=[
             Choice(defesa, defesa.nome) for defesa in j_defesas
-          ]
+          ] + ["-- Voltar --"]
         ).execute()
 
       elif acao == "esquivar":
@@ -95,7 +97,7 @@ class Inimigos:
           message="Qual esquiva deseja usar?",
           choices=[
             Choice(esquiva, esquiva.nome) for esquiva in j_esquivas
-          ]
+          ] + ["-- Voltar --"]
         ).execute()
 
       elif acao == "curar":
@@ -103,18 +105,51 @@ class Inimigos:
           message="Qual cura deseja usar?",
           choices=[
             Choice(cura, cura.nome) for cura in j_curas
-          ]
+          ] + ["-- Voltar --"]
         ).execute()
 
       elif acao == "-- Voltar --":
         break
+      
+      # Lida com o caso do inimigo não possuir tecnicas
+      if i_tecnicas != []:
+        acao_inimigo = random.choice(i_tecnicas)
+      else:
+        acao_inimigo = None
 
-      acao_inimigo = random.choice(i_tecnicas)
-      self.handle_round(jogador, inimigo, acao_jogador, acao_inimigo)     
+      if acao_jogador == "-- Voltar --":
+        continue
+      else:
+        self.handle_round(jogador, inimigo, acao_jogador, acao_inimigo)     
 
 
 
   def handle_round(self,jogador, inimigo, acao_jogador, acao_inimigo):
+    j_tipo = self.get_acao_type(acao_jogador)
+    i_tipo = self.get_acao_type(acao_inimigo)
+
+    # Lida com o caso do inimigo não possuir tecnicas
+    if j_tipo == "ataque" and i_tipo == None :
+      print(f"O inimigo usou uma tecnica desconhecida e levou {acao_jogador.dano_causado} pontos de dano")
+      self.db.deal_damage(inimigo.id, acao_jogador.dano_causado)
+      input("Pressione Enter para ir ao proximo round...")
+      return
+
+    elif (j_tipo == "defesa" or j_tipo == "esquiva") and i_tipo == None:
+      print(f"Voce usou {acao_jogador.nome} e o inimigo usou uma tecnica desconhecida")
+      print("Nenhum dano foi causado")
+      input("Pressione Enter para ir ao proximo round...")
+      return
+
+    elif j_tipo == "cura" and i_tipo == None:
+      print(f"Voce usou {acao_jogador.nome} e o inimigo usou uma tecnica desconhecida")
+      print("Voce se curou!")
+      self.db.use_heal(jogador.id, acao_jogador.pontos_cura)
+      input("Pressione Enter para ir ao proximo round...")
+      return
+
+    print(f"Você usou {acao_jogador.nome} e o inimigo usou {acao_inimigo.nome}")
+
     # Jogador  |  Inimigo   =  Resultado
     #    A    <->    A      =  Ambos levam dano_causado
     #    C    <->    A      =  Jogador leva dano_causado
@@ -132,11 +167,7 @@ class Inimigos:
     #    D    <->    E      =  Nada
     #    E    <->    E      =  Nada
     #    E    <->    D      =  Nada
-    j_tipo = self.get_acao_type(acao_jogador)
-    i_tipo = self.get_acao_type(acao_inimigo)
 
-    print(f"Você usou {acao_jogador.nome} e o inimigo usou {acao_inimigo.nome}")
-    
     if j_tipo == "ataque" and i_tipo == "ataque":
       print("Ambos levam dano!")
       print(f"Você causou {acao_jogador.dano_causado} pontos de dano e {inimigo.nome} causou {acao_inimigo.dano_causado} pontos de dano")
@@ -200,7 +231,7 @@ class Inimigos:
 
 
 
-  def get_acao_type(acao):
+  def get_acao_type(self, acao):
     acao_types = {
         "dano_causado": "ataque",
         "dano_bloqueado": "defesa",

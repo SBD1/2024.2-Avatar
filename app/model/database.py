@@ -127,56 +127,7 @@ class Database:
 
     return self.query_one(sql, (nome,))
   
-  def get_tecnicas_personagem(self, id_personagem):
-    sql = """
-    SELECT * 
-    FROM sabe_tecnica ST 
-    JOIN tecnica T 
-    ON ST.nome_tecnica = T.nome 
-    WHERE ST.id_personagem = %s
-    """
-    return self.query_all(sql, (id_personagem,))
-
-  def get_ataques_personagem(self, id_personagem):
-    sql = """
-    SELECT * 
-    FROM sabe_tecnica ST 
-    JOIN ataque A 
-    ON ST.nome_tecnica = A.nome 
-    WHERE ST.id_personagem = %s
-    """
-    return self.query_all(sql, (id_personagem,))
-  
-  def get_defesas_personagem(self, id_personagem):
-    sql = """
-    SELECT * 
-    FROM sabe_tecnica ST 
-    JOIN defesa D 
-    ON ST.nome_tecnica = D.nome 
-    WHERE ST.id_personagem = %s
-    """
-    return self.query_all(sql, (id_personagem,))
-  
-  def get_mobilidades_personagem(self, id_personagem):
-    sql = """
-    SELECT * 
-    FROM sabe_tecnica ST 
-    JOIN mobilidade M 
-    ON ST.nome_tecnica = M.nome 
-    WHERE ST.id_personagem = %s
-    """
-    return self.query_all(sql, (id_personagem,))
-  
-  def get_curas_personagem(self, id_personagem):
-    sql = """
-    SELECT * 
-    FROM sabe_tecnica ST 
-    JOIN cura C 
-    ON ST.nome_tecnica = C.nome 
-    WHERE ST.id_personagem = %s
-    """
-    return self.query_all(sql, (id_personagem,))
-  
+ 
 # Buscas para NPC
 
   def get_npc(self, id_npc):
@@ -470,11 +421,11 @@ class Database:
     tipo = self.query_one(sql_type, (id_personagem,)).tipo
 
     if tipo == 'I':
-      sql = "UPDATE inimigo SET pontos_vida = pontos_vida - %s WHERE id = %s"
+      sql = "UPDATE inimigo SET vida_atual = vida_atual - %s WHERE id = %s"
     elif tipo == 'P':
-      sql = "UPDATE pc SET pontos_vida = pontos_vida - %s WHERE id = %s"
+      sql = "UPDATE pc SET vida_atual = vida_atual - %s WHERE id = %s"
     elif tipo == 'A':
-      sql = "UPDATE amigo SET pontos_vida = pontos_vida - %s WHERE id = %s"
+      sql = "UPDATE amigo SET vida_atual = vida_atual - %s WHERE id = %s"
 
     self.update(sql, (dano_causado, id_personagem))
 
@@ -483,18 +434,67 @@ class Database:
     tipo = self.query_one(sql_type, (id_personagem,)).tipo
 
     if tipo == 'I':
-      sql = "UPDATE inimigo SET pontos_vida = pontos_vida + %s WHERE id = %s"
+      sql = "UPDATE inimigo SET vida_atual = vida_atual + %s WHERE id = %s"
     elif tipo == 'P':
-      sql = "UPDATE pc SET pontos_vida = pontos_vida + %s WHERE id = %s"
+      sql = "UPDATE pc SET vida_atual = vida_atual + %s WHERE id = %s"
     elif tipo == 'A':
-      sql = "UPDATE amigo SET pontos_vida = pontos_vida + %s WHERE id = %s"
+      sql = "UPDATE amigo SET vida_atual = vida_atual + %s WHERE id = %s"
 
     self.update(sql, (pontos_cura, id_personagem))
 
   def add_combate(self, id_jogador, id_inimigo, id_vencedor):
-    sql = "INSERT INTO combate (id_jogador, id_inimigo, id_vencedor) VALUES (%s, %s, %s)"
+    sql = "INSERT INTO combate (id_pc, id_inimigo, id_vencedor) VALUES (%s, %s, %s)"
     self.create(sql, (id_jogador, id_inimigo, id_vencedor))
 
   def get_inimigo(self, id_inimigo):
     sql = "SELECT * FROM inimigo WHERE id = %s"
     return self.query_one(sql, (id_inimigo,))
+  
+  def get_tecnicas_personagem(self, id_personagem):
+    return (
+      self.get_ataques_personagem(id_personagem) +
+      self.get_defesas_personagem(id_personagem) +
+      self.get_mobilidades_personagem(id_personagem) +
+      self.get_curas_personagem(id_personagem))
+    
+
+  def get_ataques_personagem(self, id_personagem):
+    sql = """
+    SELECT * 
+    FROM ataque A
+    JOIN sabe_tecnica ST
+    ON ST.nome_tecnica = A.nome
+    WHERE ST.id_personagem = %s
+    """
+    return self.query_all(sql, (id_personagem,))
+  
+  def get_defesas_personagem(self, id_personagem):
+    sql = """
+    SELECT * 
+    FROM defesa D 
+    JOIN sabe_tecnica ST 
+    ON ST.nome_tecnica = D.nome 
+    WHERE ST.id_personagem = %s
+    """
+    return self.query_all(sql, (id_personagem,))
+  
+  def get_mobilidades_personagem(self, id_personagem):
+    sql = """
+    SELECT * 
+    FROM mobilidade M 
+    JOIN sabe_tecnica ST 
+    ON ST.nome_tecnica = M.nome 
+    WHERE ST.id_personagem = %s
+    """
+    return self.query_all(sql, (id_personagem,))
+  
+  def get_curas_personagem(self, id_personagem):
+    sql = """
+    SELECT * 
+    FROM cura C 
+    JOIN sabe_tecnica ST 
+    ON ST.nome_tecnica = C.nome 
+    WHERE ST.id_personagem = %s
+    """
+    return self.query_all(sql, (id_personagem,))
+  

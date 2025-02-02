@@ -17,6 +17,22 @@ class Database:
       print(f"Erro ao conectar ao banco de dados: {e}")
       raise
 
+  def execute_query(self, query, params=None, fetch="all"):
+      try:
+          with self.conn.cursor(cursor_factory=NamedTupleCursor) as cursor:
+              cursor.execute(query, params)
+              if fetch == "one":
+                  return cursor.fetchone()
+              elif fetch == "all":
+                  return cursor.fetchall()
+              elif fetch == "none":
+                  self.conn.commit()
+                  return None
+      except psycopg2.Error as e:
+          print(f"Erro ao executar consulta: {e}")
+          self.conn.rollback()
+          raise
+  
   def query_all(self, sql, params=None):
     try:
       with self.conn.cursor(cursor_factory=NamedTupleCursor) as cursor:
@@ -63,7 +79,6 @@ class Database:
 
   def close(self):
     self.conn.close()
-
 
   def create_player(self, nome):
     sql_update_id = "SELECT setval('personagem_id_seq', (SELECT MAX(id) FROM personagem))"
@@ -128,56 +143,7 @@ class Database:
 
     return self.query_one(sql, (nome,))
   
-  def get_tecnicas_personagem(self, id_personagem):
-    sql = """
-    SELECT * 
-    FROM sabe_tecnica ST 
-    JOIN tecnica T 
-    ON ST.nome_tecnica = T.nome 
-    WHERE ST.id_personagem = %s
-    """
-    return self.query_all(sql, (id_personagem,))
-
-  def get_ataques_personagem(self, id_personagem):
-    sql = """
-    SELECT * 
-    FROM sabe_tecnica ST 
-    JOIN ataque A 
-    ON ST.nome_tecnica = A.nome 
-    WHERE ST.id_personagem = %s
-    """
-    return self.query_all(sql, (id_personagem,))
-  
-  def get_defesas_personagem(self, id_personagem):
-    sql = """
-    SELECT * 
-    FROM sabe_tecnica ST 
-    JOIN defesa D 
-    ON ST.nome_tecnica = D.nome 
-    WHERE ST.id_personagem = %s
-    """
-    return self.query_all(sql, (id_personagem,))
-  
-  def get_mobilidades_personagem(self, id_personagem):
-    sql = """
-    SELECT * 
-    FROM sabe_tecnica ST 
-    JOIN mobilidade M 
-    ON ST.nome_tecnica = M.nome 
-    WHERE ST.id_personagem = %s
-    """
-    return self.query_all(sql, (id_personagem,))
-  
-  def get_curas_personagem(self, id_personagem):
-    sql = """
-    SELECT * 
-    FROM sabe_tecnica ST 
-    JOIN cura C 
-    ON ST.nome_tecnica = C.nome 
-    WHERE ST.id_personagem = %s
-    """
-    return self.query_all(sql, (id_personagem,))
-  
+ 
 # Buscas para NPC
 
   def get_npc(self, id_npc):
@@ -464,3 +430,87 @@ class Database:
     self.update(sql, (id_jogador,))
 
     return True
+
+  # Funções de combate
+  def deal_damage(self, id_personagem, dano_causado):
+    sql_type = "SELECT tipo FROM personagem WHERE id = %s"
+    tipo = self.query_one(sql_type, (id_personagem,)).tipo
+
+    if tipo == 'I':
+      sql = "UPDATE inimigo SET vida_atual = vida_atual - %s WHERE id = %s"
+    elif tipo == 'P':
+      sql = "UPDATE pc SET vida_atual = vida_atual - %s WHERE id = %s"
+    elif tipo == 'A':
+      sql = "UPDATE amigo SET vida_atual = vida_atual - %s WHERE id = %s"
+
+    self.update(sql, (dano_causado, id_personagem))
+
+  def use_heal(self, id_personagem, pontos_cura):
+    sql_type = "SELECT tipo FROM personagem WHERE id = %s"
+    tipo = self.query_one(sql_type, (id_personagem,)).tipo
+
+    if tipo == 'I':
+      sql = "UPDATE inimigo SET vida_atual = vida_atual + %s WHERE id = %s"
+    elif tipo == 'P':
+      sql = "UPDATE pc SET vida_atual = vida_atual + %s WHERE id = %s"
+    elif tipo == 'A':
+      sql = "UPDATE amigo SET vida_atual = vida_atual + %s WHERE id = %s"
+
+    self.update(sql, (pontos_cura, id_personagem))
+
+  def add_combate(self, id_jogador, id_inimigo, id_vencedor):
+    sql = "INSERT INTO combate (id_pc, id_inimigo, id_vencedor) VALUES (%s, %s, %s)"
+    self.create(sql, (id_jogador, id_inimigo, id_vencedor))
+
+  def get_inimigo(self, id_inimigo):
+    sql = "SELECT * FROM inimigo WHERE id = %s"
+    return self.query_one(sql, (id_inimigo,))
+  
+  def get_tecnicas_personagem(self, id_personagem):
+    return (
+      self.get_ataques_personagem(id_personagem) +
+      self.get_defesas_personagem(id_personagem) +
+      self.get_mobilidades_personagem(id_personagem) +
+      self.get_curas_personagem(id_personagem))
+    
+
+  def get_ataques_personagem(self, id_personagem):
+    sql = """
+    SELECT * 
+    FROM ataque A
+    JOIN sabe_tecnica ST
+    ON ST.nome_tecnica = A.nome
+    WHERE ST.id_personagem = %s
+    """
+    return self.query_all(sql, (id_personagem,))
+  
+  def get_defesas_personagem(self, id_personagem):
+    sql = """
+    SELECT * 
+    FROM defesa D 
+    JOIN sabe_tecnica ST 
+    ON ST.nome_tecnica = D.nome 
+    WHERE ST.id_personagem = %s
+    """
+    return self.query_all(sql, (id_personagem,))
+  
+  def get_mobilidades_personagem(self, id_personagem):
+    sql = """
+    SELECT * 
+    FROM mobilidade M 
+    JOIN sabe_tecnica ST 
+    ON ST.nome_tecnica = M.nome 
+    WHERE ST.id_personagem = %s
+    """
+    return self.query_all(sql, (id_personagem,))
+  
+  def get_curas_personagem(self, id_personagem):
+    sql = """
+    SELECT * 
+    FROM cura C 
+    JOIN sabe_tecnica ST 
+    ON ST.nome_tecnica = C.nome 
+    WHERE ST.id_personagem = %s
+    """
+    return self.query_all(sql, (id_personagem,))
+  

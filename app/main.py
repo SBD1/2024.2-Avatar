@@ -1,20 +1,24 @@
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
-from database import Database
-import os
 
-from ascii_art import AANG, APPA
+from model.database import Database
+from view.inventario import Inventario
+from view.loot import Loot
+from view.npcs import Npcs
+from view.inimigos import Inimigos
 
-
-# limpa o terminal
-def clear():
-  os.system('cls' if os.name == 'nt' else 'clear')
+from utils.clear import clear
+from assets.ascii_art import AANG, APPA
 
 class Game():
-    
   def __init__(self):
     self.db = Database()
-  
+    self.inv = Inventario(self.db)
+    self.loot = Loot(self.db)
+    self.npcs = Npcs(self.db)
+    self.inimigos = Inimigos(self.db)
+
+
   def start(self):
     while True:
       clear()
@@ -43,6 +47,7 @@ class Game():
         self.db.close()
         break
 
+
   def new_game(self):
     clear()
     print("================================")
@@ -66,6 +71,7 @@ class Game():
 
     self.gameplay(id_jogador)
 
+
   def load_game(self):
     clear()
     print("================================")
@@ -85,17 +91,11 @@ class Game():
 
     self.gameplay(jogador)
 
-  def gameplay(self, id_jogador):
 
+  def gameplay(self, id_jogador):
     while True:
       jogador = self.db.get_player(id_jogador)
-      clear()
-      print("================================")
-      print("STATUS DO JOGADOR")
-      print(jogador.nome)
-      print(f'Pontos de Vida: {jogador.vida_atual}/{jogador.vida_max}')
-      print(f'Nível: {jogador.nivel} ({jogador.xp} XP)')
-      print("================================")
+      self.print_player_status(jogador)
 
       area_atual = self.db.get_area(jogador.id_area_atual)
 
@@ -116,16 +116,13 @@ class Game():
         "Abrir o inventário"
       ]
 
-      itens_na_area = self.db.get_itens_por_area(area_atual.id)
-      if len(itens_na_area) > 0:
+      if self.loot.get_loot(area_atual.id):
         choices.append("Procurar por Itens na área")
 
-      npcs_na_area = self.db.get_npcs_por_area(area_atual.id)
-      if npcs_na_area:
+      if self.npcs.get_npcs(area_atual.id):
         choices.append("Procurar por NPCs na área")
       
-      inimigos_na_area = self.db.get_inimigos_por_area(area_atual.id)
-      if inimigos_na_area:
+      if self.inimigos.get_inimigos(area_atual.id):
         choices.append("Procurar por Inimigos na área")
 
       choices.append("-- Voltar ao Menu Inicial --")
@@ -154,257 +151,33 @@ class Game():
 
       # Inventário
       elif opcao == "Abrir o inventário":
-        while True:
-          opcao_inventario = inquirer.select(
-            message="Qual aba deseja abrir?",
-            choices=["Poções", "Pergaminhos", "Armas", "Armaduras", "-- Fechar o inventário --"]
-          ).execute()
-
-          if opcao_inventario == "Poções":
-            while True:
-              pocoes_inventario = self.db.get_itens_inventario_por_aba(id_jogador, "Poções")
-              choices_inventario_pocoes = [Choice(item.nome) for item in pocoes_inventario]
-              choices_inventario_pocoes.append("-- Voltar --")
-              
-              opcao_inventario_pocoes = inquirer.select(
-                message="Selecione um item para ver seus detalhes",
-                choices=choices_inventario_pocoes
-              ).execute()
-              
-              if opcao_inventario_pocoes == "-- Voltar --":
-                break
-              else:
-                for item in pocoes_inventario:
-                  if (item.nome == opcao_inventario_pocoes):
-                    while True:
-                      opcao_inventario_pocoes_detalhes = inquirer.select(
-                        message=f'Nome: {item.nome}, Peso: {item.peso}, Preço: {item.preco}, Cura: {item.pontos_cura}',
-                        choices=["Usar poção", "Dropar poção", "-- Voltar --"]
-                      ).execute()
-                      
-                      if opcao_inventario_pocoes_detalhes == "Dropar poção":
-                        resultado = self.db.drop_item(item.id_instancia, area_atual.id)
-                        if (resultado == True):
-                          itens_na_area = self.db.get_itens_por_area(area_atual.id)
-                          break
-                        
-                      elif opcao_inventario_pocoes_detalhes == "-- Voltar --":
-                        break
-                    break
-            
-          elif opcao_inventario == "Pergaminhos":
-            while True:
-              pergaminhos_inventario = self.db.get_itens_inventario_por_aba(id_jogador, "Pergaminhos")
-              choices_inventario_pergaminhos = [Choice(item.nome) for item in pergaminhos_inventario]
-              choices_inventario_pergaminhos.append("-- Voltar --")
-              
-              opcao_inventario_pergaminhos = inquirer.select(
-                message="Selecione um item para ver seus detalhes",
-                choices=choices_inventario_pergaminhos
-              ).execute()
-              
-              if opcao_inventario_pergaminhos == "-- Voltar --":
-                break
-              else:
-                for item in pergaminhos_inventario:
-                  if (item.nome == opcao_inventario_pergaminhos):
-                    while True:
-                      opcao_inventario_pergaminhos_detalhes = inquirer.select(
-                        message=f'Nome: {item.nome}, Peso: {item.peso}, Preço: {item.preco}, Raridade: {item.raridade}, Técnica: {item.tecnica}',
-                        choices=["Aprender técnica", "Dropar pergaminho", "-- Voltar --"]
-                      ).execute()
-                      
-                      if opcao_inventario_pergaminhos_detalhes == "Dropar pergaminho":
-                        resultado = self.db.drop_item(item.id_instancia, area_atual.id)
-                        if (resultado == True):
-                          itens_na_area = self.db.get_itens_por_area(area_atual.id)
-                          break
-                        
-                      elif opcao_inventario_pergaminhos_detalhes == "-- Voltar --":
-                        break
-                    break
-            
-          elif opcao_inventario == "Armas":
-            while True:
-              arma_equipada = None
-              arma_equipada_nome = "-"
-              if (jogador.item_arma != None):
-                arma_equipada = self.db.get_item(jogador.item_arma)
-                arma_equipada_nome = arma_equipada.nome
-
-              armas_inventario = self.db.get_itens_inventario_por_aba(id_jogador, "Armas")
-              choices_inventario_armas = [Choice(item.nome) for item in armas_inventario]
-              choices_inventario_armas.append("-- Voltar --")
-              
-              opcao_inventario_armas = inquirer.select(
-                message=f"------- Itens equipados: -------\nArma => [ {arma_equipada_nome} ]\n--------------------------------\nSelecione um item para ver seus detalhes",
-                choices=choices_inventario_armas
-              ).execute()
-              
-              if opcao_inventario_armas == "-- Voltar --":
-                break
-              else:
-                for item in armas_inventario:
-                  if item.nome == opcao_inventario_armas:
-                    while True:
-                      equipado_mensagem = ""
-                      if item.nome == arma_equipada_nome:
-                        equipado_mensagem = ["Desequipar arma", "-- Voltar --"]
-                      else:
-                        equipado_mensagem = ["Equipar arma", "Dropar arma", "-- Voltar --"]
-
-                      opcao_inventario_armas_detalhes = inquirer.select(
-                        message=f'Nome: {item.nome}, Peso: {item.peso}, Preço: {item.preco}, Dano: {item.dano}',
-                        choices=equipado_mensagem
-                      ).execute()
-                      
-                      if opcao_inventario_armas_detalhes == "Equipar arma":
-                        resultado = self.db.equipar_arma(item.id_instancia, jogador.id)
-                        if (resultado == True):
-                          jogador = self.db.get_player(jogador.id)
-                        break
-                      elif opcao_inventario_armas_detalhes == "Desequipar arma":
-                        resultado = self.db.desequipar_arma(item.id_instancia, jogador.id)
-                        if (resultado == True):
-                          jogador = self.db.get_player(jogador.id)
-                        break
-                      elif opcao_inventario_armas_detalhes == "Dropar arma":
-                        resultado = self.db.drop_item(item.id_instancia, area_atual.id)
-                        if (resultado == True):
-                          itens_na_area = self.db.get_itens_por_area(area_atual.id)
-                          break
-                        
-                      elif opcao_inventario_armas_detalhes == "-- Voltar --":
-                        break
-                    break
-            
-          elif opcao_inventario == "Armaduras":
-            while True:
-              capacete_equipado = None
-              capacete_equipado_nome = "-"
-              if (jogador.item_capacete != None):
-                capacete_equipado = self.db.get_item(jogador.item_capacete)
-                capacete_equipado_nome = capacete_equipado.nome
-
-              peitoral_equipado = None
-              peitoral_equipado_nome = "-"
-              if (jogador.item_peitoral != None):
-                peitoral_equipado = self.db.get_item(jogador.item_peitoral)
-                peitoral_equipado_nome = peitoral_equipado.nome
-
-              acessorio_equipado = None
-              acessorio_equipado_nome = "-"
-              if (jogador.item_acessorio != None):
-                acessorio_equipado = self.db.get_item(jogador.item_acessorio)
-                acessorio_equipado_nome = acessorio_equipado.nome
-
-              bota_equipada = None
-              bota_equipada_nome = "-"
-              if (jogador.item_botas != None):
-                bota_equipada = self.db.get_item(jogador.item_botas)
-                bota_equipada_nome = bota_equipada.nome
-
-              armaduras_inventario = self.db.get_itens_inventario_por_aba(id_jogador, "Armaduras")
-              choices_inventario_armaduras = [Choice(item.nome) for item in armaduras_inventario]
-              choices_inventario_armaduras.append("-- Voltar --")
-              
-              opcao_inventario_armaduras = inquirer.select(
-                message=f"------- Itens equipados: -------\nCapacete  => [ {capacete_equipado_nome} ]\nPeitoral  => [ {peitoral_equipado_nome} ]\nAcessório => [ {acessorio_equipado_nome} ]\nBotas     => [ {bota_equipada_nome} ]\n--------------------------------\nSelecione um item para ver seus detalhes",
-                choices=choices_inventario_armaduras
-              ).execute()
-              
-              if opcao_inventario_armaduras == "-- Voltar --":
-                break
-              else:
-                for item in armaduras_inventario:
-                  if (item.nome == opcao_inventario_armaduras):
-                    while True:
-                      equipado_mensagem = ""
-                      if item.nome in {capacete_equipado_nome, peitoral_equipado_nome, acessorio_equipado_nome, bota_equipada_nome}:
-                        equipado_mensagem = ["Desequipar armadura", "-- Voltar --"]
-                      else:
-                        equipado_mensagem = ["Equipar armadura", "Dropar armadura", "-- Voltar --"]
-
-                      opcao_inventario_armaduras_detalhes = inquirer.select(
-                        message=f'Nome: {item.nome}, Peso: {item.peso}, Preço: {item.preco}, Proteção: {item.pontos_protecao}, Parte do Corpo: {item.parte_corpo}',
-                        choices=equipado_mensagem
-                      ).execute()
-                      
-                      if opcao_inventario_armaduras_detalhes == "Equipar armadura":
-                        resultado = self.db.equipar_armadura(item.id_instancia, jogador.id)
-                        if (resultado == True):
-                          jogador = self.db.get_player(jogador.id)
-                        break
-                      elif opcao_inventario_armaduras_detalhes == "Desequipar armadura":
-                        resultado = self.db.desequipar_armadura(item.id_instancia, jogador.id)
-                        if (resultado == True):
-                          jogador = self.db.get_player(jogador.id)
-                        break
-                      elif opcao_inventario_armaduras_detalhes == "Dropar armadura":
-                        resultado = self.db.drop_item(item.id_instancia, area_atual.id)
-                        if (resultado == True):
-                          itens_na_area = self.db.get_itens_por_area(area_atual.id)
-                          break
-
-                      elif opcao_inventario_armaduras_detalhes == "-- Voltar --":
-                        break
-                    break
-          
-          elif opcao_inventario == "-- Fechar o inventário --":
-            break
+        self.inv.handle_inventario(id_jogador, area_atual.id)
       
       # Itens na área
       elif opcao == "Procurar por Itens na área":
-        while True:
-          choices_item = [Choice(item.nome) for item in itens_na_area] # Colocar só o nome do item
-          choices_item.append("-- Voltar --")
-
-          opcao_item = inquirer.select(
-            message="Selecione um item para adicioná-lo ao inventário",
-            choices=choices_item
-          ).execute()
-
-          if opcao_item == "-- Voltar --":
-            break
-          else:
-            for item in itens_na_area:
-              if (item.nome == opcao_item):
-                resultado = self.db.add_item_inventario(item.id_instancia, jogador.id)
-                if (resultado == True):
-                  itens_na_area = self.db.get_itens_por_area(area_atual.id)
-                  break
+        self.loot.handle_loot( id_jogador, area_atual.id)
 
       # NPCs na área
       elif opcao == "Procurar por NPCs na área":
-        while True:
-          choices_npc = [Choice(npc.nome) for npc in npcs_na_area] # Colocar só o nome do NPC
-          choices_npc.append("-- Voltar --")
-
-          opcao_npc = inquirer.select(
-            message="Com quem deseja conversar?",
-            choices=choices_npc
-          ).execute()
-
-          if opcao_npc == "-- Voltar --":
-            break
+        self.npcs.handle_npcs(area_atual.id)
 
       # Inimigos na área
       elif opcao == "Procurar por Inimigos na área":
-        while True:
-          choices_inimigo = [Choice(inimigo.nome) for inimigo in inimigos_na_area] # Colocar só o nome do Inimigo
-          choices_inimigo.append("-- Voltar --")
-
-          opcao_inimigo = inquirer.select(
-            message="Quem deseja enfrentar?",
-            choices=choices_inimigo
-          ).execute()
-
-          if opcao_inimigo == "-- Voltar --":
-            break
+        self.inimigos.handle_inimigos(id_jogador, area_atual.id)
       
       elif opcao == "-- Voltar ao Menu Inicial --":
         break
-    
+
+
+  def print_player_status(self, jogador):
+      clear()
+      print("================================")
+      print("STATUS DO JOGADOR")
+      print(jogador.nome)
+      print(f'Pontos de Vida: {jogador.vida_atual}/{jogador.vida_max}')
+      print(f'Nível: {jogador.nivel} ({jogador.xp} XP)')
+      print("================================")
+
 
 if __name__ == "__main__":
   game = Game()

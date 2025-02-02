@@ -20,7 +20,7 @@ class Loot:
         if opcao_item == "-- Voltar --":
           break
         else:
-          self.db.add_item_inventario(opcao_item.id_instancia, id_jogador)
+          if isinstance(opcao_item, Choice): self.db.add_item_inventario(opcao_item.value.id_instancia, id_jogador)
 
   def get_loot(self, id_area):
     return self.db.get_itens_por_area(id_area)

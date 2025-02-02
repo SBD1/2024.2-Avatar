@@ -150,8 +150,8 @@ class Game():
         self.db.update_player_area(id_jogador, id_prox_area)
 
       # Inventário
-      # elif opcao == "Abrir o inventário":
-      #   self.inv.handle_inventario(jogador, area_atual)
+      elif opcao == "Abrir o inventário":
+        self.inv.handle_inventario(id_jogador, area_atual.id)
       
       # Itens na área
       elif opcao == "Procurar por Itens na área":

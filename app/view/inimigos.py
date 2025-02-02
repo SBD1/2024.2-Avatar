@@ -1,5 +1,4 @@
 import random
-from re import A
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 

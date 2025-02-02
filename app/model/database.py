@@ -64,7 +64,6 @@ class Database:
   def close(self):
     self.conn.close()
 
-
   def create_player(self, nome):
     sql_update_id = "SELECT setval('personagem_id_seq', (SELECT MAX(id) FROM personagem))"
     self.update(sql_update_id)
@@ -464,3 +463,38 @@ class Database:
     self.update(sql, (id_jogador,))
 
     return True
+
+  # Funções de combate
+  def deal_damage(self, id_personagem, dano_causado):
+    sql_type = "SELECT tipo FROM personagem WHERE id = %s"
+    tipo = self.query_one(sql_type, (id_personagem,)).tipo
+
+    if tipo == 'I':
+      sql = "UPDATE inimigo SET pontos_vida = pontos_vida - %s WHERE id = %s"
+    elif tipo == 'P':
+      sql = "UPDATE pc SET pontos_vida = pontos_vida - %s WHERE id = %s"
+    elif tipo == 'A':
+      sql = "UPDATE amigo SET pontos_vida = pontos_vida - %s WHERE id = %s"
+
+    self.update(sql, (dano_causado, id_personagem))
+
+  def use_heal(self, id_personagem, pontos_cura):
+    sql_type = "SELECT tipo FROM personagem WHERE id = %s"
+    tipo = self.query_one(sql_type, (id_personagem,)).tipo
+
+    if tipo == 'I':
+      sql = "UPDATE inimigo SET pontos_vida = pontos_vida + %s WHERE id = %s"
+    elif tipo == 'P':
+      sql = "UPDATE pc SET pontos_vida = pontos_vida + %s WHERE id = %s"
+    elif tipo == 'A':
+      sql = "UPDATE amigo SET pontos_vida = pontos_vida + %s WHERE id = %s"
+
+    self.update(sql, (pontos_cura, id_personagem))
+
+  def add_combate(self, id_jogador, id_inimigo, id_vencedor):
+    sql = "INSERT INTO combate (id_jogador, id_inimigo, id_vencedor) VALUES (%s, %s, %s)"
+    self.create(sql, (id_jogador, id_inimigo, id_vencedor))
+
+  def get_inimigo(self, id_inimigo):
+    sql = "SELECT * FROM inimigo WHERE id = %s"
+    return self.query_one(sql, (id_inimigo,))

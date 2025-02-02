@@ -5,9 +5,10 @@ class Loot:
   def __init__(self, db):
     self.db = db
 
-  def handle_loot(self, jogador, area_atual, itens_na_area):
+  def handle_loot(self, id_jogador, id_area_atual):
       while True:
-        choices_item = [Choice(item.nome) for item in itens_na_area] # Colocar só o nome do item
+        loot = self.get_loot(id_area_atual)
+        choices_item = [Choice(item, item.nome) for item in loot]
         choices_item.append("-- Voltar --")
 
         opcao_item = inquirer.select(
@@ -18,10 +19,7 @@ class Loot:
         if opcao_item == "-- Voltar --":
           break
         else:
-          for item in itens_na_area:
-            if (item.nome == opcao_item):
-              resultado = self.db.add_item_inventario(item.id_instancia, jogador.id)
-              if (resultado == True):
-                itens_na_area = self.db.get_itens_por_area(area_atual.id)
-                break
+          self.db.add_item_inventario(opcao_item.id_instancia, id_jogador)
 
+  def get_loot(self, id_area):
+    return self.db.get_itens_por_area(id_area)

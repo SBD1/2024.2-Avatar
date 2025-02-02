@@ -113,16 +113,13 @@ class Game():
         "Abrir o inventário"
       ]
 
-      itens_na_area = self.db.get_itens_por_area(area_atual.id)
-      if len(itens_na_area) > 0:
+      if self.loot.get_loot(self, area_atual.id):
         choices.append("Procurar por Itens na área")
 
-      npcs_na_area = self.db.get_npcs_por_area(area_atual.id)
-      if npcs_na_area:
+      if self.npcs.get_npcs(self, area_atual.id):
         choices.append("Procurar por NPCs na área")
       
-      inimigos_na_area = self.db.get_inimigos_por_area(area_atual.id)
-      if inimigos_na_area:
+      if self.inimigos.get_inimigos(self, id_jogador, area_atual.id):
         choices.append("Procurar por Inimigos na área")
 
       choices.append("-- Voltar ao Menu Inicial --")
@@ -150,20 +147,20 @@ class Game():
         self.db.update_player_area(id_jogador, id_prox_area)
 
       # Inventário
-      elif opcao == "Abrir o inventário":
-        self.inv.handle_inventario(id_jogador, jogador, area_atual)
+      # elif opcao == "Abrir o inventário":
+      #   self.inv.handle_inventario(jogador, area_atual)
       
       # Itens na área
       elif opcao == "Procurar por Itens na área":
-        self.loot.handle_loot(id_jogador, jogador, area_atual)
+        self.loot.handle_loot( id_jogador, area_atual.id)
 
       # NPCs na área
       elif opcao == "Procurar por NPCs na área":
-        self.npcs.handle_npcs(id_jogador, jogador, area_atual)
+        self.npcs.handle_npcs(area_atual.id)
 
       # Inimigos na área
       elif opcao == "Procurar por Inimigos na área":
-        self.inimigos.handle_inimigos(id_jogador, jogador, area_atual)
+        self.inimigos.handle_inimigos(jogador, area_atual.id)
       
       elif opcao == "-- Voltar ao Menu Inicial --":
         break

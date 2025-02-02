@@ -181,7 +181,7 @@ CREATE TABLE fala_combate (
 CREATE TABLE combate (
   id_pc INT,
   id_inimigo INT,
-  data_hora TIMESTAMP,
+  data_hora TIMESTAMP DEFAULT now(),
   id_vencedor INT NOT NULL,
   PRIMARY KEY (id_pc, id_inimigo, data_hora),
   FOREIGN KEY (id_pc) REFERENCES pc(id),

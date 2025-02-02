@@ -5,6 +5,7 @@ class Npcs:
   def __init__(self, db):
     self.db = db
 
+
   def handle_npcs(self, id_area):
       while True:
         npcs = self.get_npcs(id_area)

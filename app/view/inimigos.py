@@ -10,7 +10,6 @@ class Inimigos:
     self.db = db
 
 
-
   def handle_inimigos(self, id_jogador, id_area):
       while True:
         clear()
@@ -28,7 +27,6 @@ class Inimigos:
 
         if opcao_inimigo == "-- Voltar --":
           break
-
 
 
   def handle_battle(self, id_jogador, id_inimigo):
@@ -121,7 +119,6 @@ class Inimigos:
         continue
       else:
         self.handle_round(jogador, inimigo, acao_jogador, acao_inimigo)     
-
 
 
   def handle_round(self,jogador, inimigo, acao_jogador, acao_inimigo):
@@ -225,10 +222,8 @@ class Inimigos:
     input("Pressione Enter para ir ao proximo round...")
 
 
-
   def get_inimigos(self, id_area):
     return self.db.get_inimigos_por_area(id_area)
-
 
 
   def get_acao_type(self, acao):

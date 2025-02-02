@@ -5,6 +5,7 @@ class Loot:
   def __init__(self, db):
     self.db = db
 
+
   def handle_loot(self, id_jogador, id_area_atual):
       while True:
         loot = self.get_loot(id_area_atual)

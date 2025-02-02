@@ -5,6 +5,7 @@ class Inventario:
   def __init__(self, db):
     self.db = db
 
+
   def handle_inventario(self, jogador, area_atual):
       while True:
         opcao_inventario = inquirer.select(
@@ -26,6 +27,7 @@ class Inventario:
           
         elif opcao_inventario == "-- Fechar o inventário --":
           break
+
 
   def handle_armaduras(self, jogador, area_atual):
       while True:
@@ -99,6 +101,7 @@ class Inventario:
                   break
               break
 
+
   def handle_armas(self, jogador, area_atual):
       while True:
         arma_equipada = None
@@ -153,6 +156,7 @@ class Inventario:
                   break
               break
 
+
   def handle_pergaminhos(self, jogador, area_atual):
       while True:
         pergaminhos_inventario = self.db.get_itens_inventario_por_aba(jogador.id, "Pergaminhos")
@@ -184,6 +188,7 @@ class Inventario:
                 elif opcao_inventario_pergaminhos_detalhes == "-- Voltar --":
                   break
               break
+
 
   def handle_pocoes(self, jogador, area_atual):
       while True:

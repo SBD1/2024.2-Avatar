@@ -18,6 +18,7 @@ class Game():
     self.npcs = Npcs(self.db)
     self.inimigos = Inimigos(self.db)
 
+
   def start(self):
     while True:
       clear()
@@ -46,6 +47,7 @@ class Game():
         self.db.close()
         break
 
+
   def new_game(self):
     clear()
     print("================================")
@@ -68,6 +70,7 @@ class Game():
     input("Pressione Enter para começar...")
 
     self.gameplay(id_jogador)
+
 
   def load_game(self):
     clear()
@@ -165,6 +168,7 @@ class Game():
       elif opcao == "-- Voltar ao Menu Inicial --":
         break
 
+
   def print_player_status(self, jogador):
       clear()
       print("================================")
@@ -173,6 +177,7 @@ class Game():
       print(f'Pontos de Vida: {jogador.vida_atual}/{jogador.vida_max}')
       print(f'Nível: {jogador.nivel} ({jogador.xp} XP)')
       print("================================")
+
 
 if __name__ == "__main__":
   game = Game()

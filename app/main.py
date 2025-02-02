@@ -89,7 +89,7 @@ class Game():
       choices=jogadores_choices,
     ).execute()
 
-    self.gameplay(jogador.id)
+    self.gameplay(jogador)
 
 
   def gameplay(self, id_jogador):

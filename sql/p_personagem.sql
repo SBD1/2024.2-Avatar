@@ -48,3 +48,43 @@ BEGIN
 END;
 $$;
 
+CREATE OR REPLACE PROCEDURE criar_novo_inimigo(
+  p_nome VARCHAR,
+  p_vida_max INT,
+  p_vida_atual INT,
+  p_xp INT,
+  p_elemento ENUM_ELEMENTO,
+  p_nivel INT,
+  p_fala_entrada VARCHAR,
+  p_fala_saida VARCHAR,
+  p_xp_ganho INT,
+  p_num_moedas_ganho INT,
+  p_id_area INT,
+  p_dialogos TEXT[] DEFAULT NULL
+)
+LANGUAGE plpgsql
+AS $$
+DECLARE
+  inimigo_id INT;
+  dialogo TEXT;
+BEGIN
+  -- Inserir o inimigo e obter o id gerado
+  INSERT INTO inimigo (nome, vida_max, vida_atual, xp, elemento, nivel, 
+                       fala_entrada, fala_saida, 
+                       xp_ganho, num_moedas_ganho, 
+                       id_area)
+  VALUES (p_nome, p_vida_max, p_vida_atual, p_xp, p_elemento, p_nivel, 
+      p_fala_entrada, p_fala_saida, 
+      p_xp_ganho, p_num_moedas_ganho,
+      p_id_area)
+  RETURNING id INTO inimigo_id;
+
+  -- Verificar se o array de diálogos não é NULL e iterar sobre ele para inserir cada fala
+  IF p_dialogos IS NOT NULL THEN
+    FOREACH dialogo IN ARRAY p_dialogos
+    LOOP
+      INSERT INTO fala_combate (dialogo, id_inimigo) VALUES (dialogo, inimigo_id);
+    END LOOP;
+  END IF;
+END;
+$$;

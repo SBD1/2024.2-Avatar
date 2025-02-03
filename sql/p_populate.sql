@@ -131,11 +131,36 @@ BEGIN
       'Com a força do fogo, venceremos!']
     );
 
-      -- INSERT INTO inimigo (id, nome, vida_max, vida_atual, xp, elemento, nivel, fala_entrada, fala_saida, xp_ganho,
-      --   num_moedas_ganho, id_area) VALUES
-      -- (7, 'Orc', 150, 150, 100, 'terra', 5, 'Prepare-se para enfrentar minha força!', 'Você pode ter vencido, mas isso não vai acabar aqui...', 100, 10, 1),  -- Orc
-      -- (8, 'Golem', 250, 250, 200, 'fogo', 8, 'Eu sou a rocha que você não pode quebrar.', 'Você pode ter me derrotado, mas não vai sobreviver ao que está por vir.', 200, 20, 2),  -- Golem
-      -- (9, 'Dragão', 500, 500, 500, 'ar', 12, 'Vocês não têm ideia do que estão enfrentando.', 'Vocês podem ter me vencido, mas a batalha ainda não acabou.', 500, 50, 3);  -- Dragão
+
+    -- INIMIGOS
+    CALL criar_novo_inimigo('Orc', 150, 150, 100, 'terra', 5,
+    'Prepare-se para enfrentar minha força!', 'Você pode ter vencido, mas isso não vai acabar aqui...',
+    100, 10,
+    1,
+    ARRAY[
+      'Você não é páreo para mim!',
+      'Eu sou o mais forte!',
+      'Você não tem chance!']
+    );
+
+    CALL criar_novo_inimigo('Golem', 250, 250, 200, 'fogo', 8,
+    'Eu sou a rocha que você não pode quebrar.', 'Você pode ter me derrotado, mas não vai sobreviver ao que está por vir.',
+    200, 20,
+    2,
+    ARRAY[
+      'GRRRR (sons de labaredas)'
+    ]
+    );
+
+    CALL criar_novo_inimigo('Dragão', 500, 500, 500, 'ar', 12,
+    'Vocês não têm ideia do que estão enfrentando.', 'Vocês podem ter me vencido, mas a batalha ainda não acabou.',
+    500, 50,
+    3,
+    ARRAY[
+      'Ousa me desafiar, mortal?!',
+      'Coloque-se em teu lugar, seu tolo!'
+    ]
+    );
       
   INSERT INTO tecnica(nome, tipo) VALUES
       -- ataque
@@ -223,7 +248,6 @@ BEGIN
       ('Cura Simples','C'),
       ('Cura Aprimorada','C');
 
-  -----------------------
   INSERT INTO ataque(nome, dano_causado, descricao, nivel_necessario_aprender, elemento) VALUES
       ('Chicote de Água', 10, 'Cria um chicote de água', 1, 'agua'),
       ('Sopro de Gelo', 5, 'Congela objetos e inimigos com sopro de ar frio', 2, 'agua'),
@@ -455,55 +479,67 @@ BEGIN
           -- Elementos -> 75
 
 
+  INSERT INTO instancia_item (id_item, id_pc, id_inimigo, id_mercador) VALUES
+    -- Personagem com item
+    (1, 1, NULL, NULL), -- Pergaminho do Gelo Cortante para o personagem com id 1
+    (2, 1, NULL, NULL), -- Pergaminho do Gelo Perfurante para o personagem com id 1
+    (3, NULL, 7, NULL), -- Pergaminho da Água Espiritual para inimigo com id 8
+    (4, NULL, 8, NULL), -- Pergaminho de Sangue para inimigo com id 9
+    (5, NULL, NULL, 4), -- Poção Inferior para mercador com id 3
+    (6, 1, NULL, NULL), -- Pergaminho de Impacto de Terra para o personagem com id 1
+    (7, NULL, 7, NULL), -- Pergaminho de Defesa Rochosa para inimigo com id 7
+    (22, 1, NULL, NULL), -- Poção Básica para o personagem com id 1
+    (24, 1, NULL, NULL), -- Poção Avançada para o personagem com id 1
+    (29, 1, NULL, NULL), -- Espada de Cobre para o personagem com id 1
+    (37, 1, NULL, NULL), -- Balde de Latão para o personagem com id 1
+    (41, 1, NULL, NULL), -- Peitoral de Couro para o personagem com id 1
+    (1, NULL, NULL, NULL),  -- Pergaminho do Gelo Cortante na área 1
+    (2, NULL, NULL, NULL),  -- Pergaminho do Gelo Perfurante na área 2
+    (3, NULL, NULL, NULL),  -- Pergaminho da Água Espiritual na área 1
+    (4, NULL, NULL, NULL),  -- Pergaminho de Sangue na área 3
+    (21, NULL, NULL, NULL),  -- Poção Inferior na área 2
+    (6, NULL, NULL, NULL),  -- Pergaminho de Impacto de Terra na área 3
+    (7, NULL, NULL, NULL),  -- Pergaminho de Defesa Rochosa na área 1
+    (9, NULL, NULL, 4);  -- Pergaminho da Lava para mercador com id 3
 
-  -- INSERT INTO instancia_item (id_item, id_pc, id_inimigo, id_mercador) VALUES
-  --     -- Personagem com item
-  --     (1, 1, NULL, NULL), -- Pergaminho do Gelo Cortante para o personagem com id 1
-  --     (2, 1, NULL, NULL), -- Pergaminho do Gelo Perfurante para o personagem com id 1
-  --     (3, NULL, 8, NULL), -- Pergaminho da Água Espiritual para inimigo com id 2
-  --     (4, NULL, 9, NULL), -- Pergaminho de Sangue para inimigo com id 3
-  --     (5, NULL, NULL, 4), -- Poção Inferior para mercador com id 1
-  --     (6, 1, NULL, NULL), -- Pergaminho de Impacto de Terra para o personagem com id 2
-  --     (7, NULL, 7, NULL); -- Pergaminho de Defesa Rochosa para inimigo com id 1
-
-  -- INSERT INTO contem_item (id_instancia_item, id_area) VALUES
-  --     (1, 1),  -- Pergaminho do Gelo Cortante na área 1
-  --     (2, 2),  -- Pergaminho do Gelo Perfurante na área 2
-  --     (3, 5),  -- Pergaminho da Água Espiritual na área 1
-  --     (4, 8),  -- Pergaminho de Sangue na área 3
-  --     (5, 6),  -- Poção Inferior na área 2
-  --     (6, 10),  -- Pergaminho de Impacto de Terra na área 3
-  --     (7, 9);  -- Pergaminho de Defesa Rochosa na área 1
+  INSERT INTO contem_item (id_instancia_item, id_area) VALUES
+      (13, 1),  -- Pergaminho do Gelo Cortante na área 1
+      (14, 2),  -- Pergaminho do Gelo Perfurante na área 2
+      (15, 1),  -- Pergaminho da Água Espiritual na área 1
+      (16, 3),  -- Pergaminho de Sangue na área 3
+      (17, 2),  -- Poção Inferior na área 2
+      (18, 3),  -- Pergaminho de Impacto de Terra na área 3
+      (19, 1);  -- Pergaminho de Defesa Rochosa na área 1
 
 
-  -- INSERT INTO sabe_tecnica (id_personagem, nome_tecnica) VALUES
-  --     -- Personagem 1
-  --     (1, 'Chicote de Água'),
-  --     (1, 'Sopro de Gelo'),
-  --     (1, 'Discos de Gelo'),
-  --     (1, 'Garras de Gelo'),
-  --     (1, 'Escudo de Gelo'),
+  INSERT INTO sabe_tecnica (id_personagem, nome_tecnica) VALUES
+      -- Personagem 1
+      (1, 'Chicote de Água'),
+      (1, 'Sopro de Gelo'),
+      (1, 'Discos de Gelo'),
+      (1, 'Garras de Gelo'),
+      (1, 'Escudo de Gelo'),
       
-  --     -- Personagem 2
-  --     (5, 'Lançamento de Pedra'),
-  --     (5, 'Bloco de Terra'),
-  --     (5, 'Esmagamento da Terra'),
-  --     (5, 'Escudo de Rocha'),
-  --     (5, 'Coluna da Terra'),
+      -- Personagem 2
+      (5, 'Lançamento de Pedra'),
+      (5, 'Bloco de Terra'),
+      (5, 'Esmagamento da Terra'),
+      (5, 'Escudo de Rocha'),
+      (5, 'Coluna da Terra'),
       
-  --     -- Personagem 3
-  --     (3, 'Chute Ardente'),
-  --     (3, 'Lâmina de Fogo'),
-  --     (3, 'Bomba de Fogo'),
-  --     (3, 'Escudo de Fogo'),
-  --     (3, 'Bloqueio de Fogo'),
+      -- Personagem 3
+      (3, 'Chute Ardente'),
+      (3, 'Lâmina de Fogo'),
+      (3, 'Bomba de Fogo'),
+      (3, 'Escudo de Fogo'),
+      (3, 'Bloqueio de Fogo'),
       
-  --     -- Personagem 4
-  --     (4, 'Jato de Ar'),
-  --     (4, 'Bomba de Ar'),
-  --     (4, 'Soco de Ar'),
-  --     (4, 'Escudo de Ar'),
-  --     (4, 'Tornado de Ar');
+      -- Personagem 4
+      (4, 'Jato de Ar'),
+      (4, 'Bomba de Ar'),
+      (4, 'Soco de Ar'),
+      (4, 'Escudo de Ar'),
+      (4, 'Tornado de Ar');
 
 END;
 $$;

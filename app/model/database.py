@@ -76,14 +76,9 @@ class Database:
     self.conn.close()
 
   def create_player(self, nome):
-    sql_update_id = "SELECT setval('personagem_id_seq', (SELECT MAX(id) FROM personagem))"
-    self.update(sql_update_id)
-  
-    sql_personagem = "INSERT INTO personagem (tipo) VALUES (%s) RETURNING id"
-    id_personagem = self.create(sql_personagem, ('P',))
 
-    sql_jogador = "INSERT INTO pc (id, nome) VALUES (%s, %s)"
-    self.create(sql_jogador, (id_personagem, nome))
+    sql_jogador = "INSERT INTO pc (nome) VALUES (%s) returning id"
+    id_personagem = self.create(sql_jogador, (nome,))
 
     return id_personagem
 

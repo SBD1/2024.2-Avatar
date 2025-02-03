@@ -2,7 +2,7 @@ import random
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
-from utils.print_menu import print_header
+from utils.print_menu import DIVISORIA, print_header
 
 class Inimigos:
   def __init__(self, db):
@@ -41,14 +41,15 @@ class Inimigos:
       inimigo = self.db.get_inimigo(id_inimigo)
       jogador = self.db.get_player(id_jogador)
 
-      print(f"{jogador.vida_atual}/{jogador.vida_max} >>> {jogador.nome}")
-      print("\n")
+      print(f"{jogador.vida_atual}/{jogador.vida_max} >>> {jogador.nome}\n")
       print(f"{inimigo.vida_atual}/{inimigo.vida_max} >>> {inimigo.nome}")
-      print("..........................................................................\n\n")
+      print(DIVISORIA)
+      print(f"\n{inimigo.nome}: {inimigo.fala_entrada}\n\n")
 
       if inimigo.vida_atual <= 0:
         print(f"{jogador.nome} derrotou {inimigo.nome}!")
         self.db.add_combate(id_jogador, id_inimigo, id_jogador)
+        print(f"{inimigo.nome}: {inimigo.fala_saida}")
         print("Pressione Enter para voltar...")
         break
 

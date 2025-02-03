@@ -220,7 +220,7 @@ class Inventario:
         choices=["Aprender técnica", "Dropar pergaminho", "-- Voltar --"]
       ).execute()
 
-      if pergaminho_detalhes == "Aprender técnica":
+      if pergaminho_detalhes == "Aprender técnica": #TODO: Ocultar se o player ja sabe a tecnica sinao da bug 
         self.db.aprender_tecnica(pergaminho.tecnica, jogador.id, pergaminho.id_instancia)
         print(f"-- Você aprendeu a técnica {pergaminho.tecnica}!!! --")
         break

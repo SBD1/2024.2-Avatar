@@ -2,7 +2,7 @@ import random
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
-from utils.clear import clear
+from utils.print_menu import DIVISORIA, print_header
 
 class Inimigos:
   def __init__(self, db):
@@ -10,22 +10,22 @@ class Inimigos:
 
 
   def handle_inimigos(self, id_jogador, id_area):
-      while True:
-        clear()
-        inimigos = self.get_inimigos(id_area)
-        choices_inimigo = [Choice(inimigo.id, inimigo.nome) for inimigo in inimigos]
-        choices_inimigo.append("-- Voltar --")
+    while True:
+      print_header("BATALHA","")
+      inimigos = self.get_inimigos(id_area)
+      choices_inimigo = [Choice(inimigo.id, inimigo.nome) for inimigo in inimigos]
+      choices_inimigo.append("-- Voltar --")
 
-        opcao_inimigo = inquirer.select(
-            message="Quem deseja enfrentar?",
-            choices=choices_inimigo
-          ).execute()
+      opcao_inimigo = inquirer.select(
+          message="Quem deseja enfrentar?",
+          choices=choices_inimigo
+        ).execute()
 
-        if opcao_inimigo in [inimigo.id for inimigo in inimigos]:
-            self.handle_battle(id_jogador, opcao_inimigo)
+      if opcao_inimigo in [inimigo.id for inimigo in inimigos]:
+          self.handle_battle(id_jogador, opcao_inimigo)
 
-        if opcao_inimigo == "-- Voltar --":
-          break
+      if opcao_inimigo == "-- Voltar --":
+        break
 
 
   def handle_battle(self, id_jogador, id_inimigo):
@@ -37,22 +37,19 @@ class Inimigos:
     i_tecnicas = self.db.get_tecnicas_personagem(id_inimigo)
 
     while True:
-      clear()
+      print_header("BATALHA","")
       inimigo = self.db.get_inimigo(id_inimigo)
       jogador = self.db.get_player(id_jogador)
 
-      print("======================================")
-      print("                BATALHA               ")
-      print("======================================")
-      print(f"{jogador.vida_atual}/{jogador.vida_max} >>> {jogador.nome}")
-      print("\n")
+      print(f"{jogador.vida_atual}/{jogador.vida_max} >>> {jogador.nome}\n")
       print(f"{inimigo.vida_atual}/{inimigo.vida_max} >>> {inimigo.nome}")
-      print("======================================")
-      print("\n\n\n\n")
+      print(DIVISORIA)
+      print(f"\n{inimigo.nome}: {inimigo.fala_entrada}\n\n")
 
       if inimigo.vida_atual <= 0:
         print(f"{jogador.nome} derrotou {inimigo.nome}!")
         self.db.add_combate(id_jogador, id_inimigo, id_jogador)
+        print(f"{inimigo.nome}: {inimigo.fala_saida}")
         print("Pressione Enter para voltar...")
         break
 
@@ -128,20 +125,20 @@ class Inimigos:
     if j_tipo == "ataque" and i_tipo == None :
       print(f"O inimigo usou uma tecnica desconhecida e levou {acao_jogador.dano_causado} pontos de dano")
       self.db.deal_damage(inimigo.id, acao_jogador.dano_causado)
-      input("Pressione Enter para ir ao proximo round...")
+      input("\nPressione Enter para ir ao proximo round...")
       return
 
     elif (j_tipo == "defesa" or j_tipo == "esquiva") and i_tipo == None:
       print(f"Voce usou {acao_jogador.nome} e o inimigo usou uma tecnica desconhecida")
       print("Nenhum dano foi causado")
-      input("Pressione Enter para ir ao proximo round...")
+      input("\nPressione Enter para ir ao proximo round...")
       return
 
     elif j_tipo == "cura" and i_tipo == None:
       print(f"Voce usou {acao_jogador.nome} e o inimigo usou uma tecnica desconhecida")
       print("Voce se curou!")
       self.db.use_heal(jogador.id, acao_jogador.pontos_cura)
-      input("Pressione Enter para ir ao proximo round...")
+      input("\nPressione Enter para ir ao proximo round...")
       return
 
     print(f"Você usou {acao_jogador.nome} e o inimigo usou {acao_inimigo.nome}")
@@ -218,7 +215,7 @@ class Inimigos:
     else:
       print("Ninguem levou dano!")
 
-    input("Pressione Enter para ir ao proximo round...")
+    input("\nPressione Enter para ir ao proximo round...")
 
 
   def get_inimigos(self, id_area):

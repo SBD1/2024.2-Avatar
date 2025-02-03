@@ -118,30 +118,6 @@ class Database:
   def update_player_area(self, id_jogador, id_area):
     sql = "UPDATE pc SET id_area_atual = %s WHERE id = %s"
     self.update(sql, (id_area, id_jogador))
-
-  def get_tecnica(self, nome):
-    sql = "SELECT tipo FROM tecnica WHERE nome = %s"
-    tipo_tecnica = self.query_one(sql, (nome,))
-    
-    if not tipo_tecnica:
-      print(f"Técnica '{nome}' não encontrada.")
-      return None
-    
-    tipo = tipo_tecnica.tipo
-
-    if tipo == 'A':
-      sql = "SELECT * FROM ataque WHERE nome = %s"
-    elif tipo == 'D':
-      sql = "SELECT * FROM defesa WHERE nome = %s"
-    elif tipo == 'M':
-      sql = "SELECT * FROM mobilidade WHERE nome = %s"
-    elif tipo == 'C':
-      sql = "SELECT * FROM cura WHERE nome = %s"
-    else:
-      print(f"Tipo de técnica inválido: {tipo}")
-      return None
-
-    return self.query_one(sql, (nome,))
   
  
 # Buscas para NPC
@@ -431,6 +407,24 @@ class Database:
 
     return True
 
+  def aprender_tecnica(self, nome_tecnica, id_jogador, id_instancia):
+    sql = "INSERT INTO sabe_tecnica (id_personagem, nome_tecnica) VALUES (%s, %s)"
+    self.create(sql, (id_jogador, nome_tecnica))
+    
+    sql = "DELETE FROM instancia_item WHERE id_instancia = %s"
+    self.update(sql, (id_instancia,))
+
+  def usar_pocao(self, pontos_cura, jogador, id_instancia):
+    if (jogador.vida_atual + pontos_cura) > jogador.vida_max:
+      sql = "UPDATE pc SET vida_atual = vida_max WHERE id = %s"
+      self.update(sql, (jogador.id,))
+    else:
+      sql = "UPDATE pc SET vida_atual = vida_atual + %s WHERE id = %s"
+      self.update(sql, (pontos_cura, jogador.id))
+
+    sql = "DELETE FROM instancia_item WHERE id_instancia = %s"
+    self.update(sql, (id_instancia,))
+
   # Funções de combate
   def deal_damage(self, id_personagem, dano_causado):
     sql_type = "SELECT tipo FROM personagem WHERE id = %s"
@@ -465,6 +459,30 @@ class Database:
   def get_inimigo(self, id_inimigo):
     sql = "SELECT * FROM inimigo WHERE id = %s"
     return self.query_one(sql, (id_inimigo,))
+
+  def get_tecnica(self, nome):
+    sql = "SELECT tipo FROM tecnica WHERE nome = %s"
+    tipo_tecnica = self.query_one(sql, (nome,))
+    
+    if not tipo_tecnica:
+      print(f"Técnica '{nome}' não encontrada.")
+      return None
+    
+    tipo = tipo_tecnica.tipo
+
+    if tipo == 'A':
+      sql = "SELECT * FROM ataque WHERE nome = %s"
+    elif tipo == 'D':
+      sql = "SELECT * FROM defesa WHERE nome = %s"
+    elif tipo == 'M':
+      sql = "SELECT * FROM mobilidade WHERE nome = %s"
+    elif tipo == 'C':
+      sql = "SELECT * FROM cura WHERE nome = %s"
+    else:
+      print(f"Tipo de técnica inválido: {tipo}")
+      return None
+
+    return self.query_one(sql, (nome,))
   
   def get_tecnicas_personagem(self, id_personagem):
     return (

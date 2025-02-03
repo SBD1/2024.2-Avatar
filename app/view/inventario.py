@@ -164,17 +164,22 @@ class Inventario:
       if pergaminho == "-- Voltar --":
         break
       else:
-        self.handle_pergaminhos_details(id_area, pergaminho)
+        self.handle_pergaminhos_details(id_area, pergaminho, jogador)
 
 
-  def handle_pergaminhos_details(self, id_area, pergaminho):
+  def handle_pergaminhos_details(self, id_area, pergaminho, jogador):
     while True:
       pergaminho_detalhes = inquirer.select(
         message=f'Nome: {pergaminho.nome}, Peso: {pergaminho.peso}, Preço: {pergaminho.preco}, Raridade: {pergaminho.raridade}, Técnica: {pergaminho.tecnica}',
         choices=["Aprender técnica", "Dropar pergaminho", "-- Voltar --"]
       ).execute()
-                      
-      if pergaminho_detalhes == "Dropar pergaminho":
+
+      if pergaminho_detalhes == "Aprender técnica":
+        self.db.aprender_tecnica(pergaminho.tecnica, jogador.id, pergaminho.id_instancia)
+        print(f"-- Você aprendeu a técnica {pergaminho.tecnica}!!! --")
+        break
+
+      elif pergaminho_detalhes == "Dropar pergaminho":
         self.db.drop_item(pergaminho.id_instancia, id_area)
         break
 
@@ -197,17 +202,25 @@ class Inventario:
       if pocao == "-- Voltar --":
         break
       else:
-        self.handle_pocoes_details(id_area, pocao)
+        self.handle_pocoes_details(id_area, pocao, jogador)
 
 
-  def handle_pocoes_details(self, id_area, pocao):
+  def handle_pocoes_details(self, id_area, pocao, jogador):
     while True:
       pocao_detalhes = inquirer.select(
         message=f'Nome: {pocao.nome}, Peso: {pocao.peso}, Preço: {pocao.preco}, Cura: {pocao.pontos_cura}',
         choices=["Usar poção", "Dropar poção", "-- Voltar --"]
       ).execute()
+
+      if pocao_detalhes == "Usar poção":
+        if jogador.vida_atual == jogador.vida_max:
+          print("-- Sua vida já está cheia! --")
+        else:
+          self.db.usar_pocao(pocao.pontos_cura, jogador, pocao.id_instancia)
+          print(f"-- Você utilizou {pocao.nome}!!! --")
+          break
                   
-      if pocao_detalhes == "Dropar poção":
+      elif pocao_detalhes == "Dropar poção":
         self.db.drop_item(pocao.id_instancia, id_area)
         break
 

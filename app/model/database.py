@@ -97,7 +97,7 @@ class Database:
   def get_nome_area(self, id_area):
     sql = "SELECT nome FROM area WHERE id = %s"
     result = self.query_one(sql, (id_area,))
-    return result.nome if result else "Nenhuma"
+    return result.nome if result else None
 
   def update_player_area(self, id_jogador, id_area):
     sql = "UPDATE pc SET id_area_atual = %s WHERE id = %s"

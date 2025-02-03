@@ -8,6 +8,7 @@ from view.amigos import Amigos
 from view.inimigos import Inimigos
 
 from utils.clear import clear
+from utils.print_menu import print_header
 from assets.ascii_art import AANG, APPA
 
 class Game():
@@ -21,38 +22,27 @@ class Game():
 
   def start(self):
     while True:
-      clear()
-      print("================================")
-      print(AANG)
-      print("RPG AVATAR: A LENDA DE AANG")
-      print("================================")
+      print_header(AANG, "RPG AVATAR: A LENDA DE AANG")
 
-      startOptions = ["Iniciar Novo Jogo", "Carregar Jogo", "Sair"]
       choice = inquirer.select(
       message="Bem vindo Jogador, escolha uma opção",
-      choices=startOptions,
+      choices=["Iniciar Novo Jogo", "Carregar Jogo", "Sair"],
       ).execute()
 
-      # Iniciar Novo Jogo
-      if choice == startOptions[0]:
+      if choice == "Iniciar Novo Jogo":
         self.new_game()
       
-      # Carregar Jogo
-      elif choice == startOptions[1]:
+      elif choice == "Carregar Jogo":
         self.load_game()
 
-      # Sair
-      elif choice == startOptions[2]:
+      elif choice == "Sair":
         print("Saindo...")
         self.db.close()
         break
 
 
   def new_game(self):
-    clear()
-    print("================================")
-    print("NOVO JOGO")
-    print("================================")
+    print_header("NOVO JOGO","")
     nome = inquirer.text(
       message="Digite o nome do Jogador",
       validate=lambda result: len(result) >= 3 and len(result) <= 50,
@@ -61,60 +51,55 @@ class Game():
     
     id_jogador = self.db.create_player(nome)
     
-    clear()
-    print("================================")
-    print(APPA)
-    print("O mundo está em guerra, e o equilíbrio entre os quatro elementos foi quebrado. Em um tempo de incerteza, heróis surgem de onde menos se espera. Agora é sua vez de agir. Você será testado em coragem, sabedoria e poder. Sua jornada será difícil, mas sua determinação pode mudar o destino do mundo. Prepare-se para enfrentar desafios e lutar pela paz. O futuro depende de suas escolhas!")
-    print("================================")
-    print()
+    print_header(APPA, "O mundo está em guerra, e o equilíbrio entre os quatro elementos foi quebrado. Em um tempo de incerteza, heróis surgem de onde menos se espera. Agora é sua vez de agir. Você será testado em coragem, sabedoria e poder. Sua jornada será difícil, mas sua determinação pode mudar o destino do mundo. Prepare-se para enfrentar desafios e lutar pela paz. O futuro depende de suas escolhas!", "TITLE")
     input("Pressione Enter para começar...")
 
     self.gameplay(id_jogador)
 
 
   def load_game(self):
-    clear()
-    print("================================")
-    print("CARREGAR JOGO")
-    print("================================")
+    print_header("CARREGAR JOGO","")
     jogadores = self.db.get_players()
     if len(jogadores) == 0:
       print("Nenhum jogo salvo.")
       input("Pressione Enter para voltar ao menu...")
       return
 
-    jogadores_choices = [Choice(jogador.id, f'{jogador.id}. {jogador.nome}') for jogador in jogadores]
-    jogador = inquirer.select(
+    id_jogador = inquirer.select(
       message="Escolha o jogador que deseja carregar",
-      choices=jogadores_choices,
+      choices=[Choice(jogador.id, f'{jogador.id}. {jogador.nome}') for jogador in jogadores],
     ).execute()
 
-    self.gameplay(jogador)
+    self.gameplay(id_jogador)
 
 
   def gameplay(self, id_jogador):
     while True:
       jogador = self.db.get_player(id_jogador)
-      self.print_player_status(jogador)
-
       area_atual = self.db.get_area(jogador.id_area_atual)
 
-      print(f'Cidade atual: {area_atual.cidade}')
-      print(f'Area Atual: {area_atual.nome}')
-      print(f'Descrição: {area_atual.descricao}')
-      print()
-      
+      player_status = f"{jogador.nome}\nPontos de Vida: {jogador.vida_atual}/{jogador.vida_max}\nNível: {jogador.nivel} ({jogador.xp} XP)"
+      area_status = f'Cidade atual: {area_atual.cidade}\nArea Atual: {area_atual.nome}\nDescrição: {area_atual.descricao}'
+      print_header(player_status,area_status,False)
+
       area_norte = self.db.get_nome_area(area_atual.area_norte)
       area_sul = self.db.get_nome_area(area_atual.area_sul)
       area_leste = self.db.get_nome_area(area_atual.area_leste)
       area_oeste = self.db.get_nome_area(area_atual.area_oeste)
-      choices = [
-        Choice("norte", f'Ir para o Norte: {area_norte}'),
-        Choice("sul", f'Ir para o Sul: {area_sul}'),
-        Choice("leste", f'Ir para o Leste: {area_leste}'),
-        Choice("oeste", f'Ir para o Oeste: {area_oeste}'),
-        "Abrir o inventário"
-      ]
+
+      # Monta as escolhas de acoes possiveis
+      choices = []
+
+      if area_norte:
+          choices.append(Choice("norte", f'Ir para o Norte: {area_norte}'))
+      if area_sul:
+          choices.append(Choice("sul", f'Ir para o Sul: {area_sul}'))
+      if area_leste:
+          choices.append(Choice("leste", f'Ir para o Leste: {area_leste}'))
+      if area_oeste:
+          choices.append(Choice("oeste", f'Ir para o Oeste: {area_oeste}'))
+
+      choices.append("Abrir o inventário")
 
       if self.loot.get_loot(area_atual.id):
         choices.append("Procurar por Itens na área")
@@ -133,19 +118,19 @@ class Game():
       ).execute()
 
       # Se mover entre áreas
-      if opcao == "norte" and area_norte != "Nenhuma":
+      if opcao == "norte":
         id_prox_area = area_atual.area_norte
         self.db.update_player_area(id_jogador, id_prox_area)
         
-      elif opcao == "sul" and area_sul != "Nenhuma":
+      elif opcao == "sul":
         id_prox_area = area_atual.area_sul
         self.db.update_player_area(id_jogador, id_prox_area)
         
-      elif opcao == "leste" and area_leste != "Nenhuma":
+      elif opcao == "leste":
         id_prox_area = area_atual.area_leste
         self.db.update_player_area(id_jogador, id_prox_area)
         
-      elif opcao == "oeste" and area_oeste != "Nenhuma":
+      elif opcao == "oeste":
         id_prox_area = area_atual.area_oeste
         self.db.update_player_area(id_jogador, id_prox_area)
 
@@ -167,16 +152,6 @@ class Game():
       
       elif opcao == "-- Voltar ao Menu Inicial --":
         break
-
-
-  def print_player_status(self, jogador):
-      clear()
-      print("================================")
-      print("STATUS DO JOGADOR")
-      print(jogador.nome)
-      print(f'Pontos de Vida: {jogador.vida_atual}/{jogador.vida_max}')
-      print(f'Nível: {jogador.nivel} ({jogador.xp} XP)')
-      print("================================")
 
 
 if __name__ == "__main__":

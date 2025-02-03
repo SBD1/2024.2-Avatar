@@ -61,6 +61,10 @@ class Amigos:
         else:
           self.handle_amigo_item_details(amigo.id, item, jogador)
 
+      # elif amigo_detalhes == "Aprender técnicas": # TODO: impelemntar
+        
+      # elif amigo_detalhes == "Pedir para ser curado": # TODO: impelemntar
+
       elif amigo_detalhes == "-- Voltar --":
         print(f"{amigo.nome}: {amigo.fala_saida}")
         time.sleep(3)
@@ -93,7 +97,6 @@ class Amigos:
           break
         else:
           print("-------------------------------------------------\nVocê não tem moedas suficientes para esta compra!\n-------------------------------------------------")
-      
       elif opcao_item == "-- Voltar --":
         break
 

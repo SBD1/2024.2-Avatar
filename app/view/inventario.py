@@ -10,11 +10,11 @@ class Inventario:
 
   def handle_inventario(self, id_jogador, id_area):
     while True:
-      clear()
+      self.print_header("")
       jogador = self.db.get_player(id_jogador)
       opcao_inventario = inquirer.select(
           message="Qual aba deseja abrir?",
-          choices=["Poções", "Pergaminhos", "Armas", "Armaduras", "-- Fechar o inventário --"]
+          choices=["Poções", "Pergaminhos", "Armas", "Armaduras", "Tecnicas", "-- Fechar o inventário --"]
         ).execute()
 
       if opcao_inventario == "Poções":
@@ -28,13 +28,54 @@ class Inventario:
             
       elif opcao_inventario == "Armaduras":
         self.handle_armaduras(jogador, id_area)
+
+      elif opcao_inventario == "Tecnicas":
+        self.handle_tecnicas(jogador)
           
       elif opcao_inventario == "-- Fechar o inventário --":
         break
 
 
+  def handle_tecnicas(self, jogador):
+    while True:
+      self.print_header("Tecnicas")
+      tecnicas = self.db.get_tecnicas_personagem(jogador.id)
+
+      tecnica = inquirer.select(
+        message="Selecione uma tecnica para ver seus detalhes",
+        choices=[Choice(tecnica, tecnica.nome) for tecnica in tecnicas]
+        + ["-- Voltar --"]
+      ).execute()
+
+      if tecnica == "-- Voltar --":
+        break
+      else:
+        self.handle_tecnicas_details(tecnica)
+
+  def handle_tecnicas_details(self, tecnica):
+    while True:
+      self.print_header("Tecnicas")
+      tecnica_detalhes=f"{tecnica.nome}\nDescrição: {tecnica.descricao}\nElemento: {tecnica.elemento}\nNivel: {tecnica.nivel_necessario_aprender}\n"
+      if hasattr(tecnica, "dano_causado"):
+        tecnica_detalhes += f"Dano Causado: {tecnica.dano_causado}pts\n..........................................................................\n"
+      elif hasattr(tecnica, "dano_bloqueado"):
+        tecnica_detalhes += f"Dano Bloqueado: {tecnica.dano_bloqueado}pts\n..........................................................................\n"
+      elif hasattr(tecnica, "chance_esquiva"):
+        tecnica_detalhes += f"Chance de Esquiva: {tecnica.chance_esquiva}%\n..........................................................................\n"
+      elif hasattr(tecnica, "pontos_cura"):
+        tecnica_detalhes += f"Vida Curada: {tecnica.pontos_cura}pts\n..........................................................................\n"
+
+      tecnica_detalhes_menu = inquirer.select(
+        message=tecnica_detalhes,
+        choices=["-- Voltar --"]
+      ).execute()
+
+      if tecnica_detalhes_menu == "-- Voltar --":
+        break
+
   def handle_armaduras(self, jogador, id_area):
     while True:
+      self.print_header("Armaduras")
       jogador = self.db.get_player(jogador.id)
 
       capacete_equipado = None
@@ -64,7 +105,7 @@ class Inventario:
       armaduras_inventario = self.db.get_itens_inventario_por_aba(jogador.id, "Armaduras")
 
       armadura = inquirer.select(
-        message=f"------- Itens equipados: -------\nCapacete  => [ {capacete_equipado_nome} ]\nPeitoral  => [ {peitoral_equipado_nome} ]\nAcessório => [ {acessorio_equipado_nome} ]\nBotas     => [ {bota_equipada_nome} ]\n--------------------------------\nSelecione um item para ver seus detalhes",
+        message=f"Armaduras equipadas:\nCapacete  => [ {capacete_equipado_nome} ]\nPeitoral  => [ {peitoral_equipado_nome} ]\nAcessório => [ {acessorio_equipado_nome} ]\nBotas     => [ {bota_equipada_nome} ]\n..........................................................................\nSelecione um item para ver seus detalhes",
         choices=[Choice(armadura, armadura.nome) for armadura in armaduras_inventario]
         + ["-- Voltar --"]
       ).execute()
@@ -77,6 +118,7 @@ class Inventario:
 
   def handle_armadura_details(self, jogador, id_area, capacete_equipado_nome, peitoral_equipado_nome, acessorio_equipado_nome, bota_equipada_nome, armadura):
     while True:
+      self.print_header("Armaduras")
       equipado_mensagem = ""
       if armadura.nome in {capacete_equipado_nome, peitoral_equipado_nome, acessorio_equipado_nome, bota_equipada_nome}:
         equipado_mensagem = ["Desequipar armadura", "-- Voltar --"]
@@ -84,7 +126,7 @@ class Inventario:
         equipado_mensagem = ["Equipar armadura", "Dropar armadura", "-- Voltar --"]
 
       armadura_detalhes = inquirer.select(
-        message=f'Nome: {armadura.nome}, Peso: {armadura.peso}, Preço: {armadura.preco}, Proteção: {armadura.pontos_protecao}, Parte do Corpo: {armadura.parte_corpo}',
+        message=f'{armadura.nome}\nPeso: {armadura.peso}\nPreço: {armadura.preco}\nProteção: {armadura.pontos_protecao}\nParte do Corpo: {armadura.parte_corpo}\n',
         choices=equipado_mensagem
       ).execute()
 
@@ -103,6 +145,7 @@ class Inventario:
 
   def handle_armas(self, jogador, id_area):
     while True:
+      self.print_header("Armas")
       jogador = self.db.get_player(jogador.id)
 
       arma_equipada = None
@@ -114,7 +157,7 @@ class Inventario:
       armas_inventario = self.db.get_itens_inventario_por_aba(jogador.id, "Armas")
               
       arma = inquirer.select(
-        message=f"------- Itens equipados: -------\nArma => [ {arma_equipada_nome} ]\n--------------------------------\nSelecione um item para ver seus detalhes",
+        message=f"Armas equipadas:\nArma => [ {arma_equipada_nome} ]\n..........................................................................\nSelecione um item para ver seus detalhes",
         choices=[Choice(arma, arma.nome) for arma in armas_inventario]
         + ["-- Voltar --"]
       ).execute()
@@ -127,6 +170,7 @@ class Inventario:
 
   def handle_armas_details(self, jogador, id_area, arma, arma_equipada_nome):
     while True:
+      self.print_header("Armas")
       equipado_mensagem = ""
       if arma.nome == arma_equipada_nome:
         equipado_mensagem = ["Desequipar arma", "-- Voltar --"]
@@ -134,7 +178,7 @@ class Inventario:
         equipado_mensagem = ["Equipar arma", "Dropar arma", "-- Voltar --"]
 
       arma_detalhes = inquirer.select(
-        message=f'Nome: {arma.nome}, Peso: {arma.peso}, Preço: {arma.preco}, Dano: {arma.dano}',
+        message=f'{arma.nome}\nPeso: {arma.peso}\nPreço: {arma.preco}\nDano: {arma.dano}\n',
         choices=equipado_mensagem
       ).execute()
 
@@ -153,6 +197,7 @@ class Inventario:
 
   def handle_pergaminhos(self, jogador, id_area):
     while True:
+      self.print_header("Pergaminhos")
       pergaminhos_inventario = self.db.get_itens_inventario_por_aba(jogador.id, "Pergaminhos")
               
       pergaminho = inquirer.select(
@@ -169,8 +214,9 @@ class Inventario:
 
   def handle_pergaminhos_details(self, id_area, pergaminho, jogador):
     while True:
+      self.print_header("Pergaminhos")
       pergaminho_detalhes = inquirer.select(
-        message=f'Nome: {pergaminho.nome}, Peso: {pergaminho.peso}, Preço: {pergaminho.preco}, Raridade: {pergaminho.raridade}, Técnica: {pergaminho.tecnica}',
+        message=f'{pergaminho.nome}\nPeso: {pergaminho.peso}\nPreço: {pergaminho.preco}\nRaridade: {pergaminho.raridade}\nTécnica: {pergaminho.tecnica}\n',
         choices=["Aprender técnica", "Dropar pergaminho", "-- Voltar --"]
       ).execute()
 
@@ -183,14 +229,13 @@ class Inventario:
         self.db.drop_item(pergaminho.id_instancia, id_area)
         break
 
-      # TODO: Aprender tecnica
-
       elif pergaminho_detalhes == "-- Voltar --":
         break
 
 
   def handle_pocoes(self, jogador, id_area):
     while True:
+      self.print_header("Poções")
       pocoes_inventario = self.db.get_itens_inventario_por_aba(jogador.id, "Poções")
 
       pocao = inquirer.select(
@@ -207,8 +252,9 @@ class Inventario:
 
   def handle_pocoes_details(self, id_area, pocao, jogador):
     while True:
+      self.print_header("Poções")
       pocao_detalhes = inquirer.select(
-        message=f'Nome: {pocao.nome}, Peso: {pocao.peso}, Preço: {pocao.preco}, Cura: {pocao.pontos_cura}',
+        message=f'{pocao.nome}\nPeso: {pocao.peso}\nPreço: {pocao.preco}\nCura: {pocao.pontos_cura}\n',
         choices=["Usar poção", "Dropar poção", "-- Voltar --"]
       ).execute()
 
@@ -226,3 +272,12 @@ class Inventario:
 
       elif pocao_detalhes == "-- Voltar --":
         break
+
+
+  def print_header(self, subheader):
+    clear()
+    print(f"==========================================================================")
+    print(f"                                INVENTÁRIO                                ")
+    print(f"==========================================================================")
+    print(f"                               {subheader}                                ")
+    print(f"..........................................................................")

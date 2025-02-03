@@ -17,22 +17,6 @@ class Database:
       print(f"Erro ao conectar ao banco de dados: {e}")
       raise
 
-  def execute_query(self, query, params=None, fetch="all"):
-      try:
-          with self.conn.cursor(cursor_factory=NamedTupleCursor) as cursor:
-              cursor.execute(query, params)
-              if fetch == "one":
-                  return cursor.fetchone()
-              elif fetch == "all":
-                  return cursor.fetchall()
-              elif fetch == "none":
-                  self.conn.commit()
-                  return None
-      except psycopg2.Error as e:
-          print(f"Erro ao executar consulta: {e}")
-          self.conn.rollback()
-          raise
-  
   def query_all(self, sql, params=None):
     try:
       with self.conn.cursor(cursor_factory=NamedTupleCursor) as cursor:

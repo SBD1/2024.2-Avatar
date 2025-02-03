@@ -7,14 +7,25 @@ class Database:
     time.sleep(10)  # Aguarda o banco estar pronto
     try:
       self.conn = psycopg2.connect(
-        user="postgres",
-        password="postgres",
+        user="app_user",
+        password="app_password",
         host="db",
         port="5432",
         database="DB",
       )
     except psycopg2.Error as e:
       print(f"Erro ao conectar ao banco de dados: {e}")
+      raise
+  
+  def populate_db(self):
+    try:
+      with self.conn.cursor() as cursor:
+        cursor.execute("CALL populate_database();")
+        cursor.close()
+        self.conn.commit()
+    except psycopg2.Error as e:
+      print(f"Erro ao popular o banco: {e}")
+      self.conn.rollback()
       raise
 
   def query_all(self, sql, params=None):
@@ -65,14 +76,9 @@ class Database:
     self.conn.close()
 
   def create_player(self, nome):
-    sql_update_id = "SELECT setval('personagem_id_seq', (SELECT MAX(id) FROM personagem))"
-    self.update(sql_update_id)
-  
-    sql_personagem = "INSERT INTO personagem (tipo) VALUES (%s) RETURNING id"
-    id_personagem = self.create(sql_personagem, ('P',))
 
-    sql_jogador = "INSERT INTO pc (id, nome) VALUES (%s, %s)"
-    self.create(sql_jogador, (id_personagem, nome))
+    sql_jogador = "INSERT INTO pc (nome) VALUES (%s) returning id"
+    id_personagem = self.create(sql_jogador, (nome,))
 
     return id_personagem
 

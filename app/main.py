@@ -14,11 +14,11 @@ from assets.ascii_art import AANG, APPA
 class Game():
   def __init__(self):
     self.db = Database()
+    self.db.populate_db()
     self.inv = Inventario(self.db)
     self.loot = Loot(self.db)
     self.amigos = Amigos(self.db)
     self.inimigos = Inimigos(self.db)
-
 
   def start(self):
     while True:

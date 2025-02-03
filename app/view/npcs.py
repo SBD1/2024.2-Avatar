@@ -4,69 +4,69 @@ from InquirerPy.base.control import Choice
 
 from utils.clear import clear
 
-class Npcs:
+class Amigos:
   def __init__(self, db):
     self.db = db
 
 
-  def handle_npcs(self, jogador, id_area):
+  def handle_amigos(self, jogador, id_area):
     while True:
       clear()
-      npcs = self.get_npcs(id_area)
-      choices_npc = [Choice(npc, npc.nome) for npc in npcs]
-      choices_npc.append("-- Voltar --")
+      amigos = self.get_amigos(id_area)
+      choices_amigo = [Choice(amigo, amigo.nome) for amigo in amigos]
+      choices_amigo.append("-- Voltar --")
 
-      opcao_npc = inquirer.select(
+      opcao_amigo = inquirer.select(
         message="Com quem deseja conversar?",
-        choices=choices_npc
+        choices=choices_amigo
       ).execute()
 
-      if opcao_npc == "-- Voltar --":
+      if opcao_amigo == "-- Voltar --":
         break
       else:
-        self.handle_npcs_details(opcao_npc, jogador)
+        self.handle_amigos_details(opcao_amigo, jogador)
 
-  def handle_npcs_details(self, npc, jogador):
+  def handle_amigos_details(self, amigo, jogador):
     while True:
-      npc_choices = []
-      if npc.eh_mercador and jogador.nivel >= npc.nivel_necessario_compra:
-        npc_choices.append("Comprar itens")
-      if npc.eh_mestre and jogador.nivel >= npc.nivel_necessario_discipulo:
-        npc_choices.append("Aprender técnicas")
-      if npc.eh_curandeiro:
-        npc_choices.append("Pedir para ser curado")
-      npc_choices.append("-- Voltar --")
+      amigo_choices = []
+      if amigo.eh_mercador and jogador.nivel >= amigo.nivel_necessario_compra:
+        amigo_choices.append("Comprar itens")
+      if amigo.eh_mestre and jogador.nivel >= amigo.nivel_necessario_discipulo:
+        amigo_choices.append("Aprender técnicas")
+      if amigo.eh_curandeiro:
+        amigo_choices.append("Pedir para ser curado")
+      amigo_choices.append("-- Voltar --")
       
-      npc_detalhes = inquirer.select(
-        message=f"{npc.nome}: {npc.fala_entrada}",
-        choices=npc_choices
+      amigo_detalhes = inquirer.select(
+        message=f"{amigo.nome}: {amigo.fala_entrada}",
+        choices=amigo_choices
       ).execute()
 
-      if npc_detalhes == "Comprar itens":
-        itens_npc = self.db.get_itens_por_npc(npc.id)
+      if amigo_detalhes == "Comprar itens":
+        itens_amigo = self.db.get_itens_por_amigo(amigo.id)
         itens_message = "Nenhum item disponível para compra"
-        npc_item_choices = []
-        if itens_npc != []:
-          npc_item_choices = [Choice(item, item.nome) for item in itens_npc]
+        amigo_item_choices = []
+        if itens_amigo != []:
+          amigo_item_choices = [Choice(item, item.nome) for item in itens_amigo]
           itens_message = "Selecione um item para ver seus detalhes"
-        npc_item_choices.append("-- Voltar --")
+        amigo_item_choices.append("-- Voltar --")
 
         item = inquirer.select(
           message=itens_message,
-          choices=npc_item_choices
+          choices=amigo_item_choices
         ).execute()
 
         if item == "-- Voltar --":
           break
         else:
-          self.handle_npc_item_details(npc.id, item, jogador)
+          self.handle_amigo_item_details(amigo.id, item, jogador)
 
-      elif npc_detalhes == "-- Voltar --":
-        print(f"{npc.nome}: {npc.fala_saida}")
+      elif amigo_detalhes == "-- Voltar --":
+        print(f"{amigo.nome}: {amigo.fala_saida}")
         time.sleep(3)
         break
 
-  def handle_npc_item_details(self, id_npc, item, jogador):
+  def handle_amigo_item_details(self, id_amigo, item, jogador):
     while True:
       jogador = self.db.get_player(jogador.id)
       item_message = ""
@@ -88,7 +88,7 @@ class Npcs:
       ).execute()
 
       if opcao_item == "Comprar item":
-        resultado = self.db.comprar_item(item.id_instancia, item.preco, id_npc, jogador.id)
+        resultado = self.db.comprar_item(item.id_instancia, item.preco, id_amigo, jogador.id)
         if resultado:
           break
         else:
@@ -97,5 +97,5 @@ class Npcs:
       elif opcao_item == "-- Voltar --":
         break
 
-  def get_npcs(self, id_area):
-    return self.db.get_npcs_por_area(id_area)
+  def get_amigos(self, id_area):
+    return self.db.get_amigos_por_area(id_area)

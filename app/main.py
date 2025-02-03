@@ -4,7 +4,7 @@ from InquirerPy.base.control import Choice
 from model.database import Database
 from view.inventario import Inventario
 from view.loot import Loot
-from view.npcs import Npcs
+from view.amigos import Amigos
 from view.inimigos import Inimigos
 
 from utils.clear import clear
@@ -15,7 +15,7 @@ class Game():
     self.db = Database()
     self.inv = Inventario(self.db)
     self.loot = Loot(self.db)
-    self.npcs = Npcs(self.db)
+    self.amigos = Amigos(self.db)
     self.inimigos = Inimigos(self.db)
 
 
@@ -119,7 +119,7 @@ class Game():
       if self.loot.get_loot(area_atual.id):
         choices.append("Procurar por Itens na área")
 
-      if self.npcs.get_npcs(area_atual.id):
+      if self.amigos.get_amigos(area_atual.id):
         choices.append("Procurar por NPCs na área")
       
       if self.inimigos.get_inimigos(area_atual.id):
@@ -159,7 +159,7 @@ class Game():
 
       # NPCs na área
       elif opcao == "Procurar por NPCs na área":
-        self.npcs.handle_npcs(jogador, area_atual.id)
+        self.amigos.handle_amigos(jogador, area_atual.id)
 
       # Inimigos na área
       elif opcao == "Procurar por Inimigos na área":

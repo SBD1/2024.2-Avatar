@@ -7,14 +7,25 @@ class Database:
     time.sleep(10)  # Aguarda o banco estar pronto
     try:
       self.conn = psycopg2.connect(
-        user="postgres",
-        password="postgres",
+        user="app_user",
+        password="app_password",
         host="db",
         port="5432",
         database="DB",
       )
     except psycopg2.Error as e:
       print(f"Erro ao conectar ao banco de dados: {e}")
+      raise
+  
+  def populate_db(self):
+    try:
+      with self.conn.cursor() as cursor:
+        cursor.execute("CALL populate_database();")
+        cursor.close()
+        self.conn.commit()
+    except psycopg2.Error as e:
+      print(f"Erro ao popular o banco: {e}")
+      self.conn.rollback()
       raise
 
   def query_all(self, sql, params=None):

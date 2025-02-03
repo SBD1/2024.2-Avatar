@@ -155,11 +155,11 @@ class Game():
       
       # Itens na área
       elif opcao == "Procurar por Itens na área":
-        self.loot.handle_loot( id_jogador, area_atual.id)
+        self.loot.handle_loot(id_jogador, area_atual.id)
 
       # NPCs na área
       elif opcao == "Procurar por NPCs na área":
-        self.npcs.handle_npcs(area_atual.id)
+        self.npcs.handle_npcs(jogador, area_atual.id)
 
       # Inimigos na área
       elif opcao == "Procurar por Inimigos na área":

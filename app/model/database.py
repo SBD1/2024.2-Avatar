@@ -142,6 +142,24 @@ class Database:
       return []
     
     return npcs_area
+    
+  def comprar_item(self, id_instancia, preco, id_npc, id_jogador):
+    jogador = self.get_player(id_jogador)
+    if jogador.moedas < preco:
+      return False
+    
+    sql = """
+    UPDATE instancia_item
+    SET id_mercador = NULL, id_pc = %s
+    WHERE id_mercador = %s AND id_instancia = %s
+    """
+    self.update(sql, (id_jogador, id_npc, id_instancia))
+
+    sql = "UPDATE pc SET moedas = moedas - %s WHERE id = %s"
+    self.update(sql, (preco, id_jogador))
+
+    return True
+
   
 # Buscas para inimigo
 
@@ -257,7 +275,16 @@ class Database:
     FROM instancia_item
     WHERE id_pc = %s
     """
-    return self.query_all(sql, (id_personagem,))
+    instancias_pc = self.query_all(sql, (id_personagem,))
+
+    if instancias_pc == None:
+      return []
+
+    itens = []
+    for instancia in instancias_pc:
+      itens.append(self.get_item(instancia.id_instancia))
+
+    return itens
 
   def get_itens_por_inimigo(self, id_inimigo):
     sql = """
@@ -265,7 +292,16 @@ class Database:
     FROM instancia_item
     WHERE id_inimigo = %s
     """
-    return self.query_all(sql, (id_inimigo,))
+    instancias_inimigo = self.query_all(sql, (id_inimigo,))
+
+    if instancias_inimigo == None:
+      return []
+
+    itens = []
+    for instancia in instancias_inimigo:
+      itens.append(self.get_item(instancia.id_instancia))
+
+    return itens
 
   def get_itens_por_npc(self, id_mercador):
     sql = """
@@ -273,7 +309,16 @@ class Database:
     FROM instancia_item
     WHERE id_mercador = %s
     """
-    return self.query_all(sql, (id_mercador,))
+    instancias_npc = self.query_all(sql, (id_mercador,))
+
+    if instancias_npc == None:
+      return []
+
+    itens = []
+    for instancia in instancias_npc:
+      itens.append(self.get_item(instancia.id_instancia))
+
+    return itens
 
   def get_itens_por_area(self, id_area):
     sql = """

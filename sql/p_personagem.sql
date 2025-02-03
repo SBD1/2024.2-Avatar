@@ -4,7 +4,6 @@ CREATE OR REPLACE PROCEDURE criar_novo_amigo(
     p_vida_atual INT,
     p_xp INT,
     p_elemento ENUM_ELEMENTO,
-    p_nivel INT,
     p_fala_entrada VARCHAR,
     p_fala_saida VARCHAR,
     p_id_area INT,
@@ -24,13 +23,13 @@ DECLARE
     dialogo TEXT;
 BEGIN
     -- Inserir o amigo e obter o id gerado
-    INSERT INTO amigo (nome, vida_max, vida_atual, xp, elemento, nivel, 
+    INSERT INTO amigo (nome, vida_max, vida_atual, xp, elemento,
                        fala_entrada, fala_saida,
                        eh_mestre, nivel_necessario_discipulo,
                        eh_mercador, nivel_necessario_compra, mult_preco,
                        eh_curandeiro, preco_por_ponto_cura, 
                        id_area)
-    VALUES (p_nome, p_vida_max, p_vida_atual, p_xp, p_elemento, p_nivel, 
+    VALUES (p_nome, p_vida_max, p_vida_atual, p_xp, p_elemento, 
             p_fala_entrada, p_fala_saida, 
             p_eh_mestre, p_nivel_necessario_discipulo, 
             p_eh_mercador, p_nivel_necessario_compra, p_mult_preco,
@@ -54,7 +53,6 @@ CREATE OR REPLACE PROCEDURE criar_novo_inimigo(
   p_vida_atual INT,
   p_xp INT,
   p_elemento ENUM_ELEMENTO,
-  p_nivel INT,
   p_fala_entrada VARCHAR,
   p_fala_saida VARCHAR,
   p_xp_ganho INT,
@@ -69,11 +67,11 @@ DECLARE
   dialogo TEXT;
 BEGIN
   -- Inserir o inimigo e obter o id gerado
-  INSERT INTO inimigo (nome, vida_max, vida_atual, xp, elemento, nivel, 
+  INSERT INTO inimigo (nome, vida_max, vida_atual, xp, elemento, 
                        fala_entrada, fala_saida, 
                        xp_ganho, num_moedas_ganho, 
                        id_area)
-  VALUES (p_nome, p_vida_max, p_vida_atual, p_xp, p_elemento, p_nivel, 
+  VALUES (p_nome, p_vida_max, p_vida_atual, p_xp, p_elemento,
       p_fala_entrada, p_fala_saida, 
       p_xp_ganho, p_num_moedas_ganho,
       p_id_area)

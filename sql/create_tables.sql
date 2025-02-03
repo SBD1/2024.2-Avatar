@@ -6,6 +6,7 @@ CREATE TYPE ENUM_TIPO_ITEM AS ENUM ('S', 'P', 'W', 'A');
 CREATE TYPE ENUM_TIPO_TECNICA AS ENUM ('A', 'D', 'M', 'C');
 CREATE TYPE ENUM_TIPO_PERSONAGEM AS ENUM ('P', 'I', 'A');
 
+
 CREATE TABLE nacao (
   nome VARCHAR(20) PRIMARY KEY ,
   descricao VARCHAR(250) NOT NULL
@@ -107,7 +108,7 @@ CREATE TABLE pc (
   vida_atual INT NOT NULL DEFAULT 100,
   xp INT NOT NULL DEFAULT 0,
   elemento ENUM_ELEMENTO DEFAULT 'nenhum',
-  nivel INT NOT NULL DEFAULT 1,
+  nivel INT GENERATED ALWAYS AS (FLOOR((1 + SQRT(1 + (8 * xp / 50))) / 2)) STORED,
   moedas INT DEFAULT 0,
   peso_max_inventario REAL DEFAULT 100.00,
   id_area_atual INT NOT NULL DEFAULT 1,
@@ -132,7 +133,7 @@ CREATE TABLE amigo (
   vida_atual INT NOT NULL,
   xp INT NOT NULL,
   elemento ENUM_ELEMENTO DEFAULT 'nenhum',
-  nivel INT NOT NULL,
+  nivel INT GENERATED ALWAYS AS (FLOOR((1 + SQRT(1 + (8 * xp / 50))) / 2)) STORED,
   fala_entrada VARCHAR(150) NOT NULL,
   fala_saida VARCHAR(150) NOT NULL,
   eh_mestre BOOLEAN,
@@ -161,7 +162,7 @@ CREATE TABLE inimigo (
   vida_atual INT NOT NULL,
   xp INT NOT NULL,
   elemento ENUM_ELEMENTO DEFAULT 'nenhum',
-  nivel INT NOT NULL,
+  nivel INT GENERATED ALWAYS AS (FLOOR((1 + SQRT(1 + (8 * xp / 50))) / 2)) STORED,
   fala_entrada VARCHAR(150) NOT NULL,
   fala_saida VARCHAR(150) NOT NULL,
   xp_ganho INT NOT NULL,

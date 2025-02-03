@@ -79,14 +79,19 @@ BEGIN
   -- Personagem Jogável (PC)
 
       -- FALTA: Adicionar itens
-      INSERT INTO pc (nome, vida_max, vida_atual, xp, elemento, nivel, moedas, peso_max_inventario,
-        id_area_atual, item_capacete, item_peitoral, item_acessorio, item_botas, item_arma) VALUES
-      ('Aragorn', 200, 150, 500, 'fogo', 10, 100, 100.0, 1, NULL, NULL, NULL, NULL, NULL);
+      INSERT INTO pc (nome, vida_max, vida_atual, xp, elemento, 
+      moedas, peso_max_inventario,
+      id_area_atual,
+      item_capacete, item_peitoral, item_acessorio, item_botas, item_arma) VALUES
+      ('Aragorn', 200, 150, 500, 'fogo',
+        100, 100.0,
+        1,
+        NULL, NULL, NULL, NULL, NULL);
 
 
   -- Amigos (NPC)
       -- Mestre
-      CALL criar_novo_amigo('Iroh', 250, 240, 600, 'fogo', 15, 
+      CALL criar_novo_amigo('Iroh', 250, 240, 600, 'fogo',
       'Bem-vindo, jovem aprendiz.', 'Que o fogo do seu espírito o guie.',
       1, -- id_area
       ARRAY[
@@ -96,7 +101,7 @@ BEGIN
       TRUE, 5 -- eh_mestre, nivel_necessario_discipulo
       );
 
-      CALL criar_novo_amigo('Toph', 180, 170, 550, 'terra', 12,
+      CALL criar_novo_amigo('Toph', 180, 170, 550, 'terra',
       'Sempre com os pés no chão, amigo.', 'Nos vemos por aí, pedra dura.',
       3,
        ARRAY[
@@ -107,7 +112,7 @@ BEGIN
       );
 
       -- Mercador e Curandeira
-      CALL criar_novo_amigo('Katara', 150, 100, 400, 'agua', 10,
+      CALL criar_novo_amigo('Katara', 150, 100, 400, 'agua',
       'Estou aqui para ajudar você.', 'Volte sempre, confie na sua força.',
       2,
       ARRAY[
@@ -121,7 +126,7 @@ BEGIN
 
 
     -- NPC padrao
-    CALL criar_novo_amigo('Zuko', 200, 200, 700, 'fogo', 14,
+    CALL criar_novo_amigo('Zuko', 200, 200, 700, 'fogo',
     'Estou aqui para lutar ao seu lado.', 'Até breve, que sua chama nunca se apague.',
     1,
     ARRAY[
@@ -133,7 +138,7 @@ BEGIN
 
 
     -- INIMIGOS
-    CALL criar_novo_inimigo('Orc', 150, 150, 100, 'terra', 5,
+    CALL criar_novo_inimigo('Orc', 150, 150, 100, 'terra',
     'Prepare-se para enfrentar minha força!', 'Você pode ter vencido, mas isso não vai acabar aqui...',
     100, 10,
     1,
@@ -143,7 +148,7 @@ BEGIN
       'Você não tem chance!']
     );
 
-    CALL criar_novo_inimigo('Golem', 250, 250, 200, 'fogo', 8,
+    CALL criar_novo_inimigo('Golem', 250, 250, 200, 'fogo',
     'Eu sou a rocha que você não pode quebrar.', 'Você pode ter me derrotado, mas não vai sobreviver ao que está por vir.',
     200, 20,
     2,
@@ -152,7 +157,7 @@ BEGIN
     ]
     );
 
-    CALL criar_novo_inimigo('Dragão', 500, 500, 500, 'ar', 12,
+    CALL criar_novo_inimigo('Dragão', 500, 500, 500, 'ar',
     'Vocês não têm ideia do que estão enfrentando.', 'Vocês podem ter me vencido, mas a batalha ainda não acabou.',
     500, 50,
     3,

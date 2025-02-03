@@ -1,20 +1,24 @@
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
-from database import Database
-import os
 
-from ascii_art import AANG, APPA
+from model.database import Database
+from view.inventario import Inventario
+from view.loot import Loot
+from view.npcs import Npcs
+from view.inimigos import Inimigos
 
-
-# limpa o terminal
-def clear():
-  os.system('cls' if os.name == 'nt' else 'clear')
+from utils.clear import clear
+from assets.ascii_art import AANG, APPA
 
 class Game():
-    
   def __init__(self):
     self.db = Database()
-  
+    self.inv = Inventario(self.db)
+    self.loot = Loot(self.db)
+    self.npcs = Npcs(self.db)
+    self.inimigos = Inimigos(self.db)
+
+
   def start(self):
     while True:
       clear()
@@ -43,6 +47,7 @@ class Game():
         self.db.close()
         break
 
+
   def new_game(self):
     clear()
     print("================================")
@@ -66,6 +71,7 @@ class Game():
 
     self.gameplay(id_jogador)
 
+
   def load_game(self):
     clear()
     print("================================")
@@ -85,10 +91,85 @@ class Game():
 
     self.gameplay(jogador)
 
-  def gameplay(self, id_jogador):
 
+  def gameplay(self, id_jogador):
     while True:
       jogador = self.db.get_player(id_jogador)
+      self.print_player_status(jogador)
+
+      area_atual = self.db.get_area(jogador.id_area_atual)
+
+      print(f'Cidade atual: {area_atual.cidade}')
+      print(f'Area Atual: {area_atual.nome}')
+      print(f'Descrição: {area_atual.descricao}')
+      print()
+      
+      area_norte = self.db.get_nome_area(area_atual.area_norte)
+      area_sul = self.db.get_nome_area(area_atual.area_sul)
+      area_leste = self.db.get_nome_area(area_atual.area_leste)
+      area_oeste = self.db.get_nome_area(area_atual.area_oeste)
+      choices = [
+        Choice("norte", f'Ir para o Norte: {area_norte}'),
+        Choice("sul", f'Ir para o Sul: {area_sul}'),
+        Choice("leste", f'Ir para o Leste: {area_leste}'),
+        Choice("oeste", f'Ir para o Oeste: {area_oeste}'),
+        "Abrir o inventário"
+      ]
+
+      if self.loot.get_loot(area_atual.id):
+        choices.append("Procurar por Itens na área")
+
+      if self.npcs.get_npcs(area_atual.id):
+        choices.append("Procurar por NPCs na área")
+      
+      if self.inimigos.get_inimigos(area_atual.id):
+        choices.append("Procurar por Inimigos na área")
+
+      choices.append("-- Voltar ao Menu Inicial --")
+
+      opcao = inquirer.select(
+        message="Que ação deseja realizar?",
+        choices=choices
+      ).execute()
+
+      # Se mover entre áreas
+      if opcao == "norte" and area_norte != "Nenhuma":
+        id_prox_area = area_atual.area_norte
+        self.db.update_player_area(id_jogador, id_prox_area)
+        
+      elif opcao == "sul" and area_sul != "Nenhuma":
+        id_prox_area = area_atual.area_sul
+        self.db.update_player_area(id_jogador, id_prox_area)
+        
+      elif opcao == "leste" and area_leste != "Nenhuma":
+        id_prox_area = area_atual.area_leste
+        self.db.update_player_area(id_jogador, id_prox_area)
+        
+      elif opcao == "oeste" and area_oeste != "Nenhuma":
+        id_prox_area = area_atual.area_oeste
+        self.db.update_player_area(id_jogador, id_prox_area)
+
+      # Inventário
+      elif opcao == "Abrir o inventário":
+        self.inv.handle_inventario(id_jogador, area_atual.id)
+      
+      # Itens na área
+      elif opcao == "Procurar por Itens na área":
+        self.loot.handle_loot(id_jogador, area_atual.id)
+
+      # NPCs na área
+      elif opcao == "Procurar por NPCs na área":
+        self.npcs.handle_npcs(jogador, area_atual.id)
+
+      # Inimigos na área
+      elif opcao == "Procurar por Inimigos na área":
+        self.inimigos.handle_inimigos(id_jogador, area_atual.id)
+      
+      elif opcao == "-- Voltar ao Menu Inicial --":
+        break
+
+
+  def print_player_status(self, jogador):
       clear()
       print("================================")
       print("STATUS DO JOGADOR")
@@ -97,38 +178,6 @@ class Game():
       print(f'Nível: {jogador.nivel} ({jogador.xp} XP)')
       print("================================")
 
-      area_atual = self.db.get_area(jogador.id_area_atual)
-
-      print(f'Cidade atual: {area_atual.cidade}')
-      print(f'Area Atual: {area_atual.nome}')
-      print(f'Descrição: {area_atual.descricao}')
-      print()
-
-      direcao = inquirer.select(
-        message="Para qual direção você quer se mover?",
-        choices=[
-          Choice("norte", f'Norte: {self.db.get_nome_area(area_atual.area_norte)}'),
-          Choice("sul", f'Sul: {self.db.get_nome_area(area_atual.area_sul)}'),
-          Choice("leste", f'Leste: {self.db.get_nome_area(area_atual.area_leste)}'),
-          Choice("oeste", f'Oeste: {self.db.get_nome_area(area_atual.area_oeste)}'),
-          "Voltar ao Menu Inicial"
-        ]
-      ).execute()
-
-      if direcao == "norte":
-        id_prox_area = area_atual.area_norte
-      elif direcao == "sul":
-        id_prox_area = area_atual.area_sul
-      elif direcao == "leste":
-        id_prox_area = area_atual.area_leste
-      elif direcao == "oeste":
-        id_prox_area = area_atual.area_oeste
-      
-      elif direcao == "Voltar ao Menu Inicial":
-        break
-
-      self.db.update_player_area(id_jogador, id_prox_area)
-    
 
 if __name__ == "__main__":
   game = Game()

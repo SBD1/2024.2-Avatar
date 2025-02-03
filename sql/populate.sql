@@ -90,7 +90,7 @@ INSERT INTO personagem (id, tipo) VALUES
     INSERT INTO amigo (id, nome, vida_max, vida_atual, xp, elemento, nivel, fala_entrada, fala_saida, eh_mestre,
       nivel_necessario_discipulo, eh_mercador, nivel_necessario_compra, mult_preco,
       eh_curandeiro, preco_por_ponto_cura, id_area) VALUES
-    (3, 'Iroh', 250, 240, 600, 'fogo', 15, 'Bem-vindo, jovem aprendiz.', 'Que o fogo do seu espírito o guie.', TRUE, 5, FALSE, NULL, NULL, FALSE, NULL, 1),  -- Mestre
+    (3, 'Iroh', 250, 240, 600, 'fogo', 15, 'Bem-vindo, jovem aprendiz.', 'Que o fogo do seu espírito o guie.', TRUE, 5, TRUE, 1, NULL, FALSE, NULL, 1),  -- Mestre
     (4, 'Katara', 150, 100, 400, 'agua', 10, 'Estou aqui para ajudar você.', 'Volte sempre, confie na sua força.', FALSE, NULL, TRUE, 5, 1.5, TRUE, 10, 2),  -- Mercadora e Curandeira
     (5, 'Toph', 180, 170, 550, 'terra', 12, 'Sempre com os pés no chão, amigo.', 'Nos vemos por aí, pedra dura.', FALSE, NULL, TRUE, 7, 1.2, FALSE, NULL, 3),  -- Mercadora
     (6, 'Zuko', 200, 200, 700, 'fogo', 14, 'Estou aqui para lutar ao seu lado.', 'Até breve, que sua chama nunca se apague.', FALSE, NULL, FALSE, NULL, NULL, TRUE, 15, 4);  -- Curandeiro
@@ -430,20 +430,33 @@ INSERT INTO instancia_item (id_item, id_pc, id_inimigo, id_mercador) VALUES
     -- Personagem com item
     (1, 1, NULL, NULL), -- Pergaminho do Gelo Cortante para o personagem com id 1
     (2, 1, NULL, NULL), -- Pergaminho do Gelo Perfurante para o personagem com id 1
-    (3, NULL, 8, NULL), -- Pergaminho da Água Espiritual para inimigo com id 2
-    (4, NULL, 9, NULL), -- Pergaminho de Sangue para inimigo com id 3
-    (5, NULL, NULL, 4), -- Poção Inferior para mercador com id 1
-    (6, 1, NULL, NULL), -- Pergaminho de Impacto de Terra para o personagem com id 2
-    (7, NULL, 7, NULL); -- Pergaminho de Defesa Rochosa para inimigo com id 1
+    (3, NULL, 8, NULL), -- Pergaminho da Água Espiritual para inimigo com id 8
+    (4, NULL, 9, NULL), -- Pergaminho de Sangue para inimigo com id 9
+    (5, NULL, NULL, 3), -- Poção Inferior para mercador com id 3
+    (6, 1, NULL, NULL), -- Pergaminho de Impacto de Terra para o personagem com id 1
+    (7, NULL, 7, NULL), -- Pergaminho de Defesa Rochosa para inimigo com id 7
+    (22, 1, NULL, NULL), -- Poção Básica para o personagem com id 1
+    (24, 1, NULL, NULL), -- Poção Avançada para o personagem com id 1
+    (29, 1, NULL, NULL), -- Espada de Cobre para o personagem com id 1
+    (37, 1, NULL, NULL), -- Balde de Latão para o personagem com id 1
+    (41, 1, NULL, NULL), -- Peitoral de Couro para o personagem com id 1
+    (1, NULL, NULL, NULL),  -- Pergaminho do Gelo Cortante na área 1
+    (2, NULL, NULL, NULL),  -- Pergaminho do Gelo Perfurante na área 2
+    (3, NULL, NULL, NULL),  -- Pergaminho da Água Espiritual na área 1
+    (4, NULL, NULL, NULL),  -- Pergaminho de Sangue na área 3
+    (21, NULL, NULL, NULL),  -- Poção Inferior na área 2
+    (6, NULL, NULL, NULL),  -- Pergaminho de Impacto de Terra na área 3
+    (7, NULL, NULL, NULL),  -- Pergaminho de Defesa Rochosa na área 1
+    (9, NULL, NULL, 3);  -- Pergaminho da Lava para mercador com id 3
 
 INSERT INTO contem_item (id_instancia_item, id_area) VALUES
-    (1, 1),  -- Pergaminho do Gelo Cortante na área 1
-    (2, 2),  -- Pergaminho do Gelo Perfurante na área 2
-    (3, 5),  -- Pergaminho da Água Espiritual na área 1
-    (4, 8),  -- Pergaminho de Sangue na área 3
-    (5, 6),  -- Poção Inferior na área 2
-    (6, 10),  -- Pergaminho de Impacto de Terra na área 3
-    (7, 9);  -- Pergaminho de Defesa Rochosa na área 1
+    (13, 1),  -- Pergaminho do Gelo Cortante na área 1
+    (14, 2),  -- Pergaminho do Gelo Perfurante na área 2
+    (15, 1),  -- Pergaminho da Água Espiritual na área 1
+    (16, 3),  -- Pergaminho de Sangue na área 3
+    (17, 2),  -- Poção Inferior na área 2
+    (18, 3),  -- Pergaminho de Impacto de Terra na área 3
+    (19, 1);  -- Pergaminho de Defesa Rochosa na área 1
 
 
 INSERT INTO sabe_tecnica (id_personagem, nome_tecnica) VALUES

@@ -1,7 +1,7 @@
 services:
   db:
     image: postgres
-    restart: unless-stopped
+    restart: no
     container_name: db
     environment:
       - POSTGRES_USER=postgres
@@ -12,8 +12,7 @@ services:
     expose:
       - '5432'
     volumes:
-      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
-      - ./sql/populate.sql:/docker-entrypoint-initdb.d/populate.sql
+      - ./sql/:/docker-entrypoint-initdb.d/
 
   app:
     platform: linux/amd64

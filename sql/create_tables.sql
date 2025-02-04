@@ -7,7 +7,7 @@ CREATE TYPE ENUM_TIPO_TECNICA AS ENUM ('A', 'D', 'M', 'C');
 CREATE TYPE ENUM_TIPO_PERSONAGEM AS ENUM ('P', 'I', 'A');
 
 CREATE TABLE nacao (
-  nome VARCHAR(20) PRIMARY KEY ,
+  nome VARCHAR(20) PRIMARY KEY,
   descricao VARCHAR(250) NOT NULL
 );
 
@@ -181,7 +181,7 @@ CREATE TABLE fala_combate (
 CREATE TABLE combate (
   id_pc INT,
   id_inimigo INT,
-  data_hora TIMESTAMP,
+  data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   id_vencedor INT NOT NULL,
   PRIMARY KEY (id_pc, id_inimigo, data_hora),
   FOREIGN KEY (id_pc) REFERENCES pc(id),

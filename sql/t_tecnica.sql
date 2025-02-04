@@ -11,7 +11,7 @@ BEGIN
     END IF;
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE TRIGGER insert_tecnica_ataque_trigger
 AFTER INSERT ON ataque
@@ -39,7 +39,7 @@ BEGIN
     DELETE FROM tecnica WHERE nome = OLD.nome;
     RETURN NULL;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE TRIGGER delete_tecnica_ataque_trigger
 AFTER DELETE ON ataque
@@ -68,7 +68,7 @@ BEGIN
     END IF;
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE TRIGGER update_tecnica_ataque_trigger
 BEFORE UPDATE ON ataque

@@ -11,7 +11,7 @@ BEGIN
     END IF;
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE TRIGGER insert_arma_trigger
 BEFORE INSERT ON arma
@@ -38,7 +38,7 @@ BEGIN
     DELETE FROM item WHERE id = OLD.id;
     RETURN NULL;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE TRIGGER delete_arma_trigger
 AFTER DELETE ON arma
@@ -67,7 +67,7 @@ BEGIN
     END IF;
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE TRIGGER update_arma_trigger
 BEFORE UPDATE ON arma

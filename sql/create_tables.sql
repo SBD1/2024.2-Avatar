@@ -237,7 +237,7 @@ CREATE TABLE sabe_tecnica (
 CREATE TABLE posse_instancia_item (
    id_instancia INT NOT NULL,
    id_dono INT NOT NULL,
-   tipo_dono ENUM('pc', 'inimigo', 'mercador') NOT NULL,
+   tipo_dono ENUM_TIPO_PERSONAGEM NOT NULL,
    PRIMARY KEY (id_instancia, id_dono, tipo_dono),
    FOREIGN KEY (id_instancia) REFERENCES instancia_item(id_instancia)
 );

@@ -14,22 +14,22 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE TRIGGER insert_tecnica_ataque_trigger
-AFTER INSERT ON ataque
+BEFORE INSERT ON ataque
 FOR EACH ROW
 EXECUTE PROCEDURE insert_tecnica();
 
 CREATE TRIGGER insert_tecnica_defesa_trigger
-AFTER INSERT ON defesa
+BEFORE INSERT ON defesa
 FOR EACH ROW
 EXECUTE PROCEDURE insert_tecnica();
 
 CREATE TRIGGER insert_tecnica_mobilidade_trigger
-AFTER INSERT ON mobilidade
+BEFORE INSERT ON mobilidade
 FOR EACH ROW
 EXECUTE PROCEDURE insert_tecnica();
 
 CREATE TRIGGER insert_tecnica_cura_trigger
-AFTER INSERT ON cura
+BEFORE INSERT ON cura
 FOR EACH ROW
 EXECUTE PROCEDURE insert_tecnica();
 

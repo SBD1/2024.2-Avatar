@@ -5,76 +5,75 @@ BEGIN
 
   INSERT INTO nacao(nome, descricao)
   VALUES 
-
-      ('Tribos da Água', ''),
-      ('Reino da Terra', ''),
-      ('Nação do Fogo', ''),
-      ('Nômades do Ar', '');
+      ('Tribos da Água', 'Uma nação de mestres da água, dividida entre os polos norte e sul, conhecida por sua conexão espiritual e adaptabilidade.'),
+      ('Reino da Terra', 'O maior e mais populoso reino, conhecido por sua resistência, terra firme e cidades imponentes.'),
+      ('Nação do Fogo', 'Uma nação poderosa e industrializada, onde o domínio do fogo é uma arte de guerra e paixão.'),
+      ('Nômades do Ar', 'Um povo pacífico e espiritual, vivendo em templos flutuantes e dominando o ar como elemento.');
 
   INSERT INTO cidade(nome, descricao, nivel_necessario_entrar, nacao)
   VALUES
-      ('Tribo da Água do Sul', '', 1, 'Tribos da Água'),
-      ('Templo do Ar do Sul', '', 1, 'Nômades do Ar'),
-      ('Ilha Kyoshi', '', 1, 'Reino da Terra'),
-      ('Omashu', '', 1, 'Reino da Terra'),
-      ('Região de Floresta', '', 1, 'Reino da Terra'),
-      ('Região Costeira', '', 1, 'Reino da Terra'),
-      ('Templo do Ar do Norte', '', 1, 'Nômades do Ar'),
-      ('Tribo da Água do Norte', '', 1, 'Tribos da Água'),
-      ('Ba Sing Se', '', 23, 'Reino da Terra'),
-      ('Capital da Nação do Fogo', '', 23, 'Nação do Fogo');
-      
+      ('Tribo da Água do Sul', 'Uma pequena, mas resistente tribo, cercada por gelo e neve, onde a água é vida.', 1, 'Tribos da Água'),
+      ('Templo do Ar do Sul', 'Um templo antigo e abandonado, onde os Nômades do Ar costumavam meditar e treinar.', 1, 'Nômades do Ar'),
+      ('Ilha Kyoshi', 'Uma ilha pitoresca, lar das guerreiras Kyoshi e de uma cultura única no Reino da Terra.', 1, 'Reino da Terra'),
+      ('Omashu', 'Uma cidade antiga e labiríntica, famosa por suas entregas de correio e engenhosidade.', 1, 'Reino da Terra'),
+      ('Região de Floresta', 'Uma área densa e misteriosa, cheia de vida selvagem e segredos antigos.', 1, 'Reino da Terra'),
+      ('Região Costeira', 'Uma costa agitada, onde o mar encontra a terra, cheia de oportunidades e perigos.', 1, 'Reino da Terra'),
+      ('Templo do Ar do Norte', 'Um templo majestoso, onde os Nômades do Ar mantinham sua cultura e espiritualidade.', 1, 'Nômades do Ar'),
+      ('Tribo da Água do Norte', 'Uma cidade próspera e espiritual, cercada por gelo e conhecida por sua arquitetura única.', 1, 'Tribos da Água'),
+      ('Ba Sing Se', 'A impenetrável capital do Reino da Terra, onde a ordem e o controle são mantidos a qualquer custo.', 23, 'Reino da Terra'),
+      ('Capital da Nação do Fogo', 'O coração da Nação do Fogo, uma cidade poderosa e industrial, símbolo de força e ambição.', 23, 'Nação do Fogo');
+        
   INSERT INTO area(id, nome, descricao, area_norte, area_sul, area_leste, area_oeste, cidade)
   VALUES
-      --  Região do Polo Sul
-      (1, 'Centro da Cidade Portuária', '', 8, NULL, 2, 4, 'Tribo da Água do Sul'),
-      (2, 'O Destroçado', '', NULL, NULL, NULL, 1, 'Tribo da Água do Sul'),
-      (3, 'Ponto de Partida', 'Estamos nas nuvens, para onde vamos?', 14, 1, 9, NULL, 'Tribo da Água do Sul'),
-      (4, 'Região Comercial', '', 5, 6, 1, 7, 'Tribo da Água do Sul'),
-      (5, 'Mercador do Polo Sul', '', NULL, 4, NULL, NULL, 'Tribo da Água do Sul'),
-      (6, 'Mestre do Polo Sul', '', 4, NULL, NULL, NULL, 'Tribo da Água do Sul'),
-      (7, 'Curandeiro do Polo Sul', '', NULL, NULL, 4, NULL, 'Tribo da Água do Sul'),
-      (8, 'Saída da Cidade Portuária', '', 3, 1, NULL, NULL, 'Tribo da Água do Sul'),
-      (9, 'Entrada do Templo do Polo Sul', '', NULL, NULL, 10, 3, 'Tribo da Água do Sul'),
-      (10, 'Centro do Templo do Ar do Sul', '', NULL, 12, 9, 11, 'Templo do Ar do Sul'),
-      (11, 'Saída do Templo do Ar do Sul', '', NULL, NULL, 10, 3, 'Templo do Ar do Sul'),
-      (12, 'Ruínas do Templo', '', 10, NULL, NULL, NULL, 'Templo do Ar do Sul'),
+      -- Região do Polo Sul
+      (1, 'Centro da Cidade Portuária', 'O coração da Tribo da Água do Sul, onde a vida comunitária flui como a água.', 8, NULL, 2, 4, 'Tribo da Água do Sul'),
+      (2, 'O Destroçado', 'Uma área devastada por ataques, onde a resistência da tribo é testada.', NULL, NULL, NULL, 1, 'Tribo da Água do Sul'),
+      (3, 'Ponto de Partida', 'Um local elevado, onde as nuvens se encontram com o gelo, e novas jornadas começam.', 14, 1, 9, NULL, 'Tribo da Água do Sul'),
+      (4, 'Região Comercial', 'Um mercado movimentado, onde bens e histórias são trocados.', 5, 6, 1, 7, 'Tribo da Água do Sul'),
+      (5, 'Mercador do Polo Sul', 'Um comerciante astuto, sempre com algo útil para oferecer.', NULL, 4, NULL, NULL, 'Tribo da Água do Sul'),
+      (6, 'Mestre do Polo Sul', 'O lar do mestre da água, onde o conhecimento é passado para a próxima geração.', 4, NULL, NULL, NULL, 'Tribo da Água do Sul'),
+      (7, 'Curandeiro do Polo Sul', 'Um santuário de cura, onde a água é usada para restaurar a saúde e a paz.', NULL, NULL, 4, NULL, 'Tribo da Água do Sul'),
+      (8, 'Saída da Cidade Portuária', 'O portão de saída da tribo, onde o gelo se estende até o horizonte.', 3, 1, NULL, NULL, 'Tribo da Água do Sul'),
+      (9, 'Entrada do Templo do Polo Sul', 'Um portal antigo, que leva ao sagrado Templo do Ar do Sul.', NULL, NULL, 10, 3, 'Tribo da Água do Sul'),
+      (10, 'Centro do Templo do Ar do Sul', 'Um local de meditação e paz, onde o ar e a água se encontram.', NULL, 12, 9, 11, 'Templo do Ar do Sul'),
+      (11, 'Saída do Templo do Ar do Sul', 'A saída tranquila do templo, onde o vento sussurra segredos antigos.', NULL, NULL, 10, 3, 'Templo do Ar do Sul'),
+      (12, 'Ruínas do Templo', 'Vestígios de um passado glorioso, onde a história dos Nômades do Ar ainda ecoa.', 10, NULL, NULL, NULL, 'Templo do Ar do Sul'),
 
-      --  Arredores e lugares do Reino da Terra
-      (14, 'Entrada da Vila de Kyoshi', '', 15, 3, NULL, NULL, 'Ilha Kyoshi'),
-      (15, 'Centro da Vila de Kyoshi', '', 21, 14, 16, 20, 'Ilha Kyoshi'),
-      (16, 'Distrito Comercial', '', 17, 18, 19, 15, 'Ilha Kyoshi'),
-      (17, 'Curandeira de Kyoshi', '', NULL, 16, NULL, NULL, 'Ilha Kyoshi'),
-      (18, 'Mercadora de Kyoshi', '', 16, NULL, NULL, NULL, 'Ilha Kyoshi'),
-      (19, 'Mestra de Kyoshi', '', NULL, NULL, NULL, 16, 'Ilha Kyoshi'),
-      (20, 'Região Residencial', '', NULL, NULL, 20, NULL, 'Ilha Kyoshi'),
-      (21, 'Centro de Omashu', '', 27, 15, 23, 22, 'Omashu'),
-      (22, 'Palácio Real de Omashu', '', NULL, NULL, 21, NULL, 'Omashu'),
-      (23, 'Zona de Comércio', '', 24, 25, 26, 21, 'Omashu'),
-      (24, 'Mestre de Omashu', '', NULL, 23, NULL, NULL, 'Omashu'),
-      (25, 'Curandeiro de Omashu', '', 23, NULL, NULL, NULL, 'Omashu'),
-      (26, 'Mercador de Omashu', '', NULL, NULL, NULL, 23, 'Omashu'),
-      (27, 'Centro da Floresta', '', 30, 21, 28, 29, 'Região de Floresta'),
-      (28, 'Ponto de Acampamento', '', NULL, NULL, NULL, 27, 'Região de Floresta'),
-      (29, 'Vilarejo da Floresta', '', NULL, NULL, 27, NULL, 'Região de Floresta'),
-      (30, 'Praia da Preparação', '', 31, 30, NULL, NULL, 'Região Costeira'),
-      (31, 'Barco Pirata', '', 32, 30, NULL, NULL, 'Região Costeira'),
+      -- Arredores e lugares do Reino da Terra
+      (14, 'Entrada da Vila de Kyoshi', 'A entrada da vila, onde as guerreiras Kyoshi mantêm a paz.', 15, 3, NULL, NULL, 'Ilha Kyoshi'),
+      (15, 'Centro da Vila de Kyoshi', 'O coração da vila, onde a cultura e a tradição se misturam.', 21, 14, 16, 20, 'Ilha Kyoshi'),
+      (16, 'Distrito Comercial', 'Um mercado vibrante, cheio de cores, sons e oportunidades.', 17, 18, 19, 15, 'Ilha Kyoshi'),
+      (17, 'Curandeira de Kyoshi', 'Um refúgio de cura, onde a natureza e a medicina se unem.', NULL, 16, NULL, NULL, 'Ilha Kyoshi'),
+      (18, 'Mercadora de Kyoshi', 'Uma comerciante habilidosa, sempre com algo especial para vender.', 16, NULL, NULL, NULL, 'Ilha Kyoshi'),
+      (19, 'Mestra de Kyoshi', 'A guardiã da tradição, que treina as guerreiras Kyoshi.', NULL, NULL, NULL, 16, 'Ilha Kyoshi'),
+      (20, 'Região Residencial', 'Um bairro tranquilo, onde os moradores vivem em harmonia.', NULL, NULL, 20, NULL, 'Ilha Kyoshi'),
+      (21, 'Centro de Omashu', 'O coração da cidade, famoso por seus correios e engenhosidade.', 27, 15, 23, 22, 'Omashu'),
+      (22, 'Palácio Real de Omashu', 'A residência do rei, onde a sabedoria e o poder se encontram.', NULL, NULL, 21, NULL, 'Omashu'),
+      (23, 'Zona de Comércio', 'Um centro de negócios, onde as mercadorias fluem como a terra.', 24, 25, 26, 21, 'Omashu'),
+      (24, 'Mestre de Omashu', 'Um sábio ancião, que conhece os segredos da cidade.', NULL, 23, NULL, NULL, 'Omashu'),
+      (25, 'Curandeiro de Omashu', 'Um especialista em cura, que usa a terra para restaurar a saúde.', 23, NULL, NULL, NULL, 'Omashu'),
+      (26, 'Mercador de Omashu', 'Um comerciante astuto, sempre com algo valioso para oferecer.', NULL, NULL, NULL, 23, 'Omashu'),
+      (27, 'Centro da Floresta', 'Um local denso e misterioso, onde a natureza reina.', 30, 21, 28, 29, 'Região de Floresta'),
+      (28, 'Ponto de Acampamento', 'Um refúgio seguro, onde os viajantes descansam.', NULL, NULL, NULL, 27, 'Região de Floresta'),
+      (29, 'Vilarejo da Floresta', 'Uma comunidade pequena, escondida entre as árvores.', NULL, NULL, 27, NULL, 'Região de Floresta'),
+      (30, 'Praia da Preparação', 'Uma costa tranquila, onde o mar e a terra se encontram.', 31, 30, NULL, NULL, 'Região Costeira'),
+      (31, 'Barco Pirata', 'Um navio abandonado, cheio de tesouros e perigos.', 32, 30, NULL, NULL, 'Região Costeira'),
 
-      --  Região do Polo Norte
-      (32, 'Centro do Templo do Ar do Norte', '', 34, 31, 33, NULL, 'Templo do Ar do Norte'),
-      (33, 'Campo de Refugiados', '', NULL, NULL, NULL, 32, 'Templo do Ar do Norte'),
-      (34, '1º Centro de Agna Qel''a', '', 35, 32, 36, 40, 'Tribo da Água do Norte'),
-      (35, 'Palácio Real de Agna Qel''a', '', NULL, 35, NULL, NULL, 'Tribo da Água do Norte'),
-      (36, 'Área de Comércio', '', 39, 38, 37, 34, 'Tribo da Água do Norte'),
-      (37, 'Mercador de Agna Qel''a', '', NULL, NULL, NULL, 36, 'Tribo da Água do Norte'),
-      (38, 'Curandeira de Agna Qel''a', '', 36, NULL, NULL, NULL, 'Tribo da Água do Norte'),
-      (39, 'Mestre de Agna Qel''a', '', NULL, 36, NULL, NULL, 'Tribo da Água do Norte'),
-      (40, '2º Centro de Agna Qel''a', '', 44, 41, 34, 42, 'Tribo da Água do Norte'),
-      (41, 'Cabanas de Cura', '', 40, NULL, NULL, NULL, 'Tribo da Água do Norte'),
-      (42, 'Tundras do Polo Norte', '', NULL, NULL, 40, 43, 'Tribo da Água do Norte'),
-      (43, 'Selva Espiritual', '', NULL, NULL, 42, NULL, 'Tribo da Água do Norte'),
-      (44, 'Cavernas de Gelo', '', 45, 40, NULL, NULL, 'Tribo da Água do Norte'),
-      (45, 'Oásis Espiritual', '', NULL, 44, NULL, NULL, 'Tribo da Água do Norte');
+      -- Região do Polo Norte
+      (32, 'Centro do Templo do Ar do Norte', 'Um templo sagrado, onde o ar e a espiritualidade se fundem.', 34, 31, 33, NULL, 'Templo do Ar do Norte'),
+      (33, 'Campo de Refugiados', 'Um local de abrigo, onde os refugiados encontram paz.', NULL, NULL, NULL, 32, 'Templo do Ar do Norte'),
+      (34, '1º Centro de Agna Qel''a', 'O coração da Tribo da Água do Norte, onde a cultura e a espiritualidade prosperam.', 35, 32, 36, 40, 'Tribo da Água do Norte'),
+      (35, 'Palácio Real de Agna Qel''a', 'A residência do chefe, onde a liderança e a tradição se unem.', NULL, 35, NULL, NULL, 'Tribo da Água do Norte'),
+      (36, 'Área de Comércio', 'Um mercado movimentado, onde os bens fluem como a água.', 39, 38, 37, 34, 'Tribo da Água do Norte'),
+      (37, 'Mercador de Agna Qel''a', 'Um comerciante astuto, sempre com algo valioso para oferecer.', NULL, NULL, NULL, 36, 'Tribo da Água do Norte'),
+      (38, 'Curandeira de Agna Qel''a', 'Uma especialista em cura, que usa a água para restaurar a saúde.', 36, NULL, NULL, NULL, 'Tribo da Água do Norte'),
+      (39, 'Mestre de Agna Qel''a', 'Um sábio ancião, que ensina os segredos da água.', NULL, 36, NULL, NULL, 'Tribo da Água do Norte'),
+      (40, '2º Centro de Agna Qel''a', 'Um local de encontro, onde a comunidade se reúne.', 44, 41, 34, 42, 'Tribo da Água do Norte'),
+      (41, 'Cabanas de Cura', 'Um refúgio de paz, onde os feridos encontram alívio.', 40, NULL, NULL, NULL, 'Tribo da Água do Norte'),
+      (42, 'Tundras do Polo Norte', 'Uma vasta extensão de gelo, onde a sobrevivência é uma arte.', NULL, NULL, 40, 43, 'Tribo da Água do Norte'),
+      (43, 'Selva Espiritual', 'Uma floresta sagrada, onde os espíritos da natureza residem.', NULL, NULL, 42, NULL, 'Tribo da Água do Norte'),
+      (44, 'Cavernas de Gelo', 'Um labirinto gelado, cheio de segredos e perigos.', 45, 40, NULL, NULL, 'Tribo da Água do Norte'),
+      (45, 'Oásis Espiritual', 'Um local de abrigo, onde os refugiados encontram paz.', NULL, 44, NULL, NULL, 'Tribo da Água do Norte');
 
   -- Personagem Jogável (PC)
 

@@ -1,13 +1,13 @@
 CREATE OR REPLACE FUNCTION insert_item() RETURNS TRIGGER AS $$
 BEGIN
     IF TG_TABLE_NAME = 'arma' THEN
-        INSERT INTO item (nome, tipo) VALUES (NEW.nome, 'W');
+        INSERT INTO item (id, tipo) VALUES (NEW.id, 'W');
     ELSIF TG_TABLE_NAME = 'armadura' THEN
-        INSERT INTO item (nome, tipo) VALUES (NEW.nome, 'A');
+        INSERT INTO item (id, tipo) VALUES (NEW.id, 'A');
     ELSIF TG_TABLE_NAME = 'pocao' THEN
-        INSERT INTO item (nome, tipo) VALUES (NEW.nome, 'P');
+        INSERT INTO item (id, tipo) VALUES (NEW.id, 'P');
     ELSIF TG_TABLE_NAME = 'pergaminho' THEN
-        INSERT INTO item (nome, tipo) VALUES (NEW.nome, 'S');
+        INSERT INTO item (id, tipo) VALUES (NEW.id, 'S');
     END IF;
     RETURN NEW;
 END;

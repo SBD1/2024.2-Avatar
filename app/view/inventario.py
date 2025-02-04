@@ -1,3 +1,4 @@
+import time
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
@@ -221,9 +222,13 @@ class Inventario:
       ).execute()
 
       if pergaminho_detalhes == "Aprender técnica": #TODO: Ocultar se o player ja sabe a tecnica sinao da bug 
-        self.db.aprender_tecnica(pergaminho.tecnica, jogador.id, pergaminho.id_instancia)
-        print(f"-- Você aprendeu a técnica {pergaminho.tecnica}!!! --")
-        break
+        resultado = self.db.aprender_tecnica(pergaminho.tecnica, jogador.id, pergaminho.id_instancia)
+        if resultado == True:
+          print(f"-- Você aprendeu a técnica {pergaminho.tecnica}!!! --")
+          break
+        else:
+          print("-- Você já sabe essa técnica!!! --")
+          time.sleep(3)
 
       elif pergaminho_detalhes == "Dropar pergaminho":
         self.db.drop_item(pergaminho.id_instancia, id_area)

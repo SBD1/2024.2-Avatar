@@ -36,7 +36,7 @@ CREATE TABLE area (
 );
 
 CREATE TABLE item (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEYz,
   tipo ENUM_TIPO_ITEM NOT NULL
 );
 

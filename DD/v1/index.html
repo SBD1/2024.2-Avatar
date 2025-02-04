@@ -1,0 +1,2326 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Repositório para o projeto de um jogo RPG baseado na série animada Avatar, desenvolvido na disciplina de Sistemas de Banco de Dados 1 na Universidade de Brasilia.">
+      
+      
+        <meta name="author" content="O Grupo">
+      
+      
+        <link rel="canonical" href="https://2024.2-avatar.com/DD/v1/">
+      
+      
+        <link rel="prev" href="../../MER/v1/">
+      
+      
+        <link rel="next" href="../../MR/v1/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.2">
+    
+    
+      
+        <title>Dicionário de Dados - 2024.2-Avatar</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d7758b05.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dicionario-de-dados" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../.." title="2024.2-Avatar" class="md-header__button md-logo" aria-label="2024.2-Avatar" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            2024.2-Avatar
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Dicionário de Dados
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-blue" data-md-color-accent="blue"  aria-label="Mudar para o modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Mudar para o modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-blue" data-md-color-accent="blue"  aria-label="Mudar para o modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Mudar para o modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SBD1/2024.2-Avatar" title="Ir para repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    2024.2-Avatar
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="2024.2-Avatar" class="md-nav__button md-logo" aria-label="2024.2-Avatar" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    2024.2-Avatar
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SBD1/2024.2-Avatar" title="Ir para repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    2024.2-Avatar
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Início
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MER/v1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modelo Entidade Relacionamento
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Dicionário de Dados
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Dicionário de Dados
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introducao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introdução
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-nacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Nacao
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-cidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Cidade
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-area" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Area
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-personagem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Personagem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-pc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: PC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-amigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Amigo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-falahistoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: FalaHistoria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-inimigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Inimigo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-falacombate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: FalaCombate
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-combate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Combate
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Tecnica
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-ataque" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Ataque
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-defesa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Defesa
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-mobilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Mobilidade
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-cura" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Cura
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-sabetecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: SabeTecnica
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-item" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Item
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-pergaminho" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Pergaminho
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-pocao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Pocao
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-arma" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Arma
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-armadura" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Armadura
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-instanciaitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: InstanciaItem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-contemitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: ContemItem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-versao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Histórico de versão
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MR/v1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modelo Relacional
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Apresentações
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Apresentações
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Apresentacoes/Modulo01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modulo 01
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Apresentacoes/Modulo02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modulo 02
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Apresentacoes/Modulo03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modulo 03
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introducao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introdução
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-nacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Nacao
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-cidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Cidade
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-area" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Area
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-personagem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Personagem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-pc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: PC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-amigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Amigo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-falahistoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: FalaHistoria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-inimigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Inimigo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-falacombate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: FalaCombate
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-combate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Combate
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Tecnica
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-ataque" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Ataque
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-defesa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Defesa
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-mobilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Mobilidade
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-cura" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Cura
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-sabetecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: SabeTecnica
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-item" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Item
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-pergaminho" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Pergaminho
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-pocao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Pocao
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-arma" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Arma
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-armadura" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: Armadura
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-instanciaitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: InstanciaItem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-contemitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabela: ContemItem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-versao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Histórico de versão
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="dicionario-de-dados">Dicionário de Dados</h1>
+<h2 id="introducao">Introdução</h2>
+<p>O Dicionário de Dados é uma ferramenta que descreve os dados que estão sendo utilizados em um sistema, fornecendo informações detalhadas sobre a estrutura de cada tabela do <a href="../../MR/v1/">Modelo Relacional</a>, como nome, descrição, tipo de dado, tamanho e restrições de domínio.</p>
+<h2 id="tabela-nacao">Tabela: Nacao</h2>
+<p><strong>Descrição:</strong> Possui as informações das nações que o jogador poderá explorar.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nome</td>
+<td>Nome da nação</td>
+<td>varchar</td>
+<td>20</td>
+<td>PK</td>
+</tr>
+<tr>
+<td>descricao</td>
+<td>Descrição detalhada da nação</td>
+<td>varchar</td>
+<td>250</td>
+<td>Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-cidade">Tabela: Cidade</h2>
+<p><strong>Descrição:</strong> Possui as informações das cidades que o jogador poderá explorar.</p>
+<p><strong>Observações:</strong> A tabela possui uma chave estrangeira para a tabela Nacao.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nome</td>
+<td>Nome da cidade</td>
+<td>varchar</td>
+<td>50</td>
+<td>PK</td>
+</tr>
+<tr>
+<td>descricao</td>
+<td>Descrição da cidade</td>
+<td>varchar</td>
+<td>250</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>nivel_necessario_entrar</td>
+<td>Nível necessário para que o jogador entre na cidade</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>nacao</td>
+<td>Nome da nação</td>
+<td>varchar</td>
+<td>20</td>
+<td>FK / Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-area">Tabela: Area</h2>
+<p><strong>Descrição:</strong> Possui as informações da área em que o jogador está presente e aonde ele pode ir.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Identificador da área</td>
+<td>int</td>
+<td></td>
+<td>PK / Identity</td>
+</tr>
+<tr>
+<td>nome</td>
+<td>Nome da área</td>
+<td>varchar</td>
+<td>50</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>descricao</td>
+<td>Descrição da área</td>
+<td>varchar</td>
+<td>250</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>area_norte</td>
+<td>Área ao norte</td>
+<td>int</td>
+<td></td>
+<td>FK</td>
+</tr>
+<tr>
+<td>area_sul</td>
+<td>Área ao sul</td>
+<td>int</td>
+<td></td>
+<td>FK</td>
+</tr>
+<tr>
+<td>area_leste</td>
+<td>Área ao leste</td>
+<td>int</td>
+<td></td>
+<td>FK</td>
+</tr>
+<tr>
+<td>area_oeste</td>
+<td>Área ao oeste</td>
+<td>int</td>
+<td></td>
+<td>FK</td>
+</tr>
+<tr>
+<td>cidade</td>
+<td>Cidade que contém a área</td>
+<td>varchar</td>
+<td>50</td>
+<td>FK / Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-personagem">Tabela: Personagem</h2>
+<p><strong>Descrição:</strong> Indica qual o tipo do personagem, que pode ser um personagem jogável (P), um personagem não-jogável amigável (A) ou um inimigo (I).</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Identificador do personagem</td>
+<td>int</td>
+<td></td>
+<td>PK</td>
+</tr>
+<tr>
+<td>tipo</td>
+<td>Indica o tipo do personagem</td>
+<td>enum</td>
+<td></td>
+<td>Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-pc">Tabela: PC</h2>
+<p><strong>Descrição:</strong> Possui as informações do personagem que o jogador irá utilizar, pode ser classificado como <em>playable character</em>.</p>
+<p><strong>Observações:</strong> A tabela possui chaves estrangeiras às tabelas Personagem, Area e InstanciaItem.   </p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Identificador do personagem</td>
+<td>int</td>
+<td></td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>nome</td>
+<td>Nome do personagem</td>
+<td>varchar</td>
+<td>50</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>vida_max</td>
+<td>Vida máxima do personagem</td>
+<td>int</td>
+<td></td>
+<td>Not null / Default 100</td>
+</tr>
+<tr>
+<td>vida_atual</td>
+<td>Vida atual do personagem</td>
+<td>int</td>
+<td></td>
+<td>Not null / Default 100</td>
+</tr>
+<tr>
+<td>xp</td>
+<td>Quantidade de pontos de experiência do personagem</td>
+<td>int</td>
+<td></td>
+<td>Not null / Default 0</td>
+</tr>
+<tr>
+<td>elemento</td>
+<td>Elemento principal do personagem</td>
+<td>enum</td>
+<td></td>
+<td>Default 'nenhum'</td>
+</tr>
+<tr>
+<td>nivel</td>
+<td>Nível do personagem</td>
+<td>int</td>
+<td></td>
+<td>Not null / Default 1</td>
+</tr>
+<tr>
+<td>moedas</td>
+<td>Quantidade de moedas</td>
+<td>int</td>
+<td></td>
+<td>Default 0</td>
+</tr>
+<tr>
+<td>peso_max_inventario</td>
+<td>Peso máximo suportado pelo inventário do PC</td>
+<td>float</td>
+<td></td>
+<td>Default 100.00</td>
+</tr>
+<tr>
+<td>id_area_atual</td>
+<td>Identificador da área atual do PC</td>
+<td>int</td>
+<td></td>
+<td>FK / Not null</td>
+</tr>
+<tr>
+<td>item_capacete</td>
+<td>Item equipado na cabeça</td>
+<td>int</td>
+<td></td>
+<td>FK</td>
+</tr>
+<tr>
+<td>item_peitoral</td>
+<td>Item equipado no dorso</td>
+<td>int</td>
+<td></td>
+<td>FK</td>
+</tr>
+<tr>
+<td>item_acessorio</td>
+<td>Item equipado em áreas acessórias</td>
+<td>int</td>
+<td></td>
+<td>FK</td>
+</tr>
+<tr>
+<td>item_botas</td>
+<td>Item equipado nos pés</td>
+<td>int</td>
+<td></td>
+<td>FK</td>
+</tr>
+<tr>
+<td>item_arma</td>
+<td>Item equipado como arma</td>
+<td>int</td>
+<td></td>
+<td>FK</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-amigo">Tabela: Amigo</h2>
+<p><strong>Descrição:</strong> Possui as informações dos personagens não-jogáveis que serão amigáveis ao jogador.</p>
+<p><strong>Observações:</strong> O Amigo pode ter subtipos específicos, sendo eles:</p>
+<ul>
+<li><strong>Mestre</strong>: responsável por ensinar novas técnicas ao jogador;</li>
+<li><strong>Mercador</strong>: responsável por vender itens ao jogador;</li>
+<li><strong>Curandeiro</strong>: responsável por curar o jogador.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Identificador do personagem</td>
+<td>int</td>
+<td></td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>nome</td>
+<td>Nome do personagem</td>
+<td>varchar</td>
+<td>50</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>vida_max</td>
+<td>Vida máxima do personagem</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>vida_atual</td>
+<td>Vida atual do personagem</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>xp</td>
+<td>Quantidade de pontos de experiência do personagem</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>elemento</td>
+<td>Elemento principal do personagem</td>
+<td>enum</td>
+<td></td>
+<td>Default 'nenhum'</td>
+</tr>
+<tr>
+<td>nivel</td>
+<td>Nível do personagem</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>fala_entrada</td>
+<td>Diálogo inicial do NPC</td>
+<td>varchar</td>
+<td>150</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>fala_saida</td>
+<td>Diálogo final do NPC</td>
+<td>varchar</td>
+<td>150</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>eh_mestre</td>
+<td>Indica se o amigo é um mestre</td>
+<td>boolean</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>nivel_necessario_discipulo</td>
+<td>Nível necessário para ser discípulo do mestre</td>
+<td>int</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>eh_mercador</td>
+<td>Indica se o amigo é um mercador</td>
+<td>boolean</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>nivel_necessario_compra</td>
+<td>Nível necessário para comprar com o mercador</td>
+<td>int</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>mult_preco</td>
+<td>Define um aumento ou redução de preço ao comprar com um mercador</td>
+<td>float</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>eh_curandeiro</td>
+<td>Indica se o amigo é um curandeiro</td>
+<td>boolean</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>preco_por_ponto_cura</td>
+<td>Preço por ponto de cura aplicado pelo curandeiro</td>
+<td>int</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>id_area</td>
+<td>Identificador da área em que o personagem está</td>
+<td>int</td>
+<td></td>
+<td>FK / Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-falahistoria">Tabela: FalaHistoria</h2>
+<p><strong>Descrição:</strong> Possui as informações das falas que serão utilizadas pelos amigos para interagir com o jogador durante o jogo.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Identificador da fala</td>
+<td>int</td>
+<td></td>
+<td>PK / Identity</td>
+</tr>
+<tr>
+<td>dialogo</td>
+<td>Fala do personagem</td>
+<td>varchar</td>
+<td>150</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>id_amigo</td>
+<td>Identificador do amigo que tem a fala</td>
+<td>int</td>
+<td></td>
+<td>FK / Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-inimigo">Tabela: Inimigo</h2>
+<p><strong>Descrição:</strong> Possui as informações dos personagens não-jogáveis que serão hostis ao jogador.</p>
+<p><strong>Observações:</strong> Contém uma chave estrangeira à tabela Area.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Identificador do personagem</td>
+<td>int</td>
+<td></td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>nome</td>
+<td>Nome do personagem</td>
+<td>varchar</td>
+<td>50</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>vida_max</td>
+<td>Vida máxima do personagem</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>vida_atual</td>
+<td>Vida atual do personagem</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>xp</td>
+<td>Quantidade de pontos de experiência do personagem</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>elemento</td>
+<td>Elemento principal do personagem</td>
+<td>enum</td>
+<td></td>
+<td>Default 'nenhum'</td>
+</tr>
+<tr>
+<td>nivel</td>
+<td>Nível do personagem</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>fala_entrada</td>
+<td>Diálogo inicial do NPC</td>
+<td>varchar</td>
+<td>150</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>fala_saida</td>
+<td>Diálogo final do NPC</td>
+<td>varchar</td>
+<td>150</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>xp_ganho</td>
+<td>XP ganho ao derrotar</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>num_moedas_ganho</td>
+<td>Moedas ganhas ao derrotar</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>id_area</td>
+<td>Identificador da área em que o personagem está</td>
+<td>int</td>
+<td></td>
+<td>FK / Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-falacombate">Tabela: FalaCombate</h2>
+<p><strong>Descrição:</strong> Possui as informações das falas que serão utilizadas pelos inimigos para interagir com o jogador durante o combate.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Identificador da fala</td>
+<td>int</td>
+<td></td>
+<td>PK / Identity</td>
+</tr>
+<tr>
+<td>dialogo</td>
+<td>Fala do personagem</td>
+<td>varchar</td>
+<td>150</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>id_inimigo</td>
+<td>Identificador do inimigo que tem a fala</td>
+<td>int</td>
+<td></td>
+<td>FK / Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-combate">Tabela: Combate</h2>
+<p><strong>Descrição:</strong> Possui as informações dos combates entre PC e inimigo durante o jogo.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id_pc</td>
+<td>Identificador do personagem jogável</td>
+<td>int</td>
+<td></td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>id_inimigo</td>
+<td>Identificador do personagem inimigo</td>
+<td>int</td>
+<td></td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>data_hora</td>
+<td>Data e hora do combate</td>
+<td>timestamp</td>
+<td></td>
+<td>PK</td>
+</tr>
+<tr>
+<td>id_vencedor</td>
+<td>Identificador do personagem vencedor</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-tecnica">Tabela: Tecnica</h2>
+<p><strong>Descrição:</strong> Possui as informações gerais sobre as técnicas disponíveis no jogo.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nome</td>
+<td>Nome da técnica</td>
+<td>varchar</td>
+<td>50</td>
+<td>PK</td>
+</tr>
+<tr>
+<td>tipo</td>
+<td>Tipo da técnica (A, D, M, C)</td>
+<td>enum</td>
+<td></td>
+<td>Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-ataque">Tabela: Ataque</h2>
+<p><strong>Descrição:</strong> Técnicas de ataque que causam dano.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nome</td>
+<td>Nome da técnica</td>
+<td>varchar</td>
+<td>50</td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>elemento</td>
+<td>Elemento da técnica</td>
+<td>enum</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>descricao</td>
+<td>Descrição da técnica</td>
+<td>varchar</td>
+<td>250</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>nivel_necessario_aprender</td>
+<td>Nível necessário para aprender a técnica</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>dano_causado</td>
+<td>Dano causado pela técnica</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-defesa">Tabela: Defesa</h2>
+<p><strong>Descrição:</strong> Técnicas de defesa que bloqueiam dano.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nome</td>
+<td>Nome da técnica</td>
+<td>varchar</td>
+<td>50</td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>elemento</td>
+<td>Elemento da técnica</td>
+<td>enum</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>descricao</td>
+<td>Descrição da técnica</td>
+<td>varchar</td>
+<td>250</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>nivel_necessario_aprender</td>
+<td>Nível necessário para aprender a técnica</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>dano_bloqueado</td>
+<td>Dano bloqueado pela técnica</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-mobilidade">Tabela: Mobilidade</h2>
+<p><strong>Descrição:</strong> Técnicas que melhoram a mobilidade ou aumentam a chance de esquiva.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nome</td>
+<td>Nome da técnica</td>
+<td>varchar</td>
+<td>50</td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>elemento</td>
+<td>Elemento da técnica</td>
+<td>enum</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>descricao</td>
+<td>Descrição da técnica</td>
+<td>varchar</td>
+<td>250</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>nivel_necessario_aprender</td>
+<td>Nível necessário para aprender a técnica</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>chance_esquiva</td>
+<td>Chance de esquiva (%)</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-cura">Tabela: Cura</h2>
+<p><strong>Descrição:</strong> Técnicas de cura que restauram pontos de vida.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nome</td>
+<td>Nome da técnica</td>
+<td>varchar</td>
+<td>50</td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>elemento</td>
+<td>Elemento da técnica</td>
+<td>enum</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>descricao</td>
+<td>Descrição da técnica</td>
+<td>varchar</td>
+<td>250</td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>nivel_necessario_aprender</td>
+<td>Nível necessário para aprender a técnica</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>pontos_cura</td>
+<td>Pontos de vida restaurados</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-sabetecnica">Tabela: SabeTecnica</h2>
+<p><strong>Descrição:</strong> Armazena as técnicas que cada personagem sabe utilizar.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id_personagem</td>
+<td>Identificador do personagem</td>
+<td>int</td>
+<td></td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>nome_tecnica</td>
+<td>Nome da técnica que o personagem conhece</td>
+<td>varchar</td>
+<td>50</td>
+<td>PK / FK</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-item">Tabela: Item</h2>
+<p><strong>Descrição:</strong> Possui as informações dos itens presentes no jogo.</p>
+<p><strong>Observações:</strong> A tabela está dividida em quatro sub-tabelas, Pergaminho, Poção, Arma e Armadura, através de uma especialização por tipo.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Identificador do item</td>
+<td>int</td>
+<td></td>
+<td>PK / Identity</td>
+</tr>
+<tr>
+<td>tipo</td>
+<td>Tipo do item</td>
+<td>char</td>
+<td></td>
+<td>Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-pergaminho">Tabela: Pergaminho</h2>
+<p><strong>Descrição:</strong> Possui as informações do item tipo pergaminho, que é responsável por ensinar movimentos ao personagem.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Identificador do item</td>
+<td>int</td>
+<td></td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>nome</td>
+<td>Nome do item</td>
+<td>varchar</td>
+<td>50</td>
+<td>Unique / Not null</td>
+</tr>
+<tr>
+<td>peso</td>
+<td>Peso do item</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>preco</td>
+<td>Preço do item</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>raridade</td>
+<td>Raridade do pergaminho</td>
+<td>enum</td>
+<td></td>
+<td>Default</td>
+</tr>
+<tr>
+<td>movimento</td>
+<td>Movimento que o pergaminho ensina</td>
+<td>varchar</td>
+<td>50</td>
+<td>FK / Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-pocao">Tabela: Pocao</h2>
+<p><strong>Descrição:</strong> Possui as informações do item poção, que é responsável por curar o personagem.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Identificador do item</td>
+<td>int</td>
+<td></td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>nome</td>
+<td>Nome do item</td>
+<td>varchar</td>
+<td>50</td>
+<td>Unique / Not null</td>
+</tr>
+<tr>
+<td>peso</td>
+<td>Peso do item</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>preco</td>
+<td>Preço do item</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>pontosCura</td>
+<td>Pontos de cura da poção</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-arma">Tabela: Arma</h2>
+<p><strong>Descrição:</strong> Possui as informações do item arma, capaz de aumentar o dano causado pelo personagem.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Identificador do item</td>
+<td>int</td>
+<td></td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>nome</td>
+<td>Nome do item</td>
+<td>varchar</td>
+<td>50</td>
+<td>Unique / Not null</td>
+</tr>
+<tr>
+<td>peso</td>
+<td>Peso do item</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>preco</td>
+<td>Preço do item</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>dano</td>
+<td>Dano causado pela arma</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-armadura">Tabela: Armadura</h2>
+<p><strong>Descrição:</strong> Possui as informações exclusivas à armadura.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Identificador do item</td>
+<td>int</td>
+<td></td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>nome</td>
+<td>Nome do item</td>
+<td>varchar</td>
+<td>50</td>
+<td>Unique / Not null</td>
+</tr>
+<tr>
+<td>peso</td>
+<td>Peso do item</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>preco</td>
+<td>Preço do item</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>pontosProtecao</td>
+<td>Pontos de proteção da armadura</td>
+<td>int</td>
+<td></td>
+<td>Not null</td>
+</tr>
+<tr>
+<td>partesCorpo</td>
+<td>Parte do corpo que a armadura protege</td>
+<td>enum</td>
+<td></td>
+<td>Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-instanciaitem">Tabela: InstanciaItem</h2>
+<p><strong>Descrição:</strong> Possui as informações das instâncias de itens presentes no jogo.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>idInstancia</td>
+<td>Identificador da instância do item</td>
+<td>int</td>
+<td></td>
+<td>PK</td>
+</tr>
+<tr>
+<td>idItem</td>
+<td>Identificador do item que foi instaciado</td>
+<td>int</td>
+<td></td>
+<td>FK / Not null</td>
+</tr>
+<tr>
+<td>idInventario</td>
+<td>Identifica o inventario do PC que a instancia está</td>
+<td>int</td>
+<td></td>
+<td>FK</td>
+</tr>
+<tr>
+<td>idInimigo</td>
+<td>Identifica o inimigo que dropa a instância quando morre</td>
+<td>int</td>
+<td></td>
+<td>FK</td>
+</tr>
+<tr>
+<td>idMercador</td>
+<td>Identificador do mercador que vende a instância</td>
+<td>int</td>
+<td></td>
+<td>FK</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabela-contemitem">Tabela: ContemItem</h2>
+<p><strong>Descrição:</strong> Possui as informações dos itens que estão presentes em uma área do mapa.</p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Descrição</th>
+<th>Tipo de dado</th>
+<th>Tamanho</th>
+<th>Restrições de domínio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>idInstanciaItem</td>
+<td>Identificador da instância do item</td>
+<td>int</td>
+<td></td>
+<td>PK / FK</td>
+</tr>
+<tr>
+<td>idArea</td>
+<td>Identificador da área em que a instância está</td>
+<td>int</td>
+<td></td>
+<td>FK / Not null</td>
+</tr>
+</tbody>
+</table>
+<h2 id="historico-de-versao">Histórico de versão</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Data</th>
+<th style="text-align: center;">Versão</th>
+<th>Descrição</th>
+<th>Autor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">24/11/2024</td>
+<td style="text-align: center;">1.0</td>
+<td>Criação do documento e descrição inicial</td>
+<td><a href="https://github.com/Wooo589">Willian Silva</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">24/11/2024</td>
+<td style="text-align: center;">1.1</td>
+<td>Formatação para Markdown</td>
+<td><a href="https://github.com/juliatakaki">Júlia Takaki</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">24/11/2024</td>
+<td style="text-align: center;">2.0</td>
+<td>Reformulação das tabelas de acordo com o modelo relacional</td>
+<td><a href="https://github.com/luciano-freitas-melo">Luciano Freitas</a> e <a href="https://github.com/Wooo589">Willian Silva</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">24/11/2024</td>
+<td style="text-align: center;">2.1</td>
+<td>Revisa tabelas para entrega 1</td>
+<td><a href="https://github.com/luciano-freitas-melo">Luciano Freitas</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">13/01/2021</td>
+<td style="text-align: center;">3.0</td>
+<td>Atualiza tabelas correspondentes as modificacoes feitas na entrega 2</td>
+<td><a href="https://github.com/l-ricardo">Luciano Ricardo</a></td>
+</tr>
+</tbody>
+</table>
+<!--
+Padrão Usuarios GitHub Histórico de Versões --- Não Apagar
+
+[João Schmitz](https://github.com/JoaoSchmitz)
+[Júlia Takaki](https://github.com/juliatakaki)
+[Luciano Freitas](https://github.com/luciano-freitas-melo)
+[Luciano Ricardo](https://github.com/l-ricardo)
+[Willian Silva](https://github.com/Wooo589)
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.section", "navigation.path", "navigation.top", "tabs"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f13b1293.min.js"></script>
+      
+    
+  </body>
+</html>

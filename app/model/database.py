@@ -443,11 +443,18 @@ class Database:
     return True
 
   def aprender_tecnica(self, nome_tecnica, id_jogador, id_instancia):
+    sql = "SELECT * FROM sabe_tecnica WHERE id_personagem = %s AND nome_tecnica = %s"
+    resultado = self.query_all(sql, (id_jogador, nome_tecnica))
+    if resultado:
+      return False
+
     sql = "INSERT INTO sabe_tecnica (id_personagem, nome_tecnica) VALUES (%s, %s)"
     self.create(sql, (id_jogador, nome_tecnica))
     
     sql = "DELETE FROM instancia_item WHERE id_instancia = %s"
     self.update(sql, (id_instancia,))
+
+    return True
 
   def usar_pocao(self, pontos_cura, jogador, id_instancia):
     if (jogador.vida_atual + pontos_cura) > jogador.vida_max:

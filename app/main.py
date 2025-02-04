@@ -14,7 +14,8 @@ from assets.ascii_art import AANG, APPA
 class Game():
   def __init__(self):
     self.db = Database()
-    self.db.populate_db()
+    if not self.db.get_players():
+      self.db.populate_db()
     self.inv = Inventario(self.db)
     self.loot = Loot(self.db)
     self.amigos = Amigos(self.db)

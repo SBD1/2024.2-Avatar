@@ -13,7 +13,12 @@ class Inimigos:
     while True:
       print_header("BATALHA","")
       inimigos = self.get_inimigos(id_area)
-      choices_inimigo = [Choice(inimigo.id, inimigo.nome) for inimigo in inimigos]
+      choices_inimigo = []
+
+      for inimigo in inimigos:
+        if inimigo.vida_atual > 0:
+          choices_inimigo.append(Choice(inimigo.id, inimigo.nome))
+      
       choices_inimigo.append("-- Voltar --")
 
       opcao_inimigo = inquirer.select(

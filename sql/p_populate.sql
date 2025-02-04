@@ -263,7 +263,7 @@ BEGIN
       ('Marionete', 40, 'Permite manipular os movimentos de organismos vivos', 5, 'agua'),
 
       ('Lançamento de Pedra', 5, 'Levita pedaços de pedras e lança contra inimigos', 1, 'terra'),
-      ('Bloco de Terra', 10, 'Lanca blocos de terra contra inimigos', 1, 'terra'),
+      ('Bloco de Terra', 10, 'Lança blocos de terra contra inimigos', 1, 'terra'),
       ('Esmagamento da Terra', 5, 'Soco capaz de destruir rochas e pedregulhos', 3, 'terra'),
       ('Terremotos', 5, 'Cria terremotos no solo para desequilibrar oponentes e causar danos', 2, 'terra'),
       ('Bomba de Terra', 20, 'Enviar uma pedra ao solo para causar danos e lançar inimigos', 3, 'terra'),
@@ -280,7 +280,7 @@ BEGIN
       ('Corrente de Fogo', 15, 'Dispara fluxo continuo de fogo com os punhos', 1, 'fogo'),
       ('Açoite de Fogo', 30, 'Cria um longo ataque de fogo e derruba sobre seus inimigos', 3, 'fogo'),
       ('Soco de Fogo', 15, 'Os socos produzem bolas de fogo em miniatura', 1, 'fogo'),
-      ('Cometa de Fogo', 40, 'Presiona o fogo em uma bola e atira para o inimigo', 4, 'fogo'),
+      ('Cometa de Fogo', 40, 'Pressiona o fogo em uma bola e atira para o inimigo', 4, 'fogo'),
       ('Míssil de Fogo', 35, 'Cria um míssil de fogo que segue o alvo', 4, 'fogo'),
       ('Raio', 60, 'Atira um raio nos inimigos', 4, 'fogo'),
       ('Explosão Mental', 50, 'Cria um feixe poderoso que explode após contato com uma superfície sólida', 4, 'fogo'),
@@ -292,11 +292,11 @@ BEGIN
       ('Lâmina de Ar', 20, 'Cria lâminas finas de ar para cortar objetos sem destruir-los completamente', 3, 'ar'),
       ('Esteira de Ar', 20, 'Dispara uma rajada de ar altamente comprimido em forma do corpo do dobrador', 3, 'ar'),
       ('Asfixia', 60, 'Cria uma bola de ar em torno da cabeça para matar o alvo', 4, 'ar'),
-      ('Vendaval', 20, 'Desencadea ventos extremamente poderosos', 5, 'ar'),
+      ('Vendaval', 20, 'Desencadeia ventos extremamente poderosos', 5, 'ar'),
       ('Furacão', 30, 'Cria uma furação', 5, 'ar'),
 
       ('Ataque de Espada', 10, 'Golpeia o alvo com uma espada', 1, 'nenhum'),
-      ('Lançamento de Bumerangue', 5, 'Lanca um bumerangue no inimigo', 1, 'nenhum');
+      ('Lançamento de Bumerangue', 5, 'Lança um bumerangue no inimigo', 1, 'nenhum');
 
   INSERT INTO defesa(nome, dano_bloqueado, descricao, nivel_necessario_aprender, elemento) VALUES
       ('Escudo de Gelo', 10, 'Cria um escudo defensivo de gelo', 2, 'agua'),
@@ -316,7 +316,7 @@ BEGIN
   INSERT INTO mobilidade(nome, chance_esquiva, descricao, nivel_necessario_aprender, elemento) VALUES
       ('Tornado de Agua', 20, 'Cria um tornado para movimentação', 2, 'agua'),
       ('Rampa de Gelo', 5, 'Cria rampas de gelo para movimentação ou defesa', 2, 'agua'),
-      ('Corrida na Água', 30, 'Permite de correr sobre a Água em alta velocidade', 2, 'agua'),
+      ('Corrida na Água', 30, 'Permite correr sobre a Água em alta velocidade', 2, 'agua'),
 
       ('Tornado de Areia', 20, 'Manipular areia para formar uma coluna giratória para o transporte', 3, 'terra'),
       ('Redemoinho de Poeira', 40, 'Criar redemoinhos de poeira para flutuar ou atacar', 5, 'terra'),

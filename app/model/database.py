@@ -110,6 +110,32 @@ class Database:
 
     return players
   
+  def get_nome_nacao(self, nome):
+    sql = '''SELECT n.nome FROM nacao n 
+             JOIN cidade c ON n.nome = c.nacao 
+             WHERE c.nome = %s  '''
+    result = self.query_one(sql, (nome,))
+    return result.nome
+  
+  def get_desc_nacao(self, nome):
+    sql = '''SELECT n.descricao FROM nacao n 
+             JOIN cidade c ON n.nome = c.nacao 
+             WHERE c.nome = %s  '''
+    result = self.query_one(sql, (nome,))
+    return result.descricao
+  
+  def get_nome_cidade(self, nome):
+    sql = '''SELECT nome FROM cidade 
+             WHERE nome = %s  '''
+    result = self.query_one(sql, (nome,))
+    return result.nome
+  
+  def get_desc_cidade(self, nome):
+    sql = '''SELECT descricao FROM cidade 
+             WHERE nome = %s  '''
+    result = self.query_one(sql, (nome,))
+    return result.descricao
+  
   def get_nome_area(self, id_area):
     sql = "SELECT nome FROM area WHERE id = %s"
     result = self.query_one(sql, (id_area,))

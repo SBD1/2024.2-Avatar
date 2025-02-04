@@ -1,75 +1,62 @@
 INSERT INTO nacao(nome, descricao)
 VALUES 
 
-    ('Tribos da Água', ''),
-    ('Reino da Terra', ''),
-    ('Nação do Fogo', ''),
-    ('Nômades do Ar', '');
+    ('Tribos da Água', 'Nação soberana de dobradores de água e não-dominadores. Suas cidades estão localizadas nos polos Norte e Sul do globo, além do Pântano Nebuloso.'),
+    ('Reino da Terra', 'Essa nação é a maior, mais diversificada e povoada pelos dobradores de terra. Pode-se encontrar florestas, montanhas, desertos e grandes cidades.'),
+    ('Nação do Fogo', 'Segunda maior nação e lar dos dominadores de fogo. Ela está localizado em um arquipélago localizada no hemisfério ocidental do planeta'),
+    ('Nômades do Ar', 'Templos habitados por pessoas que possuem a dobra do ar. Os quatro templos estão localizados em pequenos arquipélagos montanhosos um em cada canto do mundo, três na ponta das montranhas e um que é suspenso sob falésias.');
 
 INSERT INTO cidade(nome, descricao, nivel_necessario_entrar, nacao)
 VALUES
-    ('Tribo da Água do Sul', '', 1, 'Tribos da Água'),
-    ('Templo do Ar do Sul', '', 1, 'Nômades do Ar'),
-    ('Ilha Kyoshi', '', 1, 'Reino da Terra'),
-    ('Omashu', '', 1, 'Reino da Terra'),
-    ('Região de Floresta', '', 1, 'Reino da Terra'),
-    ('Região Costeira', '', 1, 'Reino da Terra'),
-    ('Templo do Ar do Norte', '', 1, 'Nômades do Ar'),
-    ('Tribo da Água do Norte', '', 1, 'Tribos da Água'),
-    ('Ba Sing Se', '', 23, 'Reino da Terra'),
-    ('Capital da Nação do Fogo', '', 23, 'Nação do Fogo');
+    ('Tribo da Água do Sul', 'Estado independente no Polo Sul e na divisão do sul das tribos da água. É composta por uma federação de várias tribos menores, o Sul é governado por um Conselho de Anciãos, que também elege o chefe da tribo.', 1, 'Tribos da Água'),
+    ('Templo do Ar do Sul', 'É um dos quatro templos originais pertencentes aos Nômades do Ar, localizado nas remotas Montanhas Patola. Atualmente, o que resta são ruínas.', 1, 'Nômades do Ar'),
+    ('Ilha Kyoshi', 'Localizada na costa sul do Reino da Terra e pontilhada com muitas pequenas aldeias. Predominantemente um porto de pesca, esta pequena ilha no Mar do Sul é um destino popular entre os comerciantes e viajantes.', 1, 'Reino da Terra'),
+    ('Omashu', 'Segunda maior cidade do Reino da Terra e a capital de uma das suas províncias. Está localizada em uma das colinas das Montanhas Kolau no sudoeste do Reino da Terra.', 1, 'Reino da Terra'),
+    ('Região de Floresta', 'Uma floresta enorme com vilarejos remotos, fauna desafiante e mais aventuras para acontecer.', 1, 'Reino da Terra'),
+    ('Templo do Ar do Norte', 'Localizado na parte mais alta do norte do Reino da Terra. Sua população foi eliminada no início da guerra durante o Genocídio dos Nômades do Ar. Nos últimos anos da guerra, o templo foi ocupado por uma população de refugiados do Reino da Terra.', 1, 'Nômades do Ar'),
+    ('Tribo da Água do Norte', 'Estado independente localizado no Polo Norte, governado por uma chefia monárquica hereditária. Como a divisão mais antiga das duas Tribos da Água, a Tribo da Água do Norte dominou tanto o Polo Norte quanto o Polo Sul durante séculos.', 1, 'Tribos da Água'),
+    ('Ba Sing Se', 'Capital do Reino da Terra, bem como um dos seus Estados constituintes, abrangendo uma grande porção do canto nordeste do país. Como um testamento a sua grandiosidade, a rede de estradas do Reino da Terra é centrada na cidade.', 1, 'Reino da Terra'),
+    ('Arredores da Cidade Capital', 'Áreas que compõem a região exterior da Cidade Capital da Nação do Fogo.', 1, 'Nação do Fogo');
+    ('Capital da Nação do Fogo', 'Sede do governo da Nação do Fogo e a casa do Senhor do Fogo e dos nobres. Localizada  em uma grande ilha na região ocidental da Nação do Fogo.', 1, 'Nação do Fogo');
     
 INSERT INTO area(id, nome, descricao, area_norte, area_sul, area_leste, area_oeste, cidade)
 VALUES
     --  Região do Polo Sul
-    (1, 'Centro da Cidade Portuária', '', 8, NULL, 2, 4, 'Tribo da Água do Sul'),
-    (2, 'O Destroçado', '', NULL, NULL, NULL, 1, 'Tribo da Água do Sul'),
-    (3, 'Ponto de Partida', 'Estamos nas nuvens, para onde vamos?', 14, 1, 9, NULL, 'Tribo da Água do Sul'),
-    (4, 'Região Comercial', '', 5, 6, 1, 7, 'Tribo da Água do Sul'),
-    (5, 'Mercador do Polo Sul', '', NULL, 4, NULL, NULL, 'Tribo da Água do Sul'),
-    (6, 'Mestre do Polo Sul', '', 4, NULL, NULL, NULL, 'Tribo da Água do Sul'),
-    (7, 'Curandeiro do Polo Sul', '', NULL, NULL, 4, NULL, 'Tribo da Água do Sul'),
-    (8, 'Saída da Cidade Portuária', '', 3, 1, NULL, NULL, 'Tribo da Água do Sul'),
-    (9, 'Entrada do Templo do Polo Sul', '', NULL, NULL, 10, 3, 'Tribo da Água do Sul'),
-    (10, 'Centro do Templo do Ar do Sul', '', NULL, 12, 9, 11, 'Templo do Ar do Sul'),
-    (11, 'Saída do Templo do Ar do Sul', '', NULL, NULL, 10, 3, 'Templo do Ar do Sul'),
-    (12, 'Ruínas do Templo', '', 10, NULL, NULL, NULL, 'Templo do Ar do Sul'),
+    (1, 'Centro da Cidade Portuária', 'Centro movimentado da cidade, para onde vamos?', 3, NULL, 2, 4, 'Tribo da Água do Sul'),
+    (2, 'O Destroçado', 'Um museu a céu aberto do que foi deixado na guerra.', NULL, NULL, NULL, 1, 'Tribo da Água do Sul'),
+    (3, 'Ponto de Partida', 'Estamos nas nuvens, para onde vamos?', 7, 1, 5, NULL, 'Tribo da Água do Sul'),
+    (4, 'Região Comercial da Cidade Portuária', 'Lugar bom para comprar, se curar e aprender coisas novas.', NULL, NULL, 1, NULL, 'Tribo da Água do Sul'),
+    (5, 'Centro do Templo do Ar do Sul.', 'Faz bastante tempo que esse lugar está deserto.', NULL, NULL, 6, 3, 'Templo do Ar do Sul'),
+    (6, 'Ruínas do Templo', 'Sombras de uma longa infância', NULL, NULL, NULL, 5, 'Templo do Ar do Sul'),
 
-    --  Arredores e lugares do Reino da Terra
-    (14, 'Entrada da Vila de Kyoshi', '', 15, 3, NULL, NULL, 'Ilha Kyoshi'),
-    (15, 'Centro da Vila de Kyoshi', '', 21, 14, 16, 20, 'Ilha Kyoshi'),
-    (16, 'Distrito Comercial', '', 17, 18, 19, 15, 'Ilha Kyoshi'),
-    (17, 'Curandeira de Kyoshi', '', NULL, 16, NULL, NULL, 'Ilha Kyoshi'),
-    (18, 'Mercadora de Kyoshi', '', 16, NULL, NULL, NULL, 'Ilha Kyoshi'),
-    (19, 'Mestra de Kyoshi', '', NULL, NULL, NULL, 16, 'Ilha Kyoshi'),
-    (20, 'Região Residencial', '', NULL, NULL, 20, NULL, 'Ilha Kyoshi'),
-    (21, 'Centro de Omashu', '', 27, 15, 23, 22, 'Omashu'),
-    (22, 'Palácio Real de Omashu', '', NULL, NULL, 21, NULL, 'Omashu'),
-    (23, 'Zona de Comércio', '', 24, 25, 26, 21, 'Omashu'),
-    (24, 'Mestre de Omashu', '', NULL, 23, NULL, NULL, 'Omashu'),
-    (25, 'Curandeiro de Omashu', '', 23, NULL, NULL, NULL, 'Omashu'),
-    (26, 'Mercador de Omashu', '', NULL, NULL, NULL, 23, 'Omashu'),
-    (27, 'Centro da Floresta', '', 30, 21, 28, 29, 'Região de Floresta'),
-    (28, 'Ponto de Acampamento', '', NULL, NULL, NULL, 27, 'Região de Floresta'),
-    (29, 'Vilarejo da Floresta', '', NULL, NULL, 27, NULL, 'Região de Floresta'),
-    (30, 'Praia da Preparação', '', 31, 30, NULL, NULL, 'Região Costeira'),
-    (31, 'Barco Pirata', '', 32, 30, NULL, NULL, 'Região Costeira'),
+    --  Arredores e lugares do Reino da Terra 
+    (7, 'Centro da Vila de Kyoshi', 'Uma vila simpática e peculiar.', 9, 3, 8, NULL, 'Ilha Kyoshi'),
+    (8, 'Região Residencial', 'Casas bem humildes para se dar uma olhada.', NULL, NULL, NULL, 7, 'Ilha Kyoshi'),
+    (9, 'Centro de Omashu', 'Não é a toa que chamam de segunda maior cidade', 12, 7, 10, 11, 'Omashu'),
+    (10, 'Palácio Real de Omashu', 'É aqui que fica o rei da cidade.', NULL, NULL, NULL, 9, 'Omashu'),
+    (11, 'Zona de Comércio de Omashu', 'O que será que a cidade oferece.', NULL, NULL, 9, NULL, 'Omashu'),
+    (12, 'Centro da Floresta', 'Uma floresta normal, o que pode dar errado?', 20, 9, 14, 15, 'Região de Floresta'),
+    (13, 'Ponto de Acampamento', 'Zona de descanso.', NULL, NULL, NULL, 14, 'Região de Floresta'),
+    (14, 'Vilarejo da Floresta', 'Um vilarejo na floresta, não tem muito o que falar.', 13, NULL, 16, NULL, 'Região de Floresta'),
+    (15, 'Praia próxima à floresta', 'Um ponto de partida à Nação do Fogo', NULL, NULL, 12, 26, 'Região de Floresta'),
+    (16, 'Centro de Ba Sing Se', 'A maior cidade do Reino da Terra', 17, 19, 18, 14, 'Ba Sing Se'),
+    (17, 'Rei da Terra', 'Olha só, é o Rei da Terra!', NULL, 16, NULL, NULL, 'Ba Sing Se'),
+    (18, 'Lago Laogai', 'Um grande corpo de água, parece um bom lugar para descansar.', NULL, NULL, NULL, 19, 'Ba Sing Se'),
+    (19, 'Centro Comercial de Ba Sing Se', 'Centro comercial mais movimentado do mundo.', 19, NULL, NULL, NULL, 'Ba Sing Se'),
 
     --  Região do Polo Norte
-    (32, 'Centro do Templo do Ar do Norte', '', 34, 31, 33, NULL, 'Templo do Ar do Norte'),
-    (33, 'Campo de Refugiados', '', NULL, NULL, NULL, 32, 'Templo do Ar do Norte'),
-    (34, '1º Centro de Agna Qel''a', '', 35, 32, 36, 40, 'Tribo da Água do Norte'),
-    (35, 'Palácio Real de Agna Qel''a', '', NULL, 35, NULL, NULL, 'Tribo da Água do Norte'),
-    (36, 'Área de Comércio', '', 39, 38, 37, 34, 'Tribo da Água do Norte'),
-    (37, 'Mercador de Agna Qel''a', '', NULL, NULL, NULL, 36, 'Tribo da Água do Norte'),
-    (38, 'Curandeira de Agna Qel''a', '', 36, NULL, NULL, NULL, 'Tribo da Água do Norte'),
-    (39, 'Mestre de Agna Qel''a', '', NULL, 36, NULL, NULL, 'Tribo da Água do Norte'),
-    (40, '2º Centro de Agna Qel''a', '', 44, 41, 34, 42, 'Tribo da Água do Norte'),
-    (41, 'Cabanas de Cura', '', 40, NULL, NULL, NULL, 'Tribo da Água do Norte'),
-    (42, 'Tundras do Polo Norte', '', NULL, NULL, 40, 43, 'Tribo da Água do Norte'),
-    (43, 'Selva Espiritual', '', NULL, NULL, 42, NULL, 'Tribo da Água do Norte'),
-    (44, 'Cavernas de Gelo', '', 45, 40, NULL, NULL, 'Tribo da Água do Norte'),
-    (45, 'Oásis Espiritual', '', NULL, 44, NULL, NULL, 'Tribo da Água do Norte');
+    (20, 'Centro do Templo do Ar do Norte', 'Parece que o lugar virou um local de refúgio.', 22, 12, 21, NULL, 'Templo do Ar do Norte'),
+    (21, 'Campo de Refugiados', 'Há muitas pessoas por aqui.', NULL, NULL, NULL, 20, 'Templo do Ar do Norte'),
+    (22, 'Centro de Agna Qel''a', 'Centro da capital da Tribo da Água do Norte.', 23, 20, 24, 25, 'Tribo da Água do Norte'),
+    (23, 'Palácio Real de Agna Qel''a', 'Um lugar bem grande e conservador.', NULL, 22, NULL, NULL, 'Tribo da Água do Norte'),
+    (24, 'Área de Comércio de Agna Qel''a', 'O que será que ofertam por aqui.', NULL, NULL, NULL, 22, 'Tribo da Água do Norte'),
+    (25, 'Tundras do Polo Norte', 'Uma grande área de tundra, o que será que pode ocorrer?', NULL, NULL, 22, NULL, 'Tribo da Água do Norte'),
+
+    --  Nação do Fogo
+    (26, 'Praia de ponto de partida', 'Bem, aqui estamos, Nação do Fogo.', NULL, NULL, 15, 27, 'Arredores da Cidade Capital'),
+    (27, 'Vila Pobre', 'Uma vila rica em pobreza, o que eu posso encontrar aqui?', NULL, NULL, 26, 28, 'Arredores da Cidade Capital'),
+    (28, 'Vila Aleatória', 'Bem, é a última parada antes da luta final.', NULL, NULL, 27, 29, 'Arredores da Cidade Capital'),
+    (29, 'Centro da Capital da Nação do Fogo', 'Agora é tudo ou nada!', NULL, NULL, 28, NULL, 'Capital da Nação do Fogo');
 
 INSERT INTO personagem (id, tipo) VALUES
     (1, 'P'),  -- Personagem de id 1 é um Personagem Controlável (PC)
@@ -80,7 +67,11 @@ INSERT INTO personagem (id, tipo) VALUES
     (7, 'I'),  -- Personagem de id 7 é um Inimigo
     (8, 'I'),  -- Personagem de id 8 é um Inimigo
     (9, 'I'),  -- Personagem de id 9 é um Inimigo
-    (10, 'I'); -- Personagem de id 10 é um Inimigo
+    (10, 'I'), -- Personagem de id 10 é um Inimigo
+    (11, 'A');
+    (12, 'A');
+    (13, 'A');
+    (14, 'A');
 
     -- Personagem Jogável (PC)
     INSERT INTO pc (id, nome, vida_max, vida_atual, xp, elemento, nivel, moedas, peso_max_inventario,
@@ -91,15 +82,25 @@ INSERT INTO personagem (id, tipo) VALUES
       nivel_necessario_discipulo, eh_mercador, nivel_necessario_compra, mult_preco,
       eh_curandeiro, preco_por_ponto_cura, id_area) VALUES
     (3, 'Iroh', 250, 240, 600, 'fogo', 15, 'Bem-vindo, jovem aprendiz.', 'Que o fogo do seu espírito o guie.', TRUE, 5, FALSE, NULL, NULL, FALSE, NULL, 1),  -- Mestre
-    (4, 'Katara', 150, 100, 400, 'agua', 10, 'Estou aqui para ajudar você.', 'Volte sempre, confie na sua força.', FALSE, NULL, TRUE, 5, 1.5, TRUE, 10, 2),  -- Mercadora e Curandeira
-    (5, 'Toph', 180, 170, 550, 'terra', 12, 'Sempre com os pés no chão, amigo.', 'Nos vemos por aí, pedra dura.', FALSE, NULL, TRUE, 7, 1.2, FALSE, NULL, 3),  -- Mercadora
-    (6, 'Zuko', 200, 200, 700, 'fogo', 14, 'Estou aqui para lutar ao seu lado.', 'Até breve, que sua chama nunca se apague.', FALSE, NULL, FALSE, NULL, NULL, TRUE, 15, 4);  -- Curandeiro
+    (4, 'Katara', 150, 100, 400, 'agua', 10, 'Estou aqui para ajudar você.', 'Volte sempre, confie na sua força.', FALSE, NULL, TRUE, 5, 1.5, TRUE, 10, 7),  -- Mercadora e Curandeira
+    (5, 'Senhora Mercadora', 150, 100, 400, 'agua', 10, 'Olá viajante, o que desejas?', 'Volte sempre.', FALSE, NULL, TRUE, 5, 1.5, FALSE, NULL, NULL),  -- Mercadora 
+    (6, 'Toph', 180, 170, 550, 'terra', 12, 'Sempre com os pés no chão, amigo.', 'Nos vemos por aí, pedra dura.', FALSE, NULL, TRUE, 7, 1.2, FALSE, NULL, 3),  -- Mercadora
+    (7, 'Zuko', 200, 200, 700, 'fogo', 14, 'Estou aqui para lutar ao seu lado.', 'Até breve, que sua chama nunca se apague.', FALSE, NULL, FALSE, NULL, NULL, TRUE, 15, 4),  -- Curandeiro
+    (11, 'Mestre do Polo Sul', 500, 500, 700, 'agua', 24, 'O que desejas aprender, jovem viajante?.', 'Agradeço pela visita.', TRUE, NULL, FALSE, NULL, NULL, FALSE, 15, 4),  -- Mestre
+    (12, 'Curandeiro do Polo Sul', 500, 500, 700, 'agua', 24, 'O que desejas aprender, jovem viajante?.', 'Agradeço pela visita.', TRUE, NULL, FALSE, NULL, NULL, FALSE, 15, 4),  -- Mestre
+    (13, 'Mercadora do Polo Sul', 500, 500, 700, 'agua', 24, 'O que desejas aprender, jovem viajante?.', 'Agradeço pela visita.', TRUE, NULL, FALSE, NULL, NULL, FALSE, 15, 4),  -- Mestre
+    (14, 'Gafanhoto do Templo', 1, 1, 0, 'ar', 1, 'Cri cri! (Olá viajante, o que fazes aqui?).', 'Cri cri! (Foi uma conversa deveras interessante, boa viagem!)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12), -- Gafanhoto
 
     INSERT INTO fala_historia (dialogo, id_amigo) VALUES
     ('O destino nos chama, jovem guerreiro.', 3),  -- Iroh
     ('Cuidado, os perigos estão por toda parte.', 4),  -- Katara
     ('Fique atento, Aragorn, o caminho será difícil.', 5),  -- Toph
     ('Com a força do fogo, nós venceremos!', 6);  -- Zuko
+    ('O destino nos chama, jovem guerreiro.', 3),  -- Iroh
+    ('Cuidado, os perigos estão por toda parte.', 4),  -- Katara
+    ('Fique atento, Aragorn, o caminho será difícil.', 5),  -- Toph
+    ('Com a força do fogo, nós venceremos!', 6);  -- Zuko
+ 
 
     INSERT INTO inimigo (id, nome, vida_max, vida_atual, xp, elemento, nivel, fala_entrada, fala_saida, xp_ganho,
       num_moedas_ganho, id_area) VALUES
